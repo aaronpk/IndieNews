@@ -1,0 +1,88 @@
+
+.page {
+  width: 85%;
+  margin: 0 auto;
+}
+
+.header, .header h2 {
+  font-size: 13px;
+  line-height: 18px;
+}
+.header h2 {
+  font-weight: bold;
+}
+
+.header .main-nav {
+  float: left;
+}
+
+
+.page {
+  padding-top: 16px;
+}
+
+.post .position, .post .vote {
+  vertical-align: top;
+}
+.post .vote {
+  width: 14px;
+  padding: 8px 0;
+}
+.post .vote .down {
+  float: left;
+}
+.post .position {
+  color: #777;
+}
+.post .title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+@media (min-width: 1200px) { 
+  .post .title {
+    width: 1000px;
+  }
+}
+
+@media (min-width: 979px) and (max-width: 1199px) { 
+  .post .title {
+    width: 784px;
+  }
+}
+ 
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) { 
+  .post .title {
+    width: 594px;
+  }
+}
+ 
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) { 
+  .page {
+    width: 100%;
+  }
+  .post .title {
+    width: 380px;
+  }
+}
+ 
+/* Landscape phones and down */
+@media (max-width: 480px) { 
+  .page {
+    width: 100%;
+  }
+  .post .title {
+    width: 200px;
+  }
+}
+
+.post .details {
+  font-size: 11px;
+  color: #777;
+}
+
+
