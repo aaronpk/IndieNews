@@ -1,28 +1,28 @@
 {
-    "hash": "d1c49f88947d5d3e0ca41f3eae0a128d",
+    "hash": "17774163b0607fccefe255b2d0e40591",
     "packages": [
         {
             "name": "j4mie/idiorm",
-            "version": "v1.2.3",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/j4mie/idiorm",
-                "reference": "v1.2.3"
+                "reference": "v1.3.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/j4mie/idiorm/archive/v1.2.3.zip",
-                "reference": "v1.2.3",
+                "url": "https://api.github.com/repos/j4mie/idiorm/zipball/v1.3.0",
+                "reference": "v1.3.0",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.0"
             },
-            "time": "2012-11-28 10:44:18",
+            "time": "2013-01-31 12:19:07",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
-                "files": [
+                "classmap": [
                     "idiorm.php"
                 ]
             },
