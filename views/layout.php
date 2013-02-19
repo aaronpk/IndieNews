@@ -5,7 +5,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="description" content="IndieNews">
-    <link rel="pingback" href="http://pingback.me/aaronpk/xmlrpc" />
+    <link rel="pingback" href="http://pingback.me/webmention?forward=http://news.indiewebcamp.com/webmention" />
+    <link rel="http://webmention.org/" href="http://indienews.dev/webmention" />
 
     <?= $this->meta ?>
 
