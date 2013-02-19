@@ -91,6 +91,7 @@ $app->post('/webmention', function() use($app) {
   # Verify the $source actually contains a link to $target
   if(FALSE) {
     $error($res, 'no_link_found');
+    return;
   }
 
 
@@ -108,9 +109,9 @@ $app->post('/webmention', function() use($app) {
 
   # Make sure there is no existing post for $source
   $post = ORM::for_table('posts')->where('href', $sourceURL)->find_one();
-
   if($post != FALSE) {
     $error($res, 'already_registered');
+    return;
   }
 
 
