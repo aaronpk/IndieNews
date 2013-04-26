@@ -16,6 +16,7 @@ CREATE TABLE `posts` (
   `href` varchar(512) DEFAULT NULL,
   `body` text,
   `points` int(11) NOT NULL DEFAULT '1',
+  `score` double NOT NULL DEFAULT '0',
   `comments` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 );

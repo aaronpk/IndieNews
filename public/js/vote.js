@@ -5,7 +5,10 @@ $(function(){
       id: $(this).data("id"),
       vote: $(this).data("vote")
     }, function(data){
-      $(".vote .post_"+data.id).hide();
+      $(".post_"+data.id+" .vote a").hide();
+      if(data.points) {
+        $(".post_"+data.id+" .points").text(data.points);
+      }
     });
   });
 

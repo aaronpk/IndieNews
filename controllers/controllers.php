@@ -1,15 +1,43 @@
 <?php
 
+function getUserVotesForPosts(&$posts) {
+  // If the user is logged in, retrieve all their votes for these articles
+  $votes = array();
+
+  if($user=getLoggedInUser()) {
+    $ids = array();
+    foreach($posts as $i=>$post) {
+      $ids[] = $post->id;
+    }
+    $results = ORM::for_table('votes')->where('user_id', $user->id)->where_in('post_id', $ids)->find_many();
+    foreach($results as $r) {
+      $votes[] = $r->post_id;
+    }
+  }
+
+  return $votes;
+}
+
 // Home Page
 $app->get('/', function() use($app) {
 
   $req = $app->request();
 
-  render('index', array(
-    'title' => 'IndieNews',
+  $posts = ORM::for_table('posts')->raw_query('
+    SELECT *, GREATEST(1, TIMESTAMPDIFF(HOUR, date_submitted, NOW())) AS age,
+      (points-1) / POWER(GREATEST(1, TIMESTAMPDIFF(HOUR, date_submitted, NOW())), 1.8) AS computedScore
+    FROM posts
+    ORDER BY computedScore DESC, points DESC, date_submitted DESC
+    LIMIT 20
+  ')->find_many();
+  $votes = getUserVotesForPosts($posts);
+
+  render('posts', array(
+    'title' => 'IndieNews - Front Page',
+    'posts' => $posts,
+    'votes' => $votes,
     'meta' => ''
   ));
-
 });
 
 // Newest
@@ -17,14 +45,15 @@ $app->get('/newest', function() use($app) {
 
   $req = $app->request();
 
-  $posts = ORM::for_table('posts')->where('parent_id', 0)->order_by_desc('date_submitted')->find_many();
+  $posts = ORM::for_table('posts')->where('parent_id', 0)->order_by_desc('date_submitted')->limit(20)->find_many();
+  $votes = getUserVotesForPosts($posts);
 
-  render('newest', array(
+  render('posts', array(
     'title' => 'IndieNews - Newest Submissions',
     'posts' => $posts,
+    'votes' => $votes,
     'meta' => ''
   ));
-
 });
 
 // Log in with IndieAuth
@@ -70,6 +99,7 @@ $app->post('/vote', function() use($app) {
   $res = $app->response();
 
   $id = false;
+  $points = false;
 
   if($user=getLoggedInUser()) {
 
@@ -84,6 +114,9 @@ $app->post('/vote', function() use($app) {
 
       $result = 'ok';
       $id = $params['id'];
+
+      $points = recalculatePoints($params['id']);
+      $points = $points . ' point' . ($points == 1 ? '' : 's');
     } else {
       $result = 'already_voted';
       $id = $params['id'];
@@ -96,7 +129,8 @@ $app->post('/vote', function() use($app) {
   $res['Content-Type'] = 'application/json';
   $res->body(json_encode(array(
     'result' => $result,
-    'id' => $id
+    'id' => $id,
+    'points' => $points
   )));  
 });
 
