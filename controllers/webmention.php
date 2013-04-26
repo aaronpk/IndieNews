@@ -77,6 +77,16 @@ $app->post('/webmention', function() use($app) {
       $notices[] = 'No author URL was found for the h-entry. Using the domain name instead.';
     }
 
+  } elseif($page->hevent) {
+
+    if($page->hevent->property('name')) {
+      $data['title'] = trim($page->hevent->property('name', true));
+    }
+    if($locations=$page->hevent->location) {
+      $location = $locations[0];
+      $data['title'] .= ' at ' . $location->property('name', true);
+    }
+    
   } else {
     // $error($res, 'no_hentry', 'No h-entry was found on the page');
     $notices[] = 'No h-entry was found on the page. Using the page title instead.';

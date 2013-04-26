@@ -63,12 +63,21 @@ class MF2Object {
 
 class MF2Page extends MF2Object {
   protected $_hentry = null;
+  protected $_hevent = null;
   protected $_author = null;
 
   protected function hentry() {
     $item = $this->_findFirstItem('h-entry');
     if($item)
       return new HEntry($item, $this);
+    else
+      return null;
+  }
+
+  protected function hevent() {
+    $item = $this->_findFirstItem('h-event');
+    if($item)
+      return new HEvent($item, $this);
     else
       return null;
   }
@@ -113,6 +122,21 @@ class HEntry extends MF2Object {
     if($author=$this->_parent->_findFirstItem('h-card'))
       return new HCard($author);
     return null;
+  }
+}
+
+class HEvent extends MF2Object {
+  protected $_location = null;
+
+  protected function location() {
+    $locations = array();
+    if($location=$this->property('location')) {
+      foreach($location as $l)
+        $locations[] = new HCard($l);
+      return $locations;
+    } else {
+      return null;
+    }
   }
 }
 
