@@ -56,6 +56,13 @@ $app->get('/newest', function() use($app) {
   ));
 });
 
+$app->get('/submit', function() use($app) {
+  render('submit', array(
+    'title' => 'IndieNews - Submit a post',
+    'meta' => ''
+  ));
+});
+
 // Log in with IndieAuth
 $app->get('/indieauth', function() use($app) {
 
@@ -134,7 +141,7 @@ $app->post('/vote', function() use($app) {
   )));  
 });
 
-/*
+
 // Single Post Page
 $app->get('/post/:id', function($id) use($app) {
 
@@ -151,4 +158,4 @@ $app->get('/post/:id', function($id) use($app) {
   ));
 
 })->conditions(array('id'=>'\d+'));
-*/
+
