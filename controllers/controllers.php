@@ -56,6 +56,26 @@ $app->get('/newest', function() use($app) {
   ));
 });
 
+// Single Post Page
+$app->get('/post/:id', function($id) use($app) {
+
+  $post = ORM::for_table('posts')->where('id', $id)->find_one();
+  $posts = array($post);
+  $votes = getUserVotesForPosts($posts);
+
+  if(!$post) {
+    $app->pass(); // Will trigger a 404 error
+  }
+
+  render('post', array(
+    'title' => $post->title,
+    'post' => $post,
+    'votes' => $votes,
+    'meta' => ''
+  ));
+
+})->conditions(array('id'=>'\d+'));
+
 $app->get('/submit', function() use($app) {
   render('submit', array(
     'title' => 'IndieNews - Submit a post',
@@ -141,21 +161,4 @@ $app->post('/vote', function() use($app) {
   )));  
 });
 
-
-// Single Post Page
-$app->get('/post/:id', function($id) use($app) {
-
-  $post = ORM::for_table('posts')->where('id', $id)->find_one();
-
-  if(!$post) {
-    $app->pass(); // Will trigger a 404 error
-  }
-
-  render('post', array(
-    'title' => $post->title,
-    'post' => $post,
-    'meta' => ''
-  ));
-
-})->conditions(array('id'=>'\d+'));
 

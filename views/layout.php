@@ -67,7 +67,7 @@
     <a class="brand" href="/">IndieNews</a>
     <ul class="nav">
       <li><a href="/">Front Page</a></li>
-      <li><a href="/newest">New</a></li>
+      <li><a href="/newest">Newest</a></li>
       <li><a href="/submit">Submit</a></li>
     </ul>
     <? if(session('user')) { ?>
@@ -95,7 +95,8 @@
   <hr />
 
   <div class="footer">
-    &copy; <?=date('Y')?> by <a href="http://aaronparecki.com">Aaron Parecki</a>
+    <p>&copy; <?=date('Y')?> by <a href="http://aaronparecki.com">Aaron Parecki</a>.
+      IndieNews is part of <a href="http://indiewebcamp.com/">IndieWebCamp</a>. This code is <a href="https://github.com/aaronpk/IndieNews">open source</a>. Feel free to send a pull request, or <a href="https://github.com/aaronpk/IndieNews/issues">file issues</a>.</p>
   </div>
 </div>
 

@@ -11,9 +11,9 @@ protocol!</p>
 
 <p>If you want to upvote articles, you can sign in to IndieNews. Naturally, you don't need to 
 create a separate IndieNews account, you just need to <a href="http://indiewebcamp.com/indieauth">sign in with your domain</a>! 
-The <a href="/">Front Page</a> shows a list of articles ranked using a similar algorithm 
-as <a href="http://news.ycombinator.com/">HackerNews</a>. Recent and popular articles will 
-tend towards the top of the list.</p>
+The <a href="/">Front Page</a> shows a list of articles ranked using a 
+<a href="http://amix.dk/blog/post/19574">similar algorithm as HackerNews</a>. 
+Recent and popular articles will tend towards the top of the list.</p>
 
 
 <h3>1. Add a link to news.indiewebcamp.com</h3>
@@ -23,6 +23,12 @@ tend towards the top of the list.</p>
 
 <p>You can update this link later to this submission's permalink on IndieNews. See the example response 
 below for how to find the permalink.</p>
+
+<p>Note: Technically this step is not required right now. Following the webmention/pingback
+protocols it should be required, but currently the system will accept a webmention even if the
+source site does not link to IndieNews. I'm debating whether or not it should be required for
+this, or if there should be some other verification method instead. 
+<a href="http://github.com/aaronpk/IndieNews/issues">Feedback is appreciated</a>.</p>
 
 
 <h3>2. Send a <a href="http://indiewebcamp.com/webmention">WebMention</a></h3>

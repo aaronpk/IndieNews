@@ -89,3 +89,6 @@
 .footer {
   font-size: 8pt;
 }
+.footer p {
+  margin-bottom: 0;
+}
