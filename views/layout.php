@@ -18,6 +18,9 @@
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/bootstrap/css/bootstrap-responsive.min.css">
     <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/js/jquery-1.7.1.min.js"></script>
+    <script src="/js/vote.js"></script>
   </head>
 
   <body>
@@ -65,8 +68,12 @@
       <li><a href="/submit">Submit</a></li>
     </ul>
     <ul class="nav pull-right">
-      <li><a href="/user?domain=aaronparecki.com">aaronparecki.com</a></li>
-      <li><a href="/signout">Sign Out</a></li>
+      <? if(session('user')) { ?>
+        <li><a href="/user?domain=<?= session('user') ?>"><?= session('user') ?></a></li>
+        <li><a href="/signout">Sign Out</a></li>
+      <? } else { ?>
+        <li><a href="/signin">Sign In</a></li>
+      <? } ?>
     </ul>
   </div>
 </div>

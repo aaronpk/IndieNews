@@ -23,3 +23,9 @@ function partial($template, $data, $debug=false) {
   return ob_get_clean();
 }
 
+function session($key) {
+  if(array_key_exists($key, $_SESSION))
+    return $_SESSION[$key];
+  else
+    return null;
+}

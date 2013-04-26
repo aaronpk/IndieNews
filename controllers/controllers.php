@@ -27,6 +27,60 @@ $app->get('/newest', function() use($app) {
 
 });
 
+// Log in with IndieAuth
+$app->get('/indieauth', function() use($app) {
+
+  $req = $app->request();
+  $params = $req->params();
+
+  if(array_key_exists('token', $params)) {
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, 'https://indieauth.com/session?token=' . $params['token']);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    $auth = json_decode(curl_exec($ch));
+    if($auth) {
+      $_SESSION['user'] = preg_replace('|https?://|', '', $auth->me);
+
+      // Create the user record if it doesn't yet exist
+      $user = ORM::for_table('users')->where('domain', session('user'))->find_one();
+
+      if($user == FALSE) {
+        $user = ORM::for_table('users')->create();
+        $user->domain = session('user');
+        $user->date_created = date('Y-m-d H:i:s');
+        $user->save();
+      }
+
+    }
+    header('Location: /');
+    die();
+  }
+
+});
+
+$app->get('/signin', function() use($app) {
+  render('signin', array(
+    'title' => 'Sign in to IndieNews',
+    'meta' => ''
+  ));
+});
+
+$app->post('/vote', function() use($app) {
+
+  $req = $app->request();
+  $params = $req->params();
+  $res = $app->response();
+
+
+
+  $res['Content-Type'] = 'application/json';
+  $res->body(json_encode(array(
+    'result' => 'ok',
+    'id' => $params['id']
+  )));  
+});
+
+/*
 // Single Post Page
 $app->get('/post/:id', function($id) use($app) {
 
@@ -43,4 +97,4 @@ $app->get('/post/:id', function($id) use($app) {
   ));
 
 })->conditions(array('id'=>'\d+'));
-
+*/
