@@ -23,11 +23,25 @@ $app->get('/', function() use($app) {
 
   $req = $app->request();
 
+  // Check if we need to recalculate the scores yet (only calculate once per hour)
+
+  $last = ORM::for_table('properties')->where('key', 'last_computed')->find_one();
+  if($last == false || (time() - strtotime($last['val'])) > 3600) {
+    $posts = ORM::for_table('posts')->raw_execute('
+      UPDATE posts SET score = (points-1) / POWER(GREATEST(1, TIMESTAMPDIFF(HOUR, date_submitted, NOW())), 1.8)
+    ');
+    if($last == false) {
+      $last = ORM::for_table('properties')->create();
+      $last->key = 'last_computed';
+    }
+    $last->val = date('Y-m-d H:i:s');
+    $last->save();
+  }
+
   $posts = ORM::for_table('posts')->raw_query('
-    SELECT *, GREATEST(1, TIMESTAMPDIFF(HOUR, date_submitted, NOW())) AS age,
-      (points-1) / POWER(GREATEST(1, TIMESTAMPDIFF(HOUR, date_submitted, NOW())), 1.8) AS computedScore
+    SELECT *, GREATEST(1, TIMESTAMPDIFF(HOUR, date_submitted, NOW())) AS age
     FROM posts
-    ORDER BY computedScore DESC, points DESC, date_submitted DESC
+    ORDER BY score DESC, points DESC, date_submitted DESC
     LIMIT 20
   ')->find_many();
   $votes = getUserVotesForPosts($posts);
