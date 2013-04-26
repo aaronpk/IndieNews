@@ -29,3 +29,11 @@ function session($key) {
   else
     return null;
 }
+
+function getLoggedInUser() {
+  if(session('user')) {
+    return ORM::for_table('users')->where('domain', session('user'))->find_one();
+  } else {
+    return false;
+  }
+}

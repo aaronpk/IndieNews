@@ -52,17 +52,15 @@ $app->get('/indieauth', function() use($app) {
       }
 
     }
-    header('Location: /');
-    die();
+    $app->redirect('/', 301);
   }
 
+  $app->redirect('/', 301);
 });
 
-$app->get('/signin', function() use($app) {
-  render('signin', array(
-    'title' => 'Sign in to IndieNews',
-    'meta' => ''
-  ));
+$app->get('/signout', function() use($app) {
+  unset($_SESSION['user']);
+  $app->redirect('/', 301);
 });
 
 $app->post('/vote', function() use($app) {
@@ -71,12 +69,34 @@ $app->post('/vote', function() use($app) {
   $params = $req->params();
   $res = $app->response();
 
+  $id = false;
 
+  if($user=getLoggedInUser()) {
+
+    // Ensure they haven't already voted
+    $existing = ORM::for_table('votes')->where('post_id', $params['id'])->where('user_id', $user->id)->find_one();
+    if(!$existing) {
+      $vote = ORM::for_table('votes')->create();
+      $vote->post_id = $params['id'];
+      $vote->user_id = $user->id;
+      $vote->date = date('Y-m-d H:i:s');
+      $vote->save();
+
+      $result = 'ok';
+      $id = $params['id'];
+    } else {
+      $result = 'already_voted';
+      $id = $params['id'];
+    }
+
+  } else {
+    $result = 'not_logged_in';
+  }
 
   $res['Content-Type'] = 'application/json';
   $res->body(json_encode(array(
-    'result' => 'ok',
-    'id' => $params['id']
+    'result' => $result,
+    'id' => $id
   )));  
 });
 

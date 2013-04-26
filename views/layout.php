@@ -20,10 +20,12 @@
     <link rel="stylesheet" href="/css/style.css">
 
     <script src="/js/jquery-1.7.1.min.js"></script>
-    <script src="/js/vote.js"></script>
+    <? if(session('user')) { ?>
+      <script src="/js/vote.js"></script>
+    <? } ?>
   </head>
 
-  <body>
+<body>
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -67,14 +69,21 @@
       <li><a href="/newest">New</a></li>
       <li><a href="/submit">Submit</a></li>
     </ul>
-    <ul class="nav pull-right">
-      <? if(session('user')) { ?>
+    <? if(session('user')) { ?>
+      <ul class="nav pull-right">
         <li><a href="/user?domain=<?= session('user') ?>"><?= session('user') ?></a></li>
         <li><a href="/signout">Sign Out</a></li>
-      <? } else { ?>
-        <li><a href="/signin">Sign In</a></li>
-      <? } ?>
-    </ul>
+      </ul>
+    <? } else { ?>
+      <ul class="nav pull-right" style="font-size: 8pt;">
+        <li><a href="https://indieauth.com/setup">What's This?</a></li>
+      </ul>
+      <form action="http://indieauth.com/auth" method="get" class="navbar-form pull-right">
+        <input type="text" name="me" placeholder="yourdomain.com" class="span2" />
+        <button type="submit" class="btn">Sign In</button>
+        <input type="hidden" name="redirect_uri" value="http://<?= $_SERVER['SERVER_NAME'] ?>/indieauth" />
+      </form>
+    <? } ?>
   </div>
 </div>
 
@@ -89,6 +98,5 @@
   </div>
 </div>
 
-
-  </body>
+</body>
 </html>
