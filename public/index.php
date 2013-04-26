@@ -3,6 +3,7 @@ chdir('..');
 require 'vendor/autoload.php';
 require 'lib/Savant.php';
 require 'lib/helpers.php';
+require 'lib/mf2.php';
 require 'lib/config.php';
 
 // Configure the Savant plugin

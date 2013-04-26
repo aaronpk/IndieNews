@@ -52,12 +52,15 @@ $app->post('/webmention', function() use($app) {
   $sourceURL = $req->post('source');
   $targetURL = $req->post('target');
 
-  $error = function($res, $err) {
+  $error = function($res, $err, $description=false) {
     $res->status(400);
     $res['Content-Type'] = 'application/json';
-    $res->body(json_encode(array(
+    $error = array(
       'error' => $err
-    )));
+    );
+    if($description)
+      $error['error_description'] = $description;
+    $res->body(json_encode($error));
   };
   
   $source = parse_url($sourceURL);
@@ -73,7 +76,6 @@ $app->post('/webmention', function() use($app) {
     return;
   }
 
-
   # Verify $target is actually a resource under our control (home page, post ID)
   $target = parse_url($targetURL);
   # Verify $source is valid
@@ -87,58 +89,117 @@ $app->post('/webmention', function() use($app) {
     return;
   }
 
+  $data = array(
+    'domain' => $source['host'],
+    'title' => false,
+    'date' => time()
+  );
+  $notices = array();
 
-  # Verify the $source actually contains a link to $target
-  if(FALSE) {
-    $error($res, 'no_link_found');
-    return;
+  # Now fetch and parse the page looking for Microformats
+  $ch = curl_init();
+  curl_setopt($ch, CURLOPT_URL, $sourceURL);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  $html = curl_exec($ch);
+
+  $parser = new ParserPlus($html);
+  $output = $parser->parse();
+  $page = new MF2Page($output);
+
+  if($page->hentry) {
+
+    if($page->hentry->property('name'))
+      $data['title'] = trim($page->hentry->property('name', true));
+    else
+      $notices[] = 'No "name" property found on the h-entry. Using the page title instead.';
+
+    if($page->hentry->author && $page->hentry->author->url) {
+      $authorURL = parse_url($page->hentry->author->url);
+      $data['domain'] = $authorURL['host'];
+    } else {
+      // $error($res, 'no_author', 'No author was found for the h-entry');
+      $notices[] = 'No author URL was found for the h-entry. Using the domain name instead.';
+    }
+
+  } else {
+    // $error($res, 'no_hentry', 'No h-entry was found on the page');
+    $notices[] = 'No h-entry was found on the page. Using the page title instead.';
   }
 
+  if($page->hentry && ($published=$page->hentry->published)) {
+    $data['date'] = $published->format('U');
+  } else {
+    $notices[] = 'No publish date found, default to now.';
+  }
+
+  # If no h-entry was found, or if didn't find the title, look at the page title
+  if($data['title'] == false) {
+    $pageTitle = $parser->xpath('./*/title');
+    if($pageTitle->length > 0) {
+      foreach($pageTitle as $t) 
+        $data['title'] = $t->textContent;
+    }
+  }
+
+  // print_r($notices);
+  // print_r($data);
+  // die();
+
+  # Verify the $source actually contains a link to $target
+  // if(FALSE) {
+  //   $error($res, 'no_link_found');
+  //   return;
+  // }
 
   # Get the domain of $source and find or create a user account
-  $domain = $source['host'];
-  $user = ORM::for_table('users')->where('domain', $domain)->find_one();
+  $user = ORM::for_table('users')->where('domain', $data['domain'])->find_one();
 
   if($user == FALSE) {
     $user = ORM::for_table('users')->create();
-    $user->domain = $domain;
+    $user->domain = $data['domain'];
     $user->date_created = date('Y-m-d H:i:s');
     $user->save();
   }
 
-
-  # Make sure there is no existing post for $source
+  # If there is no existing post for $source, update the properties
   $post = ORM::for_table('posts')->where('href', $sourceURL)->find_one();
   if($post != FALSE) {
-    $error($res, 'already_registered');
-    return;
+    $post->date_submitted = date('Y-m-d H:i:s', $data['date']);
+    $post->domain = $data['domain'];
+    $post->title = $data['title'];
+    $post->save();
+    $notices[] = 'Already registered, updating properties of the post.';
+  } else {
+    # Record a new post and a vote from the domain
+    $post = ORM::for_table('posts')->create();
+    $post->user_id = $user->id;
+    $post->date_submitted = date('Y-m-d H:i:s', $data['date']);
+    $post->domain = $data['domain'];
+    $post->title = $data['title'];
+    $post->href = $sourceURL;
+    $post->points = 1;
+    $post->save();
+
+    $vote = ORM::for_table('votes')->create();
+    $vote->post_id = $post->id;
+    $vote->user_id = $user->id;
+    $vote->date = date('Y-m-d H:i:s');
+    $vote->save();
   }
-
-
-  # Record a new post and a vote from the domain
-
-  $post = ORM::for_table('posts')->create();
-  $post->user_id = $user->id;
-  $post->date_submitted = date('Y-m-d H:i:s');
-  $post->domain = $domain;
-  $post->title = '';
-  $post->href = $sourceURL;
-  $post->points = 1;
-  $post->save();
-
-  $vote = ORM::for_table('votes')->create();
-  $vote->post_id = $post->id;
-  $vote->user_id = $user->id;
-  $vote->date = date('Y-m-d H:i:s');
-  $vote->save();
-
 
   $res->status(202);
   $res['Content-Type'] = 'application/json';
   $res->body(json_encode(array(
-    'result' => 'WebMention was successful',
+    'result' => 'success',
+    'notices' => $notices,
+    'data' => array(
+      'title' => $data['title'],
+      'author' => $data['domain'],
+      'date' => date('Y-m-d\TH:i:sP', $data['date'])
+    ),
     'source' => $req->post('source'),
-    'target' => $req->post('target')
+    'target' => $req->post('target'),
+    'href' => 'http://' . $_SERVER['SERVER_NAME'] . '/post/' . $post->id
   )));
 });
 

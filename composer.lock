@@ -20,7 +20,6 @@
             },
             "time": "2013-01-31 12:19:07",
             "type": "library",
-            "installation-source": "dist",
             "autoload": {
                 "classmap": [
                     "idiorm.php"
@@ -55,9 +54,9 @@
             "description": "A lightweight nearly-zero-configuration object-relational mapper and fluent query builder for PHP5",
             "homepage": "http://j4mie.github.com/idiormandparis",
             "keywords": [
+                "idiorm",
                 "orm",
-                "query builder",
-                "idiorm"
+                "query builder"
             ]
         },
         {
@@ -79,7 +78,6 @@
             },
             "time": "2012-12-13 02:15:50",
             "type": "library",
-            "installation-source": "dist",
             "autoload": {
                 "psr-0": {
                     "Slim": "."

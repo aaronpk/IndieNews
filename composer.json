@@ -1,6 +1,7 @@
 {
     "require": {
         "slim/slim": "2.*",
-        "j4mie/idiorm": "1.*"
+        "j4mie/idiorm": "1.*",
+        "mf2/mf2": "0.1.*"
     }
 }
