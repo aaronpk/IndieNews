@@ -48,7 +48,7 @@ $app->post('/webmention', function() use($app) {
   $data = array(
     'domain' => $source['host'],
     'title' => false,
-    'date' => time()
+    'date' => false
   );
   $notices = array();
 
@@ -95,7 +95,7 @@ $app->post('/webmention', function() use($app) {
   if($page->hentry && ($published=$page->hentry->published)) {
     $data['date'] = $published->format('U');
   } else {
-    $notices[] = 'No publish date found, default to now.';
+    $notices[] = 'No publish date found.';
   }
 
   # If no h-entry was found, or if didn't find the title, look at the page title
@@ -130,7 +130,8 @@ $app->post('/webmention', function() use($app) {
   # If there is no existing post for $source, update the properties
   $post = ORM::for_table('posts')->where('href', $sourceURL)->find_one();
   if($post != FALSE) {
-    $post->date_submitted = date('Y-m-d H:i:s', $data['date']);
+    if($data['date'])
+      $post->post_date = date('Y-m-d H:i:s', $data['date']);
     $post->domain = $data['domain'];
     $post->title = $data['title'];
     $post->save();
@@ -139,7 +140,9 @@ $app->post('/webmention', function() use($app) {
     # Record a new post and a vote from the domain
     $post = ORM::for_table('posts')->create();
     $post->user_id = $user->id;
-    $post->date_submitted = date('Y-m-d H:i:s', $data['date']);
+    $post->date_submitted = date('Y-m-d H:i:s');
+    if($data['date'])
+      $post->post_date = date('Y-m-d H:i:s', $data['date']);
     $post->domain = $data['domain'];
     $post->title = $data['title'];
     $post->href = $sourceURL;
@@ -161,7 +164,7 @@ $app->post('/webmention', function() use($app) {
     'data' => array(
       'title' => $data['title'],
       'author' => $data['domain'],
-      'date' => date('Y-m-d\TH:i:sP', $data['date'])
+      'date' => ($data['date'] ? date('Y-m-d\TH:i:sP', $data['date']) : false)
     ),
     'source' => $req->post('source'),
     'target' => $req->post('target'),
