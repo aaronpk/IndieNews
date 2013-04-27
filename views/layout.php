@@ -96,7 +96,9 @@
 
   <div class="footer">
     <p>&copy; <?=date('Y')?> by <a href="http://aaronparecki.com">Aaron Parecki</a>.
-      IndieNews is part of <a href="http://indiewebcamp.com/">IndieWebCamp</a>. This code is <a href="https://github.com/aaronpk/IndieNews">open source</a>. Feel free to send a pull request, or <a href="https://github.com/aaronpk/IndieNews/issues">file issues</a>.</p>
+      IndieNews is part of <a href="http://indiewebcamp.com/">IndieWebCamp</a>. 
+      This code is <a href="https://github.com/aaronpk/IndieNews">open source</a>. 
+      Feel free to send a pull request, or <a href="https://github.com/aaronpk/IndieNews/issues">file an issue</a>.</p>
   </div>
 </div>
 
