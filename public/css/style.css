@@ -49,6 +49,40 @@
   font-size: 17px;
 }
 
+
+/* Table Styling since we're not using bootstrap tables */
+.single td {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+.threaded {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.threaded .post.single {
+  background-color: #f9f9f9;
+}
+
+.threaded td {
+  padding: 8px;
+  line-height: 20px;
+  text-align: left;
+}
+.threaded td.nested-container {
+  border-top: 1px solid #ddd;  
+  padding: 0;
+}
+
+.threaded td td {
+  padding-bottom: 12px;  
+}
+
+.threaded table.nested {
+  width: 100%;
+}
+
 @media (min-width: 1200px) { 
   .post .title {
     width: 1000px;

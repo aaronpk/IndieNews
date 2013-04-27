@@ -1,4 +1,4 @@
-<table class="table table-striped">
+<table class="threaded">
   <?= partial('_post-row', array(
     'post' => $this->post, 
     'position' => '', 
@@ -22,7 +22,8 @@
   <?php foreach($this->replies as $i=>$post): ?>
     <?= partial('_reply-row', array(
       'post' => $post, 
-      'position' => '', 
+      'position' => '',
+      'indent' => 0,
       'voted' => in_array($post->id, $this->votes),
       'view' => 'list'))
     ?>
