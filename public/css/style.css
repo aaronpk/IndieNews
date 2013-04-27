@@ -41,6 +41,10 @@
   display: block;
 }
 
+.single .title {
+  font-size: 17px;
+}
+
 @media (min-width: 1200px) { 
   .post .title {
     width: 1000px;
@@ -84,6 +88,10 @@
   font-size: 11px;
   color: #777;
 }
+.post .details .p-author a.u-url {
+  color: #777;
+}
+
 
 
 .footer {

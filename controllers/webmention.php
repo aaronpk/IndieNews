@@ -45,9 +45,16 @@ $app->post('/webmention', function() use($app) {
     return;
   }
 
+  if(preg_match('/\/post\/([0-9]+)$/', $targetURL, $match)) {
+    $parentID = $match[1];
+  } else {
+    $parentID = 0;
+  }
+
   $data = array(
     'domain' => $source['host'],
     'title' => false,
+    'body' => false,
     'date' => false
   );
   $notices = array();
@@ -77,6 +84,11 @@ $app->post('/webmention', function() use($app) {
       $notices[] = 'No author URL was found for the h-entry. Using the domain name instead.';
     }
 
+    if($page->hentry->property('content'))
+      $data['body'] = strip_tags(trim(implode("\n", $page->hentry->property('content'))));
+    else
+      $notices[] = 'No post content was found in the h-entry.';
+
   } elseif($page->hevent) {
 
     if($page->hevent->property('name')) {
@@ -89,7 +101,7 @@ $app->post('/webmention', function() use($app) {
     
   } else {
     // $error($res, 'no_hentry', 'No h-entry was found on the page');
-    $notices[] = 'No h-entry was found on the page. Using the page title instead.';
+    $notices[] = 'No h-entry was found on the page. Using the page title for the name' . ($parentID > 0 ? ', and no comment body will be imported.' : '.');
   }
 
   if($page->hentry && ($published=$page->hentry->published)) {
@@ -134,6 +146,8 @@ $app->post('/webmention', function() use($app) {
       $post->post_date = date('Y-m-d H:i:s', $data['date']);
     $post->domain = $data['domain'];
     $post->title = $data['title'];
+    if($data['body'])
+      $post->body = $data['body'];
     $post->save();
     $notices[] = 'Already registered, updating properties of the post.';
   } else {
@@ -145,8 +159,11 @@ $app->post('/webmention', function() use($app) {
       $post->post_date = date('Y-m-d H:i:s', $data['date']);
     $post->domain = $data['domain'];
     $post->title = $data['title'];
+    if($data['body'])
+      $post->body = $data['body'];
     $post->href = $sourceURL;
     $post->points = 1;
+    $post->parent_id = $parentID;
     $post->save();
 
     $vote = ORM::for_table('votes')->create();
@@ -163,6 +180,7 @@ $app->post('/webmention', function() use($app) {
     'notices' => $notices,
     'data' => array(
       'title' => $data['title'],
+      'body' => $data['body'],
       'author' => $data['domain'],
       'date' => ($data['date'] ? date('Y-m-d\TH:i:sP', $data['date']) : false)
     ),
