@@ -41,6 +41,10 @@
   display: block;
 }
 
+.post .content {
+  white-space: pre-wrap;
+}
+
 .single .title {
   font-size: 17px;
 }
