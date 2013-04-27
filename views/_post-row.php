@@ -11,7 +11,8 @@
     <div class="details">
       <span class="p-author h-card"><a href="http://<?= $this->post->domain ?>" class="u-url"><?= $this->post->domain ?></a></span> | 
       <span class="points"><?= $this->post->points ?> point<?= $this->post->points == 1 ? '' : 's' ?></span> | 
-      <span class="dt-published"><?= date('Y-m-d H:i T', strtotime($this->post->date_submitted)) ?></span> (<?= TimeAgo::inWords($this->post->date_submitted) ?>) | 
+      <?= $this->post->post_date ? '<span class="dt-published">' . date('Y-m-d H:i T', strtotime($this->post->post_date)) . '</span> |' : '' ?>
+      submitted <?= TimeAgo::inWords($this->post->date_submitted) ?> | 
       <a href="/post/<?= $this->post->id ?>">
         <? if($this->view == 'list') { ?>
           <?= $this->post->comments ?: '' ?> comment<?= $this->post->comments == 1 ? '' : 's' ?>
