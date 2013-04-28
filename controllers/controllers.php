@@ -133,7 +133,25 @@ $app->get('/post/:id(.:format)', function($id, $format='html') use($app) {
 
 $app->get('/submit', function() use($app) {
   render('submit', array(
-    'title' => 'IndieNews - Submit a post',
+    'title' => 'About IndieNews',
+    'meta' => ''
+  ));
+});
+$app->get('/how-to-submit-a-post', function() use($app) {
+  render('submit-full', array(
+    'title' => 'IndieNews - How to submit a post',
+    'meta' => ''
+  ));
+});
+$app->get('/how-to-comment', function() use($app) {
+  render('comment-full', array(
+    'title' => 'IndieNews - How to comment',
+    'meta' => ''
+  ));
+});
+$app->get('/technology', function() use($app) {
+  render('technology', array(
+    'title' => 'The Technology Behind IndieNews',
     'meta' => ''
   ));
 });

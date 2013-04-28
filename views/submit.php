@@ -1,103 +1,96 @@
 <div class="row">
-  <div class="span8">
+  <div class="span6 offset3">
 
-<h2>How to Submit a Post</h2>
+    <h2>About IndieNews</h2>
 
-<p>IndieNews is a community-curated list of articles relevant to the <a href="http://indiewebcamp.com/why">Indie Web</a>.</p>
+    <p>IndieNews is a community-curated list of articles relevant to the <a href="http://indiewebcamp.com/why">Indie Web</a>.</p>
 
-<p>In order to submit a post, you do not need an IndieNews account. Instead, you can only submit
-posts from your own site by using the <a href="http://indiewebcamp.com/webmention">webmention</a>
-protocol!</p>
+    <p>The <a href="/">Front Page</a> shows a list of articles ranked using a 
+      <a href="http://amix.dk/blog/post/19574">similar algorithm as HackerNews</a>. 
+      Recent and popular articles will tend towards the top of the list.</p>
 
-<p>If you want to upvote articles, you can sign in to IndieNews. Naturally, you don't need to 
-create a separate IndieNews account, you just need to <a href="http://indiewebcamp.com/indieauth">sign in with your domain</a>! 
-The <a href="/">Front Page</a> shows a list of articles ranked using a 
-<a href="http://amix.dk/blog/post/19574">similar algorithm as HackerNews</a>. 
-Recent and popular articles will tend towards the top of the list.</p>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="span4">
+    <h2>Submit</h2>
 
+    <p>You won't find a "submit" form on this site. You don't even need to be logged in to this site to submit a post!</p>
 
-<h3>1. Add a link to news.indiewebcamp.com</h3>
+    <h4>Write a Post</h4>
 
-<p>Somewhere on the page you are submitting, add a link to <code>http://news.indiewebcamp.com/</code>, or
-<code>http://news.indiewebcamp.com/newest</code>.</p>
+    <p>Write a post on your own site, and mark it up with the Microformats markup for
+      an <a href="http://microformats.org/wiki/microformats2#h-entry">h-entry</a>.</p>
 
-<p>You can update this link later to this submission's permalink on IndieNews. See the example response 
-below for how to find the permalink.</p>
+    <h4>Link to IndieNews</h4>
 
-<p>Note: Technically this step is not required right now. Following the webmention/pingback
-protocols it should be required, but currently the system will accept a webmention even if the
-source site does not link to IndieNews. I'm debating whether or not it should be required for
-this, or if there should be some other verification method instead. 
-<a href="http://github.com/aaronpk/IndieNews/issues">Feedback is appreciated</a>.</p>
+    <p>Somewhere on the page you are submitting, add a link to <a href="http://news.indiewebcamp.com/">news.indiewebcamp.com</a>, or
+      <a href="http://news.indiewebcamp.com/newest">news.indiewebcamp.com/newest</a>.</p>
 
+    <h4>Send a WebMention</h4>
 
-<h3>2. Send a <a href="http://indiewebcamp.com/webmention">WebMention</a></h3>
+    <p>Send a <a href="http://indiewebcamp.com/webmention">WebMention</a> notification 
+      to let IndieNews know about your post. When the mention is received, IndieNews will
+      fetch the page from your site and look for the <a href="http://microformats.org/wiki/microformats2#h-entry">h-entry</a>
+      markup to find the post title and author.</p>
 
-<h4>Example Request</h4>
+    <p style="border-top: 1px #ddd solid; margin-top: 20px; font-style: italic;">
+      <a href="/how-to-submit-a-post">Detailed instructions on how to submit a post</a>
+    </p>
 
-<p>Simply make a POST request to <code>news.indiewebcamp.com/webmention</code> with two parameters, <code>source</code> and <code>target</code>,
-where target is <code>http://news.indiewebcamp.com/</code> and source is the page on your site you would
-like to submit.</p>
+  </div>
+  <div class="span4">
+    <h2>Comment</h2>
 
-<pre><code>POST /webmention HTTP/1.1
-Host: news.indiewebcamp.com
+    <p>You won't find a comment box on this site. You don't even need to be logged in to this site to comment!</p>
 
-target=http://news.indiewebcamp.com/&amp;source=http://aaronparecki.com/notes/2013/04/25/1/original-post-discovery
-</code></pre>
+    <h4>Write a Comment</h4>
 
-<h4>Example Response</h4>
+    <p>Write a comment as a post on your own site, and mark it up with the Microformats markup for
+      an <a href="http://microformats.org/wiki/microformats2#h-entry">h-entry</a>.</p>
 
-<pre><code>{
-  "result": "success",
-  "notices": [
-  ],
-  "data": {
-    "title": "A demonstration of Original Post Discovery indiewebcamp.com/original-post-discovery #indieweb aaronparecki.com/files/original-post-discovery.mp4",
-    "author": "aaronparecki.com",
-    "date": "2013-04-26T03:22:39+00:00"
-  },
-  "source": "http://aaronparecki.com/notes/2013/04/25/1/original-post-discovery",
-  "target": "http://news.indiewebcamp.com/",
-  "href": "http://news.indiewebcamp.com/post/17"
-}
-</code></pre>
+    <h4>Link to the IndieNews Post</h4>
 
-<p>This webmention endpoint returns more data than is technically required for a WebMention to succeed. It will
-return data that is useful for debugging purposes while you're initially trying it out.</p>
+    <p>Add an <a href="http://indiewebcamp.com/in-reply-to">in-reply-to</a> link to the 
+      IndieNews URL you are commenting on.</p>
 
-<ul>
-  <li><code>result</code> - Will be equal to "success" if the submission was accepted</li>
-  <li><code>notices</code> - An array of string messages if there was anything that needs attention in your submission. These are not errors, but will indicate if microformat markup was not present or invalid.</li>
-  <li><code>data</code> - This object shows the values extracted from the page, including title, author and date.</li>
-  <li><code>source</code> - The source URL sent in the initial request</li>
-  <li><code>source</code> - The target URL sent in the initial request</li>
-  <li><code>href</code> - The permalink to this submission on news.indiewebcamp.com. In the future, this can be used to add a comment to the story by linking to this URL and sending another webmention or pingback.</li>
-</ul>
+    <h4>Send a WebMention</h4>
 
+    <p>Send a <a href="http://indiewebcamp.com/webmention">WebMention</a> notification 
+      to let IndieNews know about your post. When the mention is received, IndieNews will
+      fetch the page from your site and look for the <a href="http://microformats.org/wiki/microformats2#h-entry">h-entry</a>
+      markup to find the post title, author, and <a href="http://indiewebcamp.com/in-reply-to">in-reply-to</a> URL.</p>
 
-<h4>Re-Submitting a Post</h4>
+    <p style="border-top: 1px #ddd solid; margin-top: 20px; font-style: italic;">
+      <a href="/how-to-comment">Detailed instructions on how to comment</a>
+    </p>
 
-<p>If you update the post (for example trying to debug the microformats markup, or changing the post
-title), you can re-send the webmention. The existing post will be updated with the new information found.</p>
+  </div>
+  <div class="span4">
+    <h2>Upvote</h2>
 
+    <p>To upvote articles, you can sign in to IndieNews <a href="http://indiewebcamp.com/indieauth">using your own domain</a>. 
+      Once you're signed in, you will see an "upvote" arrow next to posts and comments.</p>
 
-<h3>Microformats Support</h3>
+    <h4>Add rel="me" links</h4>
 
-<p>If your page is marked up with an <a href="http://microformats.org/wiki/microformats2#h-entry">h-entry</a> 
-or an <a href="http://microformats.org/wiki/microformats2#h-event">h-event</a>, this site will
-use the name and author in the entry.</p>
+    <p>Add one or more links on your home page to your various social profiles with the attribute rel="me".</p>
 
-<p>If no Microformats are present, then it falls back to using the page title and domain name
-as the author.</p>
+    <h4>Add links to your home page</h4>
 
+    <p>On the social profiles you linked to, ensure they link back to your site. Most
+      social sites have a field for "URL", so enter your home page there.</p>
 
-<h3>Pingback Support</h3>
+    <h4>Sign In</h4>
 
-<p>If you use a client which automatically sends <a href="http://indiewebcamp.com/pingback">pingbacks</a> to
-any links found in the post, then you simply need to link to the IndieNews home page in a post to submit it!
-You can find the pingback endpoint using the normal pingback discovery mechanism.</p>
+    <p>Once the bi-directional links are set up, you can enter your domain into the "sign in"
+      field on IndieNews. You will be directed to the <a href="https://indieauth.com/">IndieAuth</a>
+      site which will handle authenticating via the provider of your choice.</p>
 
-<p>Note that the rich debugging response will not be present in the pingback reply.</p>
+    <p style="border-top: 1px #ddd solid; margin-top: 20px; font-style: italic;">
+      <a href="https://indieauth.com/setup">Full IndieAuth setup instructions</a>
+    </p>
 
   </div>
 </div>
