@@ -5,4 +5,6 @@ class Config {
   public static $dbName = 'indienews';
   public static $dbUsername = 'indienews';
   public static $dbPassword = 'coffee';
+  public static $gaid = '';
+  public static $fbappid = '';
 }
