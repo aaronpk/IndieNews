@@ -16,7 +16,8 @@
             <span class="points"><?= $this->post->points ?> point<?= $this->post->points == 1 ? '' : 's' ?></span> | 
             <span class="dt-published"><?= $this->post->post_date ? date('Y-m-d H:i T', strtotime($this->post->post_date)) . ' |' : '' ?></span>
             submitted <?= TimeAgo::inWords($this->post->date_submitted) ?> | 
-            <a href="/post/<?= $this->post->id ?>">link</a>
+            <a href="/post/<?= slugForURL($this->post->href) ?>">link</a> |
+            <a href="<?= $this->post->href ?>" class="u-url">original</a>
           </div>
           <? if($hasTitle = ($this->post->title && trim($this->post->title) != trim($this->post->body))) { ?>
             <div class="title p-name"><a href="<?= $this->post->href ?>"><?= $this->post->title ?: preg_replace('/^https?:\/\//', '', $this->post->href) ?></a></div>

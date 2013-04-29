@@ -61,6 +61,11 @@ function respondWithFormat($app, $html, $format) {
   }
 }
 
+// Strip the http:// prefix
+function slugForURL($url) {
+  return preg_replace('/https?:\/\//', '', $url);
+}
+
 // Home Page
 $app->get('/(home.:format)', function($format='html') use($app) {
 
@@ -101,16 +106,30 @@ $app->get('/newest(.:format)', function($format='html') use($app) {
   respondWithFormat($app, $html, $format);
 })->conditions(array('format'=>'json'));
 
-// Single Post Page
+// Post IDs. Redirect to the post URL version
 $app->get('/post/:id(.:format)', function($id, $format='html') use($app) {
 
   $post = ORM::for_table('posts')->where('id', $id)->find_one();
-  $posts = array($post);
-  $votes = getUserVotesForPosts($posts);
 
   if(!$post) {
     $app->pass(); // Will trigger a 404 error
   }
+
+  $app->redirect('http://' . $_SERVER['SERVER_NAME'] . '/post/' . slugForURL($post->href) . ($format == 'html' ? '' : '.'.$format), 302);
+
+})->conditions(array('id'=>'\d+', 'format'=>'json'));
+
+
+$app->get('/post/:slug(.:format)', function($slug, $format='html') use($app) {
+
+  $post = ORM::for_table('posts')->where('href', 'http://'.$slug)->find_one();
+  $posts = array($post);
+
+  if(!$post) {
+    $app->pass(); // Will trigger a 404 error
+  }
+
+  $votes = getUserVotesForPosts($posts);
 
   $replies = getPostsForParentID($post->id);
   $votes = array_merge($votes, getUserVotesForPosts($replies));
@@ -127,7 +146,7 @@ $app->get('/post/:id(.:format)', function($id, $format='html') use($app) {
   $html = ob_get_clean();
   respondWithFormat($app, $html, $format);
 
-})->conditions(array('id'=>'\d+', 'format'=>'json'));
+})->conditions(array('slug'=>'.+\..+/.+?', 'format'=>'json'));
 
 
 

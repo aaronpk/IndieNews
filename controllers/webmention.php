@@ -180,13 +180,13 @@ $app->post('/webmention', function() use($app) {
     'notices' => $notices,
     'data' => array(
       'title' => $data['title'],
-      'body' => $data['body'],
+      'body' => ($parentID ? $data['body'] : ($data['body'] ? true : false)),
       'author' => $data['domain'],
       'date' => ($data['date'] ? date('Y-m-d\TH:i:sP', $data['date']) : false)
     ),
     'source' => $req->post('source'),
     'target' => $req->post('target'),
-    'href' => 'http://' . $_SERVER['SERVER_NAME'] . '/post/' . $post->id
+    'href' => 'http://' . $_SERVER['SERVER_NAME'] . '/post/' . slugForURL($post->href)
   )));
 });
 
