@@ -32,7 +32,7 @@ $app->post('/webmention', function() use($app) {
     return;
   }
 
-  # Verify $target is actually a resource under our control (home page, post ID)
+  # Verify $target is actually a resource under our control (home page, individual post)
   $target = parse_url($targetURL);
   # Verify $source is valid
   if($target == FALSE
@@ -45,10 +45,9 @@ $app->post('/webmention', function() use($app) {
     return;
   }
 
-  if(preg_match('/\/post\/([0-9]+)$/', $targetURL, $match)) {
-    $parentID = $match[1];
-  } else {
-    $parentID = 0;
+  if(!preg_match('/http:\/\/' . $_SERVER['SERVER_NAME'] . '\/post\/(.+)/', $targetURL, $match)) {
+    $error($res, 'target_not_supported', 'The permalink for your post did not match the news.indiewebcamp.com URL convention. Please see news.indiewebcamp.com/constructing-post-urls for more information.');
+    return;
   }
 
   $data = array(
@@ -89,6 +88,8 @@ $app->post('/webmention', function() use($app) {
     else
       $notices[] = 'No post content was found in the h-entry.';
 
+    $entry = $page->hentry;
+
   } elseif($page->hevent) {
 
     if($page->hevent->property('name')) {
@@ -98,10 +99,13 @@ $app->post('/webmention', function() use($app) {
       $location = $locations[0];
       $data['title'] .= ' at ' . $location->property('name', true);
     }
+
+    $entry = $page->hevent;
     
   } else {
     // $error($res, 'no_hentry', 'No h-entry was found on the page');
     $notices[] = 'No h-entry was found on the page. Using the page title for the name' . ($parentID > 0 ? ', and no comment body will be imported.' : '.');
+    $entry = false;
   }
 
   if($page->hentry && ($published=$page->hentry->published)) {
@@ -119,15 +123,37 @@ $app->post('/webmention', function() use($app) {
     }
   }
 
-  // print_r($notices);
-  // print_r($data);
-  // die();
+  // Find out if the entry has a u-syndication link to IndieNews
+  if($entry) {
+    if($syndications=$entry->property('syndication')) {
+      // Find the syndication URL that matches news.indiewebcamp.com/post/domain/path
+      $synURL = false;
+      foreach($syndications as $syn) {
+        if(preg_match('/http:\/\/' . $_SERVER['SERVER_NAME'] . '\/post\/(.+)/', $syn, $match)) {
+          $synURL = $syn;
+          if($synURL != $targetURL) {
+            $error($res, 'target_not_supported', 'The syndication URL for your post does not match the target URL specified in the WebMention request.');
+            return;
+          }
+        }
+      }
+      if(!$synURL) {
+        $error($res, 'no_link_found', 'Could not find a syndication link for this entry to news.indiewebcamp.com');
+        return;
+      }
+    }
+  } else {
+    $error($res, 'no_link_found', 'No h-entry was found on the page, so we were unable to find a u-syndication URL');
+    return;
+  }
 
-  # Verify the $source actually contains a link to $target
-  // if(FALSE) {
-  //   $error($res, 'no_link_found');
-  //   return;
-  // }
+
+  // After parsing the source URL, figure out of the in-reply-to it links
+  // to is an existing entry in the DB. If so, this is a comment so set the parent ID.
+
+
+  $parentID = 0;
+
 
   # Get the domain of $source and find or create a user account
   $user = ORM::for_table('users')->where('domain', $data['domain'])->find_one();
