@@ -92,10 +92,14 @@
 
   <?= $this->fetch($this->page . '.php') ?>
 
-  <hr />
-
   <div class="footer">
-    <p>&copy; <?=date('Y')?> by <a href="http://aaronparecki.com">Aaron Parecki</a>.
+    <ul class="nav-footer">
+      <li><a href="/submit">About IndieNews</a></li>
+      <li><a href="/how-to-comment">How to Comment</a></li>
+      <li><a href="/how-to-submit-a-post">How to Submit a Post</a></li>
+      <li><a href="/constructing-post-urls">Constructing Post URLs</a></li>
+    </ul>
+    <p class="credits">&copy; <?=date('Y')?> by <a href="http://aaronparecki.com">Aaron Parecki</a>.
       IndieNews is part of <a href="http://indiewebcamp.com/">IndieWebCamp</a>. 
       This code is <a href="https://github.com/aaronpk/IndieNews">open source</a>. 
       Feel free to send a pull request, or <a href="https://github.com/aaronpk/IndieNews/issues">file an issue</a>.</p>
