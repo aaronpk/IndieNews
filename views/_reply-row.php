@@ -7,7 +7,7 @@
         <td class="vote">
           <? if(session('user') && !$this->voted) { ?>
             <a href="#" data-id="<?= $this->post->id ?>" data-vote="up" class="up"><i class="icon-arrow-up"></i></a>
-            <!-- <a href="#" data-id="<?= $this->post->id ?>" data-vote="down" class="down"><i class="icon-arrow-down"></i></a> -->
+            <?php /* <a href="#" data-id="<?= $this->post->id ?>" data-vote="down" class="down"><i class="icon-arrow-down"></i></a> */ ?>
           <? } ?>
         </td>
         <td>
@@ -26,21 +26,21 @@
         </td>
       </tr>
     </table>
-    <table class="nested">
-      <?php
-      $replies = getPostsForParentID($this->post->id);
-      $votes = getUserVotesForPosts($replies);
-      ?>
-      <?php foreach($replies as $i=>$post): ?>
-        <?= partial('_reply-row', array(
+    <?php
+    $replies = getPostsForParentID($this->post->id);
+    $votes = getUserVotesForPosts($replies);
+    if(count($replies) > 0) {    
+      echo '<table class="nested">';
+      foreach($replies as $i=>$post) { 
+        echo partial('_reply-row', array(
           'post' => $post, 
           'position' => '',
           'indent' => $this->indent + 1,
           'voted' => in_array($post->id, $votes),
-          'view' => 'list'))
-        ?>
-      <?php endforeach; ?>
-    </table>
-
+          'view' => 'list'));
+      }
+      echo '</table>';
+    }
+    ?>
   </td>
 </tr>

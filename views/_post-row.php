@@ -20,8 +20,8 @@
           link
         <? } ?>
       </a>
-      <? if($this->post->parent_id > 0) { ?>
-        | <a href="/post/<?= slugForURL($this->post->href) ?>" class="u-in-reply-to" rel="in-reply-to">parent</a>
+      <? if($this->parent) { ?>
+        | <a href="/post/<?= slugForURL($this->parent->href) ?>" class="u-in-reply-to" rel="in-reply-to">parent</a>
       <? } ?>
     </div>
     <? if($this->view == 'single' && $this->post->parent_id > 0 && $this->post->body && trim($this->post->title) != trim($this->post->body)) { ?>

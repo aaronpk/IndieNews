@@ -138,6 +138,7 @@ $app->get('/post/:slug(.:format)', function($slug, $format='html') use($app) {
   render('post', array(
     'title' => $post->title,
     'post' => $post,
+    'parent' => ($post->parent_id ? ORM::for_table('posts')->find_one($post->parent_id) : false),
     'votes' => $votes,
     'replies' => $replies,
     'view' => 'single',
@@ -171,6 +172,12 @@ $app->get('/how-to-comment', function() use($app) {
 $app->get('/technology', function() use($app) {
   render('technology', array(
     'title' => 'The Technology Behind IndieNews',
+    'meta' => ''
+  ));
+});
+$app->get('/constructing-post-urls', function() use($app) {
+  render('post-urls', array(
+    'title' => 'Constructing Post URLs for IndieNews',
     'meta' => ''
   ));
 });

@@ -132,18 +132,18 @@ $app->post('/webmention', function() use($app) {
         if(preg_match('/http:\/\/' . $_SERVER['SERVER_NAME'] . '\/post\/(.+)/', $syn, $match)) {
           $synURL = $syn;
           if($synURL != $targetURL) {
-            $error($res, 'target_not_supported', 'The syndication URL for your post does not match the target URL specified in the WebMention request.');
+            $error($res, 'target_not_supported', 'The syndication URL for your post (http://' . $match[1] . ') does not match the target URL specified in the WebMention request (' . $targetURL . ').');
             return;
           }
         }
       }
       if(!$synURL) {
-        $error($res, 'no_link_found', 'Could not find a syndication link for this entry to news.indiewebcamp.com');
+        $error($res, 'no_link_found', 'Could not find a syndication link for this entry to news.indiewebcamp.com. Please see news.indiewebcamp.com/constructing-post-urls for more information.');
         return;
       }
     }
   } else {
-    $error($res, 'no_link_found', 'No h-entry was found on the page, so we were unable to find a u-syndication URL');
+    $error($res, 'no_link_found', 'No h-entry was found on the page, so we were unable to find a u-syndication URL.');
     return;
   }
 
@@ -151,9 +151,29 @@ $app->post('/webmention', function() use($app) {
   // After parsing the source URL, figure out of the in-reply-to it links
   // to is an existing entry in the DB. If so, this is a comment so set the parent ID.
 
-
+  // TODO: add support for rel=in-reply-to after the mf2 parser supports it
   $parentID = 0;
+  $canonical = false;
+  if($entry->property('in-reply-to')) {
+    // We can only use the first in-reply-to. Not sure what the correct behavior would be for multiple.
+    $inReplyTo = $entry->property('in-reply-to');
+    $inReplyTo = $inReplyTo[0];
 
+    // If the post is in reply to an indienews URL, check for that post and return the canonical URL
+    if(preg_match('/^http:\/\/' . $_SERVER['SERVER_NAME'] . '\/post\/(.+)/', $inReplyTo, $match)) {
+      $replyTo = ORM::for_table('posts')->where('href', 'http://' . $match[1])->find_one();
+      if($replyTo) {
+        $parentID = $replyTo->id;
+        $canonical = $replyTo->href;
+        $notices[] = 'Looks like you linked to an IndieNews URL as an in-reply-to. Instead, you should link to the canonical post and syndicate your reply to IndieNews. See news.indiewebcamp.com/how-to-comment for more information.';
+      }
+    } else {
+      $replyTo = ORM::for_table('posts')->where('href', $inReplyTo)->find_one();
+      if($replyTo) {
+        $parentID = $replyTo->id;
+      }
+    }
+  }
 
   # Get the domain of $source and find or create a user account
   $user = ORM::for_table('users')->where('domain', $data['domain'])->find_one();
@@ -201,19 +221,29 @@ $app->post('/webmention', function() use($app) {
 
   $res->status(202);
   $res['Content-Type'] = 'application/json';
-  $res->body(json_encode(array(
+
+  $responseData = array(
+    'title' => $data['title'],
+    'body' => ($parentID ? $data['body'] : ($data['body'] ? true : false)),
+    'author' => $data['domain'],
+    'date' => ($data['date'] ? date('Y-m-d\TH:i:sP', $data['date']) : false)
+  );
+  if($parentID) 
+    $responseData['in-reply-to'] = $replyTo->href;
+
+  $response = array(
     'result' => 'success',
     'notices' => $notices,
-    'data' => array(
-      'title' => $data['title'],
-      'body' => ($parentID ? $data['body'] : ($data['body'] ? true : false)),
-      'author' => $data['domain'],
-      'date' => ($data['date'] ? date('Y-m-d\TH:i:sP', $data['date']) : false)
-    ),
+    'data' => $responseData,
     'source' => $req->post('source'),
     'target' => $req->post('target'),
     'href' => 'http://' . $_SERVER['SERVER_NAME'] . '/post/' . slugForURL($post->href)
-  )));
+  );
+
+  if($canonical)
+    $response['canonical'] = $canonical;
+
+  $res->body(json_encode($response));
 });
 
 $app->post('/webmention-error', function() use($app) {

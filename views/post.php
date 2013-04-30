@@ -1,6 +1,7 @@
 <table class="threaded">
   <?= partial('_post-row', array(
-    'post' => $this->post, 
+    'post' => $this->post,
+    'parent' => $this->parent,
     'position' => '', 
     'voted' => in_array($this->post->id, $this->votes),
     'view' => 'single')) 
