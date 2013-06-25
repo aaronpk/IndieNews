@@ -260,4 +260,6 @@ $app->post('/vote', function() use($app) {
   )));  
 });
 
-
+$res = $app->response();
+$res['X-Pingback'] = 'http://pingback.me/webmention?forward=http://' . $_SERVER['SERVER_NAME'] . '/webmention';
+$res['Link'] = '<http://' . $_SERVER['SERVER_NAME'] . '/webmention>; rel="http://webmention.org/"';
