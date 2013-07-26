@@ -97,7 +97,13 @@ $app->post('/webmention', function() use($app) {
     }
     if($locations=$page->hevent->location) {
       $location = $locations[0];
-      $data['title'] .= ' at ' . $location->property('name', true);
+      if($location) {
+        if(is_object($location) && $location->property('name', true)) {
+          $data['title'] .= ' at ' . $location->property('name', true);
+        } elseif(is_string($location) && $location) {
+          $data['title'] .= ' at ' . $location;
+        }
+      }
     }
 
     $entry = $page->hevent;
