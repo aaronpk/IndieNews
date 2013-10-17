@@ -23,6 +23,7 @@ $app = new \Slim\Slim(array(
 
 require 'controllers/controllers.php';
 require 'controllers/webmention.php';
+require 'controllers/parser.php';
 
 session_start();
 
