@@ -72,11 +72,31 @@ $app->get('/parse', function() use($app) {
       $data['content'] = strip_tags(trim(implode("\n", $page->hentry->property('content'))));
 
     $entry = $page->hentry;
+  } elseif($page->hevent) {
+    $data['mf2'] = $output;
+
+    if($page->hevent->author) {
+      if($page->hevent->author->url)
+        $data['author']['url'] = $page->hevent->author->url;
+      if($page->hevent->author->name)
+        $data['author']['name'] = $page->hevent->author->name;
+      if($page->hevent->author->photo)
+        $data['author']['photo'] = $page->hevent->author->photo;
+    }
+
+    if($page->hevent->property('name')) 
+      $data['name'] = trim($page->hevent->property('name', true));
+    
   } else {
     $entry = false;
   }
 
   if($page->hentry && ($published=$page->hentry->published)) {
+    $data['published'] = $published->format('c');
+    $data['published_ts'] = (int)$published->format('U');
+  }
+
+  if($page->hevent && ($published=$page->hevent->published)) {
     $data['published'] = $published->format('c');
     $data['published_ts'] = (int)$published->format('U');
   }

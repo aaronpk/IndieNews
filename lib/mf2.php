@@ -127,6 +127,8 @@ class HEntry extends MF2Object {
 
 class HEvent extends MF2Object {
   protected $_location = null;
+  protected $_published = null;
+  protected $_author = null;
 
   protected function location() {
     $locations = array();
@@ -137,6 +139,21 @@ class HEvent extends MF2Object {
     } else {
       return null;
     }
+  }
+
+  protected function published() {
+    if($time=$this->property('published', true))
+      return new DateTime($time);
+    return null;
+  }
+
+  // Search the h-entry for an author. If none is found, fall back to the parent's h-card.
+  protected function author() {
+    if($author=$this->property('author', true))
+      return new HCard($author);
+    if($author=$this->_parent->_findFirstItem('h-card'))
+      return new HCard($author);
+    return null;
   }
 }
 
