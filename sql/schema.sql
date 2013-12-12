@@ -29,3 +29,10 @@ CREATE TABLE `votes` (
   `date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
+
+CREATE TABLE `last_computed` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
