@@ -39,13 +39,13 @@ $app->post('/webmention', function() use($app) {
     || !array_key_exists('scheme', $target)
     || !in_array($target['scheme'], array('http','https'))
     || !array_key_exists('host', $target)
-    || $target['host'] != $_SERVER['SERVER_NAME']
+    || $target['host'] != Config::$hostname
   ) {
     $error($res, 'target_not_supported');
     return;
   }
 
-  if(!preg_match('/http:\/\/' . $_SERVER['SERVER_NAME'] . '\/post\/(.+)/', $targetURL, $match)) {
+  if(!preg_match('/http:\/\/' . Config::$hostname . '\/post\/(.+)/', $targetURL, $match)) {
     $error($res, 'target_not_supported', 'The permalink for your post did not match the news.indiewebcamp.com URL convention. Please see news.indiewebcamp.com/constructing-post-urls for more information.');
     return;
   }
@@ -77,7 +77,10 @@ $app->post('/webmention', function() use($app) {
 
     if($page->hentry->author && $page->hentry->author->url) {
       $authorURL = parse_url($page->hentry->author->url);
-      $data['domain'] = $authorURL['host'];
+      if($authorURL && array_key_exists('host', $authorURL))
+        $data['domain'] = $authorURL['host'];
+      else
+        $notices[] = 'No host was found on the author URL (' . $page->hentry->author->url . ')';
     } else {
       // $error($res, 'no_author', 'No author was found for the h-entry');
       $notices[] = 'No author URL was found for the h-entry. Using the domain name instead.';
@@ -135,7 +138,7 @@ $app->post('/webmention', function() use($app) {
       // Find the syndication URL that matches news.indiewebcamp.com/post/domain/path
       $synURL = false;
       foreach($syndications as $syn) {
-        if(preg_match('/http:\/\/' . $_SERVER['SERVER_NAME'] . '\/post\/(.+)/', $syn, $match)) {
+        if(preg_match('/http:\/\/' . Config::$hostname . '\/post\/(.+)/', $syn, $match)) {
           $synURL = $syn;
           if($synURL != $targetURL) {
             $error($res, 'target_not_supported', 'The syndication URL for your post (http://' . $match[1] . ') does not match the target URL specified in the WebMention request (' . $targetURL . ').');
