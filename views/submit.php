@@ -85,8 +85,8 @@
 
     <h4>Send a WebMention</h4>
 
-    <p>Send a <a href="http://indiewebcamp.com/webmention">WebMention</a> notification 
-      to let IndieNews know about your post. When the mention is received, IndieNews will
+    <p>Send a <a href="http://indiewebcamp.com/webmention">WebMention</a> notification
+      with your post's IndieNews URL as the target. When the mention is received, IndieNews will
       fetch the page from your site and look for the <a href="http://microformats.org/wiki/microformats2#h-entry">h-entry</a>
       markup to find the post title and author.</p>
 
