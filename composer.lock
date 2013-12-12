@@ -1,31 +1,34 @@
 {
-    "hash": "17774163b0607fccefe255b2d0e40591",
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+    ],
+    "hash": "cda1770ae8542d67c29feb29ae411f48",
     "packages": [
         {
             "name": "j4mie/idiorm",
             "version": "v1.3.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/j4mie/idiorm",
-                "reference": "v1.3.0"
+                "url": "https://github.com/j4mie/idiorm.git",
+                "reference": "fa66a543d442893b16045fec1238fdb4745ee36a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/j4mie/idiorm/zipball/v1.3.0",
-                "reference": "v1.3.0",
+                "url": "https://api.github.com/repos/j4mie/idiorm/zipball/fa66a543d442893b16045fec1238fdb4745ee36a",
+                "reference": "fa66a543d442893b16045fec1238fdb4745ee36a",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.0"
             },
-            "time": "2013-01-31 12:19:07",
             "type": "library",
             "autoload": {
                 "classmap": [
                     "idiorm.php"
                 ]
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-2-Clause",
                 "BSD-3-Clause",
@@ -57,33 +60,81 @@
                 "idiorm",
                 "orm",
                 "query builder"
-            ]
+            ],
+            "time": "2013-01-31 12:19:07"
+        },
+        {
+            "name": "mf2/mf2",
+            "version": "v0.1.23",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/indieweb/php-mf2.git",
+                "reference": "9094e4f7ad535e0796f5a384dec42bab81393e0e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/indieweb/php-mf2/zipball/9094e4f7ad535e0796f5a384dec42bab81393e0e",
+                "reference": "9094e4f7ad535e0796f5a384dec42bab81393e0e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "suggest": {
+                "barnabywalters/mf-cleaner": "To more easily handle the canonical data php-mf2 gives you"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "mf2\\Parser": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Barnaby Walters",
+                    "homepage": "http://waterpigs.co.uk"
+                }
+            ],
+            "description": "A pure (generic) microformats-2 parser",
+            "keywords": [
+                "microformats",
+                "microformats 2",
+                "parser",
+                "semantic"
+            ],
+            "time": "2013-10-20 12:25:50"
         },
         {
             "name": "slim/slim",
             "version": "2.2.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/codeguy/Slim",
-                "reference": "2.2.0"
+                "url": "https://github.com/codeguy/Slim.git",
+                "reference": "b8181de1112a1e2f565b40158b621c34ded38053"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/codeguy/Slim/archive/2.2.0.zip",
-                "reference": "2.2.0",
+                "url": "https://api.github.com/repos/codeguy/Slim/zipball/b8181de1112a1e2f565b40158b621c34ded38053",
+                "reference": "b8181de1112a1e2f565b40158b621c34ded38053",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2012-12-13 02:15:50",
             "type": "library",
             "autoload": {
                 "psr-0": {
                     "Slim": "."
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -100,15 +151,24 @@
                 "microframework",
                 "rest",
                 "router"
-            ]
+            ],
+            "time": "2012-12-13 02:15:50"
         }
     ],
-    "packages-dev": null,
+    "packages-dev": [
+
+    ],
     "aliases": [
 
     ],
     "minimum-stability": "stable",
     "stability-flags": [
+
+    ],
+    "platform": [
+
+    ],
+    "platform-dev": [
 
     ]
 }
