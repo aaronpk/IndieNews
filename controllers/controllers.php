@@ -122,7 +122,7 @@ $app->get('/post/:id(.:format)', function($id, $format='html') use($app) {
 
 $app->get('/post/:slug(.:format)', function($slug, $format='html') use($app) {
 
-  $post = ORM::for_table('posts')->where('href', 'http://'.$slug)->find_one();
+  $post = ORM::for_table('posts')->where_in('href', array('http://'.$slug,'https://'.$slug))->find_one();
   $posts = array($post);
 
   if(!$post) {
