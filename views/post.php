@@ -21,7 +21,7 @@
           </ol>
         </p>
       </action>
-    </td>
+          </td>
   </tr>
   <?php foreach($this->replies as $i=>$post): ?>
     <?= partial('_reply-row', array(
