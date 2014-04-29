@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="description" content="IndieNews">
     <link rel="pingback" href="http://pingback.me/webmention?forward=http://<?=$_SERVER['SERVER_NAME']?>/webmention" />
-    <link rel="http://webmention.org/" href="http://<?=$_SERVER['SERVER_NAME']?>/webmention" />
+    <link rel="webmention" href="https://<?=$_SERVER['SERVER_NAME']?>/webmention" />
 
     <?= $this->meta ?>
 
