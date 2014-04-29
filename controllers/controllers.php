@@ -261,5 +261,5 @@ $app->post('/vote', function() use($app) {
 });
 
 $res = $app->response();
-$res['X-Pingback'] = 'http://webmention.io/webmention?forward=http://' . $_SERVER['SERVER_NAME'] . '/webmention';
-$res['Link'] = '<http://' . $_SERVER['SERVER_NAME'] . '/webmention>; rel="webmention"';
+$res['X-Pingback'] = 'https://webmention.io/webmention?forward=http://' . $_SERVER['SERVER_NAME'] . '/webmention';
+$res['Link'] = '<https://' . $_SERVER['SERVER_NAME'] . '/webmention>; rel="webmention"';
