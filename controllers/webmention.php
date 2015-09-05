@@ -217,7 +217,6 @@ $app->post('/webmention', function() use($app) {
     if($data['body'])
       $post->body = $data['body'];
     $post->href = $sourceURL;
-    $post->points = 1;
     $post->parent_id = $parentID;
     $post->save();
   }

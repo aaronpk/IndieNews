@@ -1,28 +1,11 @@
 <?php
 
 function getPostsForParentID($parentID) {
-
-  // Check if we need to recalculate the scores yet (only calculate once per hour)
-  $last = ORM::for_table('last_computed')->where('parent_id', $parentID)->find_one();
-  if($last == false || (time() - strtotime($last['val'])) > 3600) {
-    $posts = ORM::for_table('posts')->raw_execute('
-      UPDATE posts 
-      SET score = (points-1) / POWER(GREATEST(1, TIMESTAMPDIFF(HOUR, date_submitted, NOW())), 1.8)
-      WHERE parent_id = ' . $parentID . '
-    ');
-    if($last == false) {
-      $last = ORM::for_table('last_computed')->create();
-      $last->parent_id = $parentID;
-    }
-    $last->date = date('Y-m-d H:i:s');
-    $last->save();
-  }
-
   return ORM::for_table('posts')->raw_query('
     SELECT *, GREATEST(1, TIMESTAMPDIFF(HOUR, date_submitted, NOW())) AS age
     FROM posts
     WHERE parent_id = ' . $parentID . '
-    ORDER BY score DESC, points DESC, date_submitted DESC
+    ORDER BY date_submitted DESC
   ')->find_many();
 }
 
@@ -47,7 +30,7 @@ function slugForURL($url) {
 }
 
 // Home Page
-$app->get('/(home.:format)', function($format='html') use($app) {
+$app->get('/(index.:format)', function($format='html') use($app) {
 
   $req = $app->request();
 
@@ -68,9 +51,9 @@ $app->get('/(home.:format)', function($format='html') use($app) {
   respondWithFormat($app, $html, $format);
 })->conditions(array('format'=>'json'));
 
-// Newest
-$app->get('/newest(.:format)', function($format='html') use($app) {
-  $app->redirect('/', 301);
+// Redirect old feed URLs
+$app->get('/(newest|home)(.:format)', function($format='html') use($app) {
+  $app->redirect('/'.($format == 'json' ? 'index.json' : ''), 301);
 })->conditions(array('format'=>'json'));
 
 // Post IDs. Redirect to the post URL version

@@ -6,8 +6,6 @@
     'view' => 'single')) 
   ?>
   <tr>
-    <td></td>
-    <td></td>
     <td>
       <h5>Comment</h5>
       <action inline do="reply" with="<?= $this->post->href ?>">
@@ -20,7 +18,7 @@
           </ol>
         </p>
       </action>
-          </td>
+    </td>
   </tr>
   <?php foreach($this->replies as $i=>$post): ?>
     <?= partial('_reply-row', array(
