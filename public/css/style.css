@@ -21,19 +21,6 @@
   padding-top: 16px;
 }
 
-.post .position, .post .vote {
-  vertical-align: top;
-}
-.post .vote {
-  width: 14px;
-  padding: 8px 0;
-}
-.post .vote .down {
-  float: left;
-}
-.post .position {
-  color: #777;
-}
 .post .title {
   white-space: nowrap;
   overflow: hidden;

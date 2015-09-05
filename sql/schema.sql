@@ -2,7 +2,6 @@ CREATE TABLE `users` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `domain` varchar(255) DEFAULT NULL,
   `date_created` datetime DEFAULT NULL,
-  `points` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 );
 
@@ -16,17 +15,7 @@ CREATE TABLE `posts` (
   `title` varchar(512) DEFAULT NULL,
   `href` varchar(512) DEFAULT NULL,
   `body` text,
-  `points` int(11) NOT NULL DEFAULT '1',
-  `score` double NOT NULL DEFAULT '0',
   `comments` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-);
-
-CREATE TABLE `votes` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `post_id` bigint(20) unsigned DEFAULT NULL,
-  `user_id` bigint(20) unsigned DEFAULT NULL,
-  `date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
