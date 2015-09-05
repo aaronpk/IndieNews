@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="description" content="IndieNews">
-    <link rel="pingback" href="https://webmention.io/webmention?forward=http://<?=$_SERVER['SERVER_NAME']?>/webmention" />
-    <link rel="webmention" href="https://<?=$_SERVER['SERVER_NAME']?>/webmention" />
+    <link rel="pingback" href="https://webmention.io/webmention?forward=<?= Config::$baseURL ?>/webmention" />
+    <link rel="webmention" href="<?= Config::$baseURL ?>/webmention" />
 
     <?= $this->meta ?>
 
@@ -40,10 +40,10 @@
       <ul class="nav pull-right" style="font-size: 8pt;">
         <li><a href="https://indieauth.com/setup">What's This?</a></li>
       </ul>
-      <form action="http://indieauth.com/auth" method="get" class="navbar-form pull-right">
+      <form action="https://indieauth.com/auth" method="get" class="navbar-form pull-right">
         <input type="text" name="me" placeholder="yourdomain.com" class="span2" />
         <button type="submit" class="btn">Sign In</button>
-        <input type="hidden" name="redirect_uri" value="http://<?= $_SERVER['SERVER_NAME'] ?>/indieauth" />
+        <input type="hidden" name="redirect_uri" value="<?= Config::$baseURL ?>/indieauth" />
       </form>
     <? } ?>
   </div>

@@ -82,7 +82,7 @@ $app->get('/post/:id(.:format)', function($id, $format='html') use($app) {
     $app->pass(); // Will trigger a 404 error
   }
 
-  $app->redirect('http://' . $_SERVER['SERVER_NAME'] . '/post/' . slugForURL($post->href) . ($format == 'html' ? '' : '.'.$format), 302);
+  $app->redirect(Config::$baseURL . '/post/' . slugForURL($post->href) . ($format == 'html' ? '' : '.'.$format), 302);
 
 })->conditions(array('id'=>'\d+', 'format'=>'json'));
 
@@ -182,5 +182,5 @@ $app->get('/signout', function() use($app) {
 });
 
 $res = $app->response();
-$res['X-Pingback'] = 'https://webmention.io/webmention?forward=http://' . $_SERVER['SERVER_NAME'] . '/webmention';
-$res['Link'] = '<https://' . $_SERVER['SERVER_NAME'] . '/webmention>; rel="webmention"';
+$res['X-Pingback'] = 'https://webmention.io/webmention?forward=' . Config::$baseURL . '/webmention';
+$res['Link'] = '<' . Config::$baseURL . '/webmention>; rel="webmention"';

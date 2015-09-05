@@ -169,7 +169,7 @@ $app->post('/webmention', function() use($app) {
     $inReplyTo = $inReplyTo[0];
 
     // If the post is in reply to an indienews URL, check for that post and return the canonical URL
-    if(preg_match('/^http:\/\/' . $_SERVER['SERVER_NAME'] . '\/post\/(.+)/', $inReplyTo, $match)) {
+    if(preg_match('/^https?:\/\/' . $_SERVER['SERVER_NAME'] . '\/post\/(.+)/', $inReplyTo, $match)) {
       $replyTo = ORM::for_table('posts')->where('href', 'http://' . $match[1])->find_one();
       if($replyTo) {
         $parentID = $replyTo->id;
@@ -240,7 +240,7 @@ $app->post('/webmention', function() use($app) {
     'data' => $responseData,
     'source' => $req->post('source'),
     'target' => $req->post('target'),
-    'href' => 'http://' . $_SERVER['SERVER_NAME'] . '/post/' . slugForURL($post->href)
+    'href' => Config::$baseURL . '/post/' . slugForURL($post->href)
   );
 
   if($canonical)
