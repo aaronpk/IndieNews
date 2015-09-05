@@ -37,11 +37,3 @@ function getLoggedInUser() {
     return false;
   }
 }
-
-function recalculatePoints($postID) {
-  $count = ORM::for_table('votes')->where('post_id', $postID)->count();
-  $post = ORM::for_table('posts')->find_one($postID);
-  $post->points = $count;
-  $post->save();
-  return $count;
-}

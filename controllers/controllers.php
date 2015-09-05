@@ -1,25 +1,5 @@
 <?php
 
-function getUserVotesForPosts(&$posts) {
-  // If the user is logged in, retrieve all their votes for these articles
-  $votes = array();
-
-  if($user=getLoggedInUser()) {
-    $ids = array();
-    foreach($posts as $i=>$post) {
-      $ids[] = $post->id;
-    }
-    if(count($ids) > 0) {
-      $results = ORM::for_table('votes')->where('user_id', $user->id)->where_in('post_id', $ids)->find_many();
-      foreach($results as $r) {
-        $votes[] = $r->post_id;
-      }
-    }
-  }
-
-  return $votes;
-}
-
 function getPostsForParentID($parentID) {
 
   // Check if we need to recalculate the scores yet (only calculate once per hour)
@@ -76,13 +56,11 @@ $app->get('/(home.:format)', function($format='html') use($app) {
 
   // Get posts ordered by date submitted
   $posts = ORM::for_table('posts')->where('parent_id', 0)->order_by_desc('date_submitted')->limit(20)->find_many();
-  $votes = getUserVotesForPosts($posts);
 
   ob_start();
   render('posts', array(
     'title' => 'IndieNews',
     'posts' => $posts,
-    'votes' => $votes,
     'view' => 'list',
     'meta' => ''
   ));
@@ -118,17 +96,13 @@ $app->get('/post/:slug(.:format)', function($slug, $format='html') use($app) {
     $app->pass(); // Will trigger a 404 error
   }
 
-  $votes = getUserVotesForPosts($posts);
-
   $replies = getPostsForParentID($post->id);
-  $votes = array_merge($votes, getUserVotesForPosts($replies));
 
   ob_start();
   render('post', array(
     'title' => $post->title,
     'post' => $post,
     'parent' => ($post->parent_id ? ORM::for_table('posts')->find_one($post->parent_id) : false),
-    'votes' => $votes,
     'replies' => $replies,
     'view' => 'single',
     'meta' => ''
@@ -205,48 +179,6 @@ $app->get('/indieauth', function() use($app) {
 $app->get('/signout', function() use($app) {
   unset($_SESSION['user']);
   $app->redirect('/', 301);
-});
-
-$app->post('/vote', function() use($app) {
-
-  $req = $app->request();
-  $params = $req->params();
-  $res = $app->response();
-
-  $id = false;
-  $points = false;
-
-  if($user=getLoggedInUser()) {
-
-    // Ensure they haven't already voted
-    $existing = ORM::for_table('votes')->where('post_id', $params['id'])->where('user_id', $user->id)->find_one();
-    if(!$existing) {
-      $vote = ORM::for_table('votes')->create();
-      $vote->post_id = $params['id'];
-      $vote->user_id = $user->id;
-      $vote->date = date('Y-m-d H:i:s');
-      $vote->save();
-
-      $result = 'ok';
-      $id = $params['id'];
-
-      $points = recalculatePoints($params['id']);
-      $points = $points . ' point' . ($points == 1 ? '' : 's');
-    } else {
-      $result = 'already_voted';
-      $id = $params['id'];
-    }
-
-  } else {
-    $result = 'not_logged_in';
-  }
-
-  $res['Content-Type'] = 'application/json';
-  $res->body(json_encode(array(
-    'result' => $result,
-    'id' => $id,
-    'points' => $points
-  )));  
 });
 
 $res = $app->response();

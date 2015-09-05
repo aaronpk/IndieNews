@@ -3,7 +3,6 @@
     'post' => $this->post,
     'parent' => $this->parent,
     'position' => '', 
-    'voted' => in_array($this->post->id, $this->votes),
     'view' => 'single')) 
   ?>
   <tr>
@@ -28,7 +27,6 @@
       'post' => $post, 
       'position' => '',
       'indent' => 0,
-      'voted' => in_array($post->id, $this->votes),
       'view' => 'list'))
     ?>
   <?php endforeach; ?>

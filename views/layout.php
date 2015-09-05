@@ -20,9 +20,6 @@
     <link rel="stylesheet" href="/css/style.css">
 
     <script src="/js/jquery-1.7.1.min.js"></script>
-    <? if(session('user')) { ?>
-      <script src="/js/vote.js"></script>
-    <? } ?>
   </head>
 
 <body>

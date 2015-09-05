@@ -6,33 +6,6 @@
 
 <div class="row">
   <div class="span4">
-    <h2>Upvote</h2>
-
-    <p>To upvote articles, you can sign in to IndieNews <a href="http://indiewebcamp.com/indieauth">using your own domain</a>. 
-      Once you're signed in, you will see an "upvote" arrow next to posts and comments.</p>
-
-    <h4>Add rel="me" links</h4>
-
-    <p>Add one or more links on your home page to your various social profiles with the attribute rel="me".</p>
-
-    <h4>Add links to your home page</h4>
-
-    <p>On the social profiles you linked to, ensure they link back to your site. Most
-      social sites have a field for "URL", so enter your home page there.</p>
-
-    <h4>Sign In</h4>
-
-    <p>Once the bi-directional links are set up, you can enter your domain into the "sign in"
-      field on IndieNews. You will be directed to the <a href="https://indieauth.com/">IndieAuth</a>
-      site which will handle authenticating via the provider of your choice.</p>
-
-    <p style="border-top: 1px #ddd solid; margin-top: 20px; font-style: italic;">
-      <a href="https://indieauth.com/setup">Full IndieAuth setup instructions</a>
-    </p>
-
-  </div>
-
-  <div class="span4">
     <h2>Comment</h2>
 
     <p>You won't find a comment box on this site. You don't even need to be logged in to this site to comment!</p>

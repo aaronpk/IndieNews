@@ -5,7 +5,6 @@
         'post' => $post,
         'parent' => false,
         'position' => $i+1, 
-        'voted' => in_array($post->id, $this->votes),
         'view' => 'list'))
       ?>
     <?php endforeach; ?>

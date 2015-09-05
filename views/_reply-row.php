@@ -28,7 +28,6 @@
     </table>
     <?php
     $replies = getPostsForParentID($this->post->id);
-    $votes = getUserVotesForPosts($replies);
     if(count($replies) > 0) {    
       echo '<table class="nested">';
       foreach($replies as $i=>$post) { 
@@ -36,7 +35,6 @@
           'post' => $post, 
           'position' => '',
           'indent' => $this->indent + 1,
-          'voted' => in_array($post->id, $votes),
           'view' => 'list'));
       }
       echo '</table>';

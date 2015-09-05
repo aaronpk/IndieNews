@@ -206,7 +206,7 @@ $app->post('/webmention', function() use($app) {
     $post->save();
     $notices[] = 'Already registered, updating properties of the post.';
   } else {
-    # Record a new post and a vote from the domain
+    # Record a new post from the domain
     $post = ORM::for_table('posts')->create();
     $post->user_id = $user->id;
     $post->date_submitted = date('Y-m-d H:i:s');
@@ -220,12 +220,6 @@ $app->post('/webmention', function() use($app) {
     $post->points = 1;
     $post->parent_id = $parentID;
     $post->save();
-
-    $vote = ORM::for_table('votes')->create();
-    $vote->post_id = $post->id;
-    $vote->user_id = $user->id;
-    $vote->date = date('Y-m-d H:i:s');
-    $vote->save();
   }
 
   $res->status(202);
