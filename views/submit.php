@@ -2,10 +2,6 @@
   <h2>IndieNews</h2>
 
   <p>IndieNews is a community-curated list of articles relevant to the <a href="http://indiewebcamp.com/why">Indie Web</a>.</p>
-
-  <p>The <a href="/">Front Page</a> shows a list of articles ranked using a 
-    <a href="http://amix.dk/blog/post/19574">similar algorithm as HackerNews</a>.<br />
-    Recent and popular articles will tend towards the top of the list.</p>
 </div>
 
 <div class="row">
@@ -54,9 +50,9 @@
     <p>Add a <a href="http://indiewebcamp.com/rel-syndication">rel=syndication</a> link to
       <a href="/constructing-post-urls">the IndieNews URL for your post</a>.</p>
 
-    <h4>Send a WebMention</h4>
+    <h4>Send a Webmention</h4>
 
-    <p>Send <a href="http://indiewebcamp.com/webmention">WebMention</a> notifications 
+    <p>Send <a href="http://indiewebcamp.com/webmention">Webmention</a> notifications 
       to let the original URL and IndieNews know about your post. When the mention is received, IndieNews will
       fetch the page from your site and look for the <a href="http://microformats.org/wiki/microformats2#h-entry">h-entry</a>
       markup to find the post title, author, and <a href="http://indiewebcamp.com/in-reply-to">in-reply-to</a> URL, and will
@@ -83,9 +79,9 @@
     <p>Somewhere on the page you are submitting, add a <a href="http://indiewebcamp.com/rel-syndication">rel=syndication</a> 
       link to <a href="/constructing-post-urls">the IndieNews URL for your post</a>.</p>
 
-    <h4>Send a WebMention</h4>
+    <h4>Send a Webmention</h4>
 
-    <p>Send a <a href="http://indiewebcamp.com/webmention">WebMention</a> notification 
+    <p>Send a <a href="http://indiewebcamp.com/webmention">Webmention</a> notification 
       to let IndieNews know about your post. When the mention is received, IndieNews will
       fetch the page from your site and look for the <a href="http://microformats.org/wiki/microformats2#h-entry">h-entry</a>
       markup to find the post title and author.</p>

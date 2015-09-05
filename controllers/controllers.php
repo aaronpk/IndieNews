@@ -71,12 +71,16 @@ $app->get('/(home.:format)', function($format='html') use($app) {
 
   $req = $app->request();
 
-  $posts = getPostsForParentID(0);
+  // Get ranked posts
+  // $posts = getPostsForParentID(0);
+
+  // Get posts ordered by date submitted
+  $posts = ORM::for_table('posts')->where('parent_id', 0)->order_by_desc('date_submitted')->limit(20)->find_many();
   $votes = getUserVotesForPosts($posts);
 
   ob_start();
   render('posts', array(
-    'title' => 'IndieNews - Front Page',
+    'title' => 'IndieNews',
     'posts' => $posts,
     'votes' => $votes,
     'view' => 'list',
@@ -88,22 +92,7 @@ $app->get('/(home.:format)', function($format='html') use($app) {
 
 // Newest
 $app->get('/newest(.:format)', function($format='html') use($app) {
-
-  $req = $app->request();
-
-  $posts = ORM::for_table('posts')->where('parent_id', 0)->order_by_desc('date_submitted')->limit(20)->find_many();
-  $votes = getUserVotesForPosts($posts);
-
-  ob_start();
-  render('posts', array(
-    'title' => 'IndieNews - Newest Submissions',
-    'posts' => $posts,
-    'votes' => $votes,
-    'view' => 'list',
-    'meta' => ''
-  ));
-  $html = ob_get_clean();
-  respondWithFormat($app, $html, $format);
+  $app->redirect('/', 301);
 })->conditions(array('format'=>'json'));
 
 // Post IDs. Redirect to the post URL version
@@ -190,11 +179,11 @@ $app->get('/indieauth', function() use($app) {
 
   if(array_key_exists('token', $params)) {
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, 'https://indieauth.com/session?token=' . $params['token']);
+    curl_setopt($ch, CURLOPT_URL, 'https://indieauth.com/verify?code=' . $params['token']);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
     $auth = json_decode(curl_exec($ch));
     if($auth) {
-      $_SESSION['user'] = preg_replace('|https?://|', '', $auth->me);
+      $_SESSION['user'] = $auth->me;
 
       // Create the user record if it doesn't yet exist
       $user = ORM::for_table('users')->where('domain', session('user'))->find_one();

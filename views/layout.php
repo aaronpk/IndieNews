@@ -31,8 +31,7 @@
   <div class="navbar-inner">
     <a class="brand" href="/">IndieNews</a>
     <ul class="nav">
-      <li><a href="/">Front Page</a></li>
-      <li><a href="/newest">Newest</a></li>
+      <li><a href="/">Home</a></li>
       <li><a href="/submit">Submit</a></li>
     </ul>
     <? if(session('user')) { ?>
