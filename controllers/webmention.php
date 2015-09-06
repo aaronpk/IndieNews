@@ -204,7 +204,7 @@ $app->post('/webmention', function() use($app) {
     // If this is a submission of a bookmark, set the post author to the bookmark website.
     // For now, just set it to the domain of the bookmark. Later we could parse the bookmark for an h-card.
     if($href != $sourceURL) {
-      $data['post_author'] = parse_url($href, PHP_URL_HOST);
+      $data['post_author'] = parse_url($href, PHP_URL_SCHEME) . '://' . parse_url($href, PHP_URL_HOST);
     }
   }
 
