@@ -78,7 +78,7 @@ $app->post('/webmention', function() use($app) {
     if($page->hentry->author && $page->hentry->author->url) {
       $authorURL = parse_url($page->hentry->author->url);
       if($authorURL && array_key_exists('host', $authorURL))
-        $data['domain'] = $authorURL['host'];
+        $data['domain'] = $page->hentry->author->url;
       else
         $notices[] = 'No host was found on the author URL (' . $page->hentry->author->url . ')';
     } else {

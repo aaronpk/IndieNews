@@ -37,3 +37,7 @@ function getLoggedInUser() {
     return false;
   }
 }
+
+function friendly_url($url) {
+  return preg_replace(['/https?:\/\//','/\/$/'],'',$url);
+}
