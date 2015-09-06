@@ -136,11 +136,11 @@ $app->get('/indieauth', function() use($app) {
       $_SESSION['user'] = $auth->me;
 
       // Create the user record if it doesn't yet exist
-      $user = ORM::for_table('users')->where('domain', session('user'))->find_one();
+      $user = ORM::for_table('users')->where('url', session('user'))->find_one();
 
       if($user == FALSE) {
         $user = ORM::for_table('users')->create();
-        $user->domain = session('user');
+        $user->url = session('user');
         $user->date_created = date('Y-m-d H:i:s');
         $user->save();
       }

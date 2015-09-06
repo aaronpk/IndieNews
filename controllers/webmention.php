@@ -174,11 +174,11 @@ $app->post('/webmention', function() use($app) {
   }
 
   # Get the domain of $source and find or create a user account
-  $user = ORM::for_table('users')->where('domain', $data['domain'])->find_one();
+  $user = ORM::for_table('users')->where('url', $data['domain'])->find_one();
 
   if($user == FALSE) {
     $user = ORM::for_table('users')->create();
-    $user->domain = $data['domain'];
+    $user->url = $data['domain'];
     $user->date_created = date('Y-m-d H:i:s');
     $user->save();
   }

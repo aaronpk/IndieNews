@@ -32,7 +32,7 @@ function session($key) {
 
 function getLoggedInUser() {
   if(session('user')) {
-    return ORM::for_table('users')->where('domain', session('user'))->find_one();
+    return ORM::for_table('users')->where('url', session('user'))->find_one();
   } else {
     return false;
   }

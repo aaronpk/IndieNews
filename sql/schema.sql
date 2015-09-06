@@ -1,6 +1,6 @@
 CREATE TABLE `users` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `domain` varchar(255) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
   `date_created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
