@@ -1,27 +1,26 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <title><?= $this->title ?></title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="description" content="IndieNews">
-    <link rel="pingback" href="https://webmention.io/webmention?forward=<?= Config::$baseURL ?>/webmention" />
-    <link rel="webmention" href="<?= Config::$baseURL ?>/webmention" />
+<head>
+  <title><?= $this->title ?></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="description" content="IndieNews">
+  <link rel="pingback" href="https://webmention.io/webmention?forward=<?= Config::$baseURL ?>/webmention" />
+  <link rel="webmention" href="<?= Config::$baseURL ?>/webmention" />
 
-    <?= $this->meta ?>
+  <?= $this->meta ?>
 
-    <!--[if lt IE 9]>
-    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+  <!--[if lt IE 9]>
+  <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/bootstrap/css/bootstrap-responsive.min.css">
-    <link rel="stylesheet" href="/css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap-responsive.min.css">
+  <link rel="stylesheet" href="/css/style.css">
 
-    <script src="/js/jquery-1.7.1.min.js"></script>
-  </head>
-
+  <script src="/js/jquery-1.7.1.min.js"></script>
+</head>
 <body>
 
 <div class="navbar navbar-static-top">
