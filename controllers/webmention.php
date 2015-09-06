@@ -165,8 +165,16 @@ $app->post('/webmention', function() use($app) {
   // Check for in-reply-to
   if($entry->property('in-reply-to')) {
     // We can only use the first in-reply-to. Not sure what the correct behavior would be for multiple.
-    $inReplyTo = $entry->property('in-reply-to');
-    $inReplyTo = $inReplyTo[0];
+    $inReplyTo = $entry->property('in-reply-to', true);
+    if(is_object($inReplyTo)) {
+      if(property_exists($inReplyTo, 'properties') && property_exists($inReplyTo->properties, 'url')) {
+        $inReplyTo = $inReplyTo->properties->url[0];
+      } else {
+        $inReplyTo = false;
+      }
+    } elseif(!is_string($inReplyTo)) {
+      $inReplyTo = false;
+    }
   } else {
     $inReplyTo = false;
   }
