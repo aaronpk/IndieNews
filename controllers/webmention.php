@@ -45,8 +45,8 @@ $app->post('/webmention', function() use($app) {
     return;
   }
 
-  if(!preg_match('/^https?:\/\/' . Config::$hostname . '\/?$/', $targetURL, $match)) {
-    $error($res, 'target_not_supported', 'IndieNews only accepts syndication webmentions to the home page. See http://news.indiewebcamp.com/how-to-submit-a-post for mor information.');
+  if(!preg_match('/^https?:\/\/' . Config::$hostname . '\/?/', $targetURL, $match)) {
+    $error($res, 'target_not_supported', 'The target you specified does not appear to be a URL on this site.');
     return;
   }
 
@@ -141,13 +141,13 @@ $app->post('/webmention', function() use($app) {
   // Find out if the entry has a u-syndication link to IndieNews
   if($entry) {
     if($syndications=$entry->property('syndication')) {
-      // Find the syndication URL that matches http://news.indiewebcamp.com/
+      // Find the syndication URL that matches http://news.indiewebcamp.com/ or the full URL
       $synURL = false;
       foreach($syndications as $syn) {
-        if(preg_match('/^https?:\/\/' . Config::$hostname . '\/?$/', $syn, $match)) {
+        if(preg_match('/^https?:\/\/' . Config::$hostname . '\/?/', $syn, $match)) {
           $synURL = $syn;
           if($synURL != $targetURL) {
-            $error($res, 'target_not_supported', 'The syndication URL for your post (http://' . $match[1] . ') does not match the target URL specified in the WebMention request (' . $targetURL . ').');
+            $error($res, 'target_not_supported', 'The syndication URL for your post (http://' . $match[1] . ') does not match the target URL specified in the Webmention request (' . $targetURL . ').');
             return;
           }
         }
