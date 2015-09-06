@@ -11,3 +11,5 @@ SET source_url = href;
 
 UPDATE posts
 SET post_author = CONCAT("http://", post_author);
+
+DROP TABLE last_computed;
