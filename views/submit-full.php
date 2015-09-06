@@ -17,39 +17,39 @@ an <a href="http://microformats.org/wiki/microformats2#h-entry">h-entry</a>.</p>
 
 <h3>2. Add a "u-syndication" link to IndieNews</h3>
 
-<p>Inside the h-entry, add a link to the IndieNews URL for the post with the class
+<p>Inside the h-entry, add a link to the IndieNews home page with the class
   <a href="http://indiewebcamp.com/rel-syndication">u-syndication</a>. This usually
   looks something like the following:</p>
 
-<p><pre><code>&lt;a href="http://news.indiewebcamp.com/post/aaronparecki.com/notes/2013/04/25/1" class="u-syndication" rel="syndication"&gt;Also posted on IndieNews&lt;/a&gt;</code></pre></p>
-
-<p>You can construct the IndieNews URL before it's posted to IndieNews by following the
-  convention IndieNews uses for building its permalinks. Follow the example above, or
-  read the full instructions on <a href="/constructing-post-urls">constructing post URLs</a>.
+<p><pre><code>&lt;a href="http://news.indiewebcamp.com/" class="u-syndication"&gt;Also posted on IndieNews&lt;/a&gt;</code></pre></p>
 
 
 
-<h3>3. Send a <a href="http://indiewebcamp.com/webmention">WebMention</a></h3>
+<h3>3. Send a <a href="http://indiewebcamp.com/webmention">Webmention</a></h3>
 
 <h4>Example Request</h4>
 
-<p>Make a POST request to <code>news.indiewebcamp.com/webmention</code> with two parameters, 
+<p>Make a POST request to <code>http://news.indiewebcamp.com/webmention</code> with two parameters, 
   <code>source</code> and <code>target</code>, where target is 
-  <code>http://news.indiewebcamp.com/post/example.com/100</code> and source is 
+  <code>http://news.indiewebcamp.com/</code> and source is 
   <code>http://example.com/100</code> assuming you are submitting a page on your site with 
   the url <code>http://example.com/100</code>.</p>
 
 <pre><code>POST /webmention HTTP/1.1
 Host: news.indiewebcamp.com
 
-target=http://news.indiewebcamp.com/post/aaronparecki.com/notes/2013/04/25/1/original-post-discovery
+target=http://news.indiewebcamp.com/
 &amp;source=http://aaronparecki.com/notes/2013/04/25/1/original-post-discovery
 </code></pre>
 
 
 <h4>Example Response</h4>
 
-<pre><code>{
+<pre><code>
+HTTP/1.1 201 Created
+Location: http://news.indiewebcamp.com/post/aaronparecki.com/notes/2013/04/25/1/original-post-discovery
+
+{
  "result": "success",
  "notices": [
  ],
@@ -59,20 +59,19 @@ target=http://news.indiewebcamp.com/post/aaronparecki.com/notes/2013/04/25/1/ori
    "date": "2013-04-26T03:22:39+00:00"
  },
  "source": "http://aaronparecki.com/notes/2013/04/25/1/original-post-discovery",
- "target": "http://news.indiewebcamp.com/post/aaronparecki.com/notes/2013/04/25/1/original-post-discovery",
  "href": "http://news.indiewebcamp.com/post/aaronparecki.com/notes/2013/04/25/1/original-post-discovery"
 }
 </code></pre>
 
-<p>This webmention endpoint returns more data than is technically required for a WebMention to succeed. It will
-return data that is useful for debugging purposes while you're initially trying it out.</p>
+<p>You can find the permalink of your syndication by looking for the <code>Location</code> header in the response. You can then update your post with that URL so that your post always links to the IndieNews permalink instead of the IndieNews home page.</p>
+
+<p>This webmention endpoint also returns more data that is useful for debugging purposes while you're initially trying it out.</p>
 
 <ul>
   <li><code>result</code> - Will be equal to "success" if the submission was accepted</li>
   <li><code>notices</code> - An array of string messages if there was anything that needs attention in your submission. These are not errors, but will indicate if microformat markup was not present or invalid.</li>
   <li><code>data</code> - This object shows the values extracted from the page, including title, author and date.</li>
   <li><code>source</code> - The source URL sent in the initial request</li>
-  <li><code>source</code> - The target URL sent in the initial request</li>
   <li><code>href</code> - The permalink to this submission on news.indiewebcamp.com.</li>
 </ul>
 
@@ -80,7 +79,7 @@ return data that is useful for debugging purposes while you're initially trying 
 
 <h5>Curl</h5>
 <pre><code>curl http://news.indiewebcamp.com/webmention -i \
-  -d target=http://news.indiewebcamp.com/post/aaronparecki.com/notes/2013/04/25/1/original-post-discovery \
+  -d target=http://news.indiewebcamp.com/ \
   -d source=http://aaronparecki.com/notes/2013/04/25/1/original-post-discovery
 </code></pre>
 
@@ -90,7 +89,7 @@ $ch = curl_init("http://news.indiewebcamp.com/webmention");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, array(
-  'target' => 'http://news.indiewebcamp.com/post/aaronparecki.com/notes/2013/04/25/1/original-post-discovery',
+  'target' => 'http://news.indiewebcamp.com/',
   'source' => 'http://aaronparecki.com/notes/2013/04/25/1/original-post-discovery'
 ));
 echo curl_exec($ch);
@@ -101,7 +100,7 @@ echo curl_exec($ch);
 require 'json'
 
 data = JSON.parse RestClient.post "http://news.indiewebcamp.com/webmention", {
-  'target' => 'http://news.indiewebcamp.com/post/aaronparecki.com/notes/2013/04/25/1/original-post-discovery',
+  'target' => 'http://news.indiewebcamp.com/',
   'source' => 'http://aaronparecki.com/notes/2013/04/25/1/original-post-discovery'
 }
 jj data
@@ -110,7 +109,7 @@ jj data
 <h4>Re-Submitting a Post</h4>
 
 <p>If you update the post (for example trying to debug the microformats markup, or changing the post
-title), you can re-send the webmention. The existing post will be updated with the new information found.</p>
+title), you can re-send the webmention. The existing IndieNews post will be updated with the new information found.</p>
 
 
 <h3>Microformats Support</h3>

@@ -21,7 +21,7 @@
       original URL you are commenting on.</p>
 
     <p>Add a <a href="http://indiewebcamp.com/rel-syndication">rel=syndication</a> link to
-      <a href="/constructing-post-urls">the IndieNews URL for your post</a>.</p>
+      <a href="/">the IndieNews home page</a>.</p>
 
     <h4>Send a Webmention</h4>
 
@@ -50,7 +50,7 @@
     <h4>Link to IndieNews</h4>
 
     <p>Somewhere on the page you are submitting, add a <a href="http://indiewebcamp.com/rel-syndication">rel=syndication</a> 
-      link to <a href="/constructing-post-urls">the IndieNews URL for your post</a>.</p>
+      link to <a href="/">the IndieNews home page</a>.</p>
 
     <h4>Send a Webmention</h4>
 

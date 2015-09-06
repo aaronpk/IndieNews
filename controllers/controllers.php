@@ -109,6 +109,9 @@ $app->get('/how-to-submit-a-post', function() use($app) {
     'meta' => ''
   ));
 });
+$app->get('/how', function() use($app) {
+  $app->redirect('/how-to-submit-a-post', 301);
+});
 $app->get('/how-to-comment', function() use($app) {
   render('comment-full', array(
     'title' => 'IndieNews - How to comment',
