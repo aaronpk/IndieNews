@@ -51,7 +51,7 @@ $app->post('/webmention', function() use($app) {
   }
 
   $data = array(
-    'domain' => $source['host'],
+    'post_author' => $source['host'],
     'title' => false,
     'body' => false,
     'date' => false
@@ -78,7 +78,7 @@ $app->post('/webmention', function() use($app) {
     if($page->hentry->author && $page->hentry->author->url) {
       $authorURL = parse_url($page->hentry->author->url);
       if($authorURL && array_key_exists('host', $authorURL))
-        $data['domain'] = $page->hentry->author->url;
+        $data['post_author'] = $page->hentry->author->url;
       else
         $notices[] = 'No host was found on the author URL (' . $page->hentry->author->url . ')';
     } else {
@@ -174,11 +174,11 @@ $app->post('/webmention', function() use($app) {
   }
 
   # Get the domain of $source and find or create a user account
-  $user = ORM::for_table('users')->where('url', $data['domain'])->find_one();
+  $user = ORM::for_table('users')->where('url', $data['post_author'])->find_one();
 
   if($user == FALSE) {
     $user = ORM::for_table('users')->create();
-    $user->url = $data['domain'];
+    $user->url = $data['post_author'];
     $user->date_created = date('Y-m-d H:i:s');
     $user->save();
   }
@@ -188,7 +188,7 @@ $app->post('/webmention', function() use($app) {
   if($post != FALSE) {
     if($data['date'])
       $post->post_date = date('Y-m-d H:i:s', $data['date']);
-    $post->domain = $data['domain'];
+    $post->post_author = $data['post_author'];
     $post->title = $data['title'];
     if($inReplyTo)
       $post->in_reply_to = $inReplyTo;
@@ -198,13 +198,13 @@ $app->post('/webmention', function() use($app) {
     $notices[] = 'Already registered, updating properties of the post.';
     $update = true;
   } else {
-    # Record a new post from the domain
+    # Record a new post
     $post = ORM::for_table('posts')->create();
     $post->user_id = $user->id;
     $post->date_submitted = date('Y-m-d H:i:s');
     if($data['date'])
       $post->post_date = date('Y-m-d H:i:s', $data['date']);
-    $post->domain = $data['domain'];
+    $post->post_author = $data['post_author'];
     $post->title = $data['title'];
     if($inReplyTo)
       $post->in_reply_to = $inReplyTo;
@@ -221,7 +221,7 @@ $app->post('/webmention', function() use($app) {
   $responseData = array(
     'title' => $data['title'],
     'body' => $data['body'] ? true : false,
-    'author' => $data['domain'],
+    'author' => $data['post_author'],
     'date' => ($data['date'] ? date('Y-m-d\TH:i:sP', $data['date']) : false)
   );
   if($inReplyTo) 
