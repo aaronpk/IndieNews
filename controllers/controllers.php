@@ -33,11 +33,19 @@ $app->get('/(index.:format)', function($format='html') use($app) {
 
   $req = $app->request();
 
-  // Get ranked posts
-  // $posts = getPostsForParentID(0);
-
   // Get posts ordered by date submitted
-  $posts = ORM::for_table('posts')->order_by_desc('date_submitted')->limit(20)->find_many();
+  $posts = ORM::for_table('posts')->order_by_desc('date_submitted');
+
+  if(array_key_exists('before', $req->params())) {
+    $before = date('Y-m-d H:i:s', b60to10($req->params()['before']));
+    $posts = $posts->where_lt('date_submitted', $before);
+  }
+
+  $posts = $posts->limit(20)->find_many();
+
+  if(count($posts) == 0) {
+    $app->pass();
+  }
 
   ob_start();
   render('posts', array(
