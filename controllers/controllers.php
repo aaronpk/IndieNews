@@ -4,7 +4,6 @@ function getPostsForParentID($parentID) {
   return ORM::for_table('posts')->raw_query('
     SELECT *, GREATEST(1, TIMESTAMPDIFF(HOUR, date_submitted, NOW())) AS age
     FROM posts
-    WHERE parent_id = ' . $parentID . '
     ORDER BY date_submitted DESC
   ')->find_many();
 }
@@ -38,7 +37,7 @@ $app->get('/(index.:format)', function($format='html') use($app) {
   // $posts = getPostsForParentID(0);
 
   // Get posts ordered by date submitted
-  $posts = ORM::for_table('posts')->where('parent_id', 0)->order_by_desc('date_submitted')->limit(20)->find_many();
+  $posts = ORM::for_table('posts')->order_by_desc('date_submitted')->limit(20)->find_many();
 
   ob_start();
   render('posts', array(

@@ -51,7 +51,7 @@ $app->post('/webmention', function() use($app) {
   }
 
   $data = array(
-    'post_author' => $source['host'],
+    'post_author' => $source['scheme'].'://'.$source['host'],
     'title' => false,
     'body' => false,
     'date' => false
@@ -119,7 +119,7 @@ $app->post('/webmention', function() use($app) {
     $entry = $page->hevent;
     
   } else {
-    $notices[] = 'No h-entry was found on the page. Using the page title for the name.';
+    $notices[] = 'No h-entry or h-event was found on the page. Using the page title for the name.';
     $entry = false;
   }
 
@@ -162,9 +162,7 @@ $app->post('/webmention', function() use($app) {
     return;
   }
 
-
   // Check for in-reply-to
-
   if($entry->property('in-reply-to')) {
     // We can only use the first in-reply-to. Not sure what the correct behavior would be for multiple.
     $inReplyTo = $entry->property('in-reply-to');
@@ -183,8 +181,27 @@ $app->post('/webmention', function() use($app) {
     $user->save();
   }
 
+  $href = $sourceURL;
+
+  if($bookmark = $entry->property('bookmark-of', true)) {
+    if(is_string($bookmark)) {
+      $href = $bookmark;
+    } elseif(is_object($bookmark) && property_exists($bookmark, 'type') && in_array('h-cite', $bookmark->type)) {
+      $href = $bookmark->properties->url[0];
+      if(property_exists($bookmark->properties, 'name')) {
+        $data['title'] = $bookmark->properties->name[0];
+      }
+      // TODO: Parse the bookmark URL and find the canonical post title
+    }
+    // If this is a submission of a bookmark, set the post author to the bookmark website.
+    // For now, just set it to the domain of the bookmark. Later we could parse the bookmark for an h-card.
+    if($href != $sourceURL) {
+      $data['post_author'] = parse_url($href, PHP_URL_HOST);
+    }
+  }
+
   # If there is no existing post for $source, update the properties
-  $post = ORM::for_table('posts')->where('href', $sourceURL)->find_one();
+  $post = ORM::for_table('posts')->where('href', $href)->find_one();
   if($post != FALSE) {
     if($data['date'])
       $post->post_date = date('Y-m-d H:i:s', $data['date']);
@@ -210,7 +227,8 @@ $app->post('/webmention', function() use($app) {
       $post->in_reply_to = $inReplyTo;
     if($data['body'])
       $post->body = $data['body'];
-    $post->href = $sourceURL;
+    $post->href = $href;
+    $post->source_url = $sourceURL;
     $post->save();
     $update = false;
   }
