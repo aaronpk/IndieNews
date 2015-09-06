@@ -1,3 +1,8 @@
+<div class="hero-unit" style="padding: 40px;">
+  <h2>IndieNews</h2>
+  <p>IndieNews is a community-curated list of articles relevant to the <a href="http://indiewebcamp.com/why">Indie Web</a>.</p>
+</div>
+
 <div class="row">
   <div class="span8">
 

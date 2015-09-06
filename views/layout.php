@@ -33,7 +33,7 @@
     </ul>
     <? if(session('user')) { ?>
       <ul class="nav pull-right">
-        <li><a href="/user?domain=<?= session('user') ?>"><?= session('user') ?></a></li>
+        <li><a href="<?= session('user') ?>"><?= session('user') ?></a></li>
         <li><a href="/signout">Sign Out</a></li>
       </ul>
     <? } else { ?>
@@ -56,9 +56,7 @@
   <div class="footer">
     <ul class="nav-footer">
       <li><a href="/submit">About IndieNews</a></li>
-      <li><a href="/how-to-comment">How to Comment</a></li>
       <li><a href="/how-to-submit-a-post">How to Submit a Post</a></li>
-      <li><a href="/constructing-post-urls">Constructing Post URLs</a></li>
     </ul>
     <p class="credits">&copy; <?=date('Y')?> by <a href="http://aaronparecki.com">Aaron Parecki</a>.
       IndieNews is part of <a href="http://indiewebcamp.com/">IndieWebCamp</a>. 
