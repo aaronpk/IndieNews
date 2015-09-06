@@ -13,3 +13,6 @@ UPDATE posts
 SET post_author = CONCAT("http://", post_author);
 
 DROP TABLE last_computed;
+
+ALTER TABLE users
+CHANGE COLUMN domain url VARCHAR(255) DEFAULT NULL;

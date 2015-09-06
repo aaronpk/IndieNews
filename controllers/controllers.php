@@ -145,10 +145,10 @@ $app->get('/indieauth', function() use($app) {
       }
 
     }
-    $app->redirect('/', 301);
+    $app->redirect('/?error=verify_failed', 301);
   }
 
-  $app->redirect('/', 301);
+  $app->redirect('/?error=no_code', 301);
 });
 
 $app->get('/signout', function() use($app) {
