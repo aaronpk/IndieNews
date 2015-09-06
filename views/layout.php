@@ -30,6 +30,7 @@
       <li><a href="/">Home</a></li>
       <li><a href="/submit">Submit</a></li>
     </ul>
+    <!--
     <? if(session('user')) { ?>
       <ul class="nav pull-right">
         <li><a href="<?= session('user') ?>"><?= session('user') ?></a></li>
@@ -45,6 +46,7 @@
         <input type="hidden" name="redirect_uri" value="<?= Config::$baseURL ?>/indieauth" />
       </form>
     <? } ?>
+    -->
   </div>
 </div>
 
