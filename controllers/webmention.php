@@ -45,8 +45,8 @@ $app->post('/webmention', function() use($app) {
     return;
   }
 
-  if(!preg_match('/http:\/\/' . Config::$hostname . '\/post\/(.+)/', $targetURL, $match)) {
-    $error($res, 'target_not_supported', 'The permalink for your post did not match the news.indiewebcamp.com URL convention. Please see news.indiewebcamp.com/constructing-post-urls for more information.');
+  if(!preg_match('/^https?:\/\/' . Config::$hostname . '\/?$/', $targetURL, $match)) {
+    $error($res, 'target_not_supported', 'IndieNews only accepts syndication webmentions to the home page. See http://news.indiewebcamp.com/how-to-submit-a-post for mor information.');
     return;
   }
 
@@ -86,10 +86,17 @@ $app->post('/webmention', function() use($app) {
       $notices[] = 'No author URL was found for the h-entry. Using the domain name instead.';
     }
 
-    if($page->hentry->property('content'))
-      $data['body'] = strip_tags(trim(implode("\n", $page->hentry->property('content'))));
-    else
+    if($content = $page->hentry->property('content', true)) {
+      if(is_object($content) && property_exists($content, 'value')) {
+        $data['body'] = trim($content->value);
+      } elseif(is_string($content)) {
+        $data['body'] = trim($content);
+      } else {
+        $notices[] = 'No post content was found in the h-entry.';
+      }
+    } else {
       $notices[] = 'No post content was found in the h-entry.';
+    }
 
     $entry = $page->hentry;
 
@@ -135,10 +142,10 @@ $app->post('/webmention', function() use($app) {
   // Find out if the entry has a u-syndication link to IndieNews
   if($entry) {
     if($syndications=$entry->property('syndication')) {
-      // Find the syndication URL that matches news.indiewebcamp.com/post/domain/path
+      // Find the syndication URL that matches http://news.indiewebcamp.com/
       $synURL = false;
       foreach($syndications as $syn) {
-        if(preg_match('/http:\/\/' . Config::$hostname . '\/post\/(.+)/', $syn, $match)) {
+        if(preg_match('/^https?:\/\/' . Config::$hostname . '\/?$/', $syn, $match)) {
           $synURL = $syn;
           if($synURL != $targetURL) {
             $error($res, 'target_not_supported', 'The syndication URL for your post (http://' . $match[1] . ') does not match the target URL specified in the WebMention request (' . $targetURL . ').');
@@ -147,7 +154,7 @@ $app->post('/webmention', function() use($app) {
         }
       }
       if(!$synURL) {
-        $error($res, 'no_link_found', 'Could not find a syndication link for this entry to news.indiewebcamp.com. Please see news.indiewebcamp.com/constructing-post-urls for more information.');
+        $error($res, 'no_link_found', 'Could not find a syndication link for this entry to news.indiewebcamp.com. Please see http://news.indiewebcamp.com/how for more information.');
         return;
       }
     }
@@ -221,7 +228,7 @@ $app->post('/webmention', function() use($app) {
     $post->save();
   }
 
-  $res->status(202);
+  $res->status(201);
   $res['Content-Type'] = 'application/json';
 
   $responseData = array(
@@ -238,13 +245,13 @@ $app->post('/webmention', function() use($app) {
     'notices' => $notices,
     'data' => $responseData,
     'source' => $req->post('source'),
-    'target' => $req->post('target'),
     'href' => Config::$baseURL . '/post/' . slugForURL($post->href)
   );
 
   if($canonical)
     $response['canonical'] = $canonical;
 
+  $res['Location'] = Config::$baseURL . '/post/' . slugForURL($post->href);
   $res->body(json_encode($response));
 });
 
