@@ -1,6 +1,6 @@
 <?php
 
-$app->post('/webmention', function() use($app) {
+$app->post('/(:lang/)webmention', function($lang='en') use($app) {
 
   $req = $app->request();
   $res = $app->response();
@@ -209,7 +209,7 @@ $app->post('/webmention', function() use($app) {
   }
 
   # If there is no existing post for $source, update the properties
-  $post = ORM::for_table('posts')->where('href', $href)->find_one();
+  $post = ORM::for_table('posts')->where('lang', $lang)->where('href', $href)->find_one();
   if($post != FALSE) {
     if($data['date'])
       $post->post_date = date('Y-m-d H:i:s', $data['date']);
@@ -225,6 +225,7 @@ $app->post('/webmention', function() use($app) {
   } else {
     # Record a new post
     $post = ORM::for_table('posts')->create();
+    $post->lang = $lang;
     $post->user_id = $user->id;
     $post->date_submitted = date('Y-m-d H:i:s');
     if($data['date'])
@@ -263,7 +264,7 @@ $app->post('/webmention', function() use($app) {
 
   $res['Location'] = Config::$baseURL . '/post/' . slugForURL($post->href);
   $res->body(json_encode($response));
-});
+})->conditions(array('lang'=>'[a-z_A-Z]{2,5}'));
 
 $app->post('/webmention-error', function() use($app) {
 

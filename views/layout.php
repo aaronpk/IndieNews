@@ -5,8 +5,10 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="description" content="IndieNews">
-  <link rel="pingback" href="https://webmention.io/webmention?forward=<?= Config::$baseURL ?>/webmention" />
-  <link rel="webmention" href="<?= Config::$baseURL ?>/webmention" />
+  <?php if(property_exists($this, 'lang')): ?>
+  <link rel="pingback" href="https://webmention.io/webmention?forward=<?= Config::$baseURL ?>/<?= $this->lang ?>/webmention" />
+  <link rel="webmention" href="<?= Config::$baseURL ?>/<?= $this->lang ?>/webmention" />
+  <?php endif; ?>
 
   <?= $this->meta ?>
 

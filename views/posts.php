@@ -9,6 +9,8 @@
     <?php endforeach; ?>
   </table>
 
+  <?php if(count($this->posts)): ?>
   <div style="padding-left: 8px;">
     <a href="/?before=<?= b10to60(strtotime($this->posts[count($this->posts)-1]->date_submitted)) ?>">Older</a>
   </div>
+  <?php endif; ?>

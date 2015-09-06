@@ -7,6 +7,7 @@ CREATE TABLE `users` (
 
 CREATE TABLE `posts` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `lang` char(2) DEFAULT 'en',
   `user_id` bigint(20) unsigned DEFAULT NULL,
   `date_submitted` datetime NOT NULL,
   `post_date` datetime DEFAULT NULL,

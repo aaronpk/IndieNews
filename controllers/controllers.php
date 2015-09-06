@@ -1,4 +1,5 @@
 <?php
+use Cake\I18n\I18n;
 
 function getPostsForParentID($parentID) {
   return ORM::for_table('posts')->raw_query('
@@ -29,12 +30,20 @@ function slugForURL($url) {
 }
 
 // Home Page
-$app->get('/(index.:format)', function($format='html') use($app) {
+$app->get('/(:lang)(.:format)', function($lang='en', $format='html') use($app) {
+
+  I18n::locale($lang);
 
   $req = $app->request();
 
+  $res = $app->response();
+  $res['X-Pingback'] = 'https://webmention.io/webmention?forward=' . Config::$baseURL . '/'.$lang.'/webmention';
+  $res['Link'] = '<' . Config::$baseURL . '/'.$lang.'/webmention>; rel="webmention"';
+
   // Get posts ordered by date submitted
-  $posts = ORM::for_table('posts')->order_by_desc('date_submitted');
+  $posts = ORM::for_table('posts')
+    ->where('lang', $lang)
+    ->order_by_desc('date_submitted');
 
   if(array_key_exists('before', $req->params())) {
     $before = date('Y-m-d H:i:s', b60to10($req->params()['before']));
@@ -43,20 +52,17 @@ $app->get('/(index.:format)', function($format='html') use($app) {
 
   $posts = $posts->limit(20)->find_many();
 
-  if(count($posts) == 0) {
-    $app->pass();
-  }
-
   ob_start();
   render('posts', array(
     'title' => 'IndieNews',
     'posts' => $posts,
     'view' => 'list',
-    'meta' => ''
+    'meta' => '',
+    'lang' => $lang
   ));
   $html = ob_get_clean();
   respondWithFormat($app, $html, $format);
-})->conditions(array('format'=>'json'));
+})->conditions(array('format'=>'json', 'lang'=>'[a-z_A-Z]{2,5}'));
 
 // Redirect old feed URLs
 $app->get('/(newest|home)(.:format)', function($format='html') use($app) {
@@ -163,7 +169,3 @@ $app->get('/signout', function() use($app) {
   unset($_SESSION['user']);
   $app->redirect('/', 301);
 });
-
-$res = $app->response();
-$res['X-Pingback'] = 'https://webmention.io/webmention?forward=' . Config::$baseURL . '/webmention';
-$res['Link'] = '<' . Config::$baseURL . '/webmention>; rel="webmention"';
