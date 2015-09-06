@@ -1,7 +1,7 @@
 <div class="row">
   <div class="span4">
 
-    <h2>WebMention</h2>
+    <h2>Webmention</h2>
 
 
 

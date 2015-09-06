@@ -76,7 +76,7 @@ class TimeAgo
     $seconds = $diff;
   
     //if ($months > 0) {
-    if (false && $months > 0 && $since_string == 'now') {
+    if ($months > 0 && $since_string == 'now') {
       // over a month old, just show date (mm/dd/yyyy format)
       $relative_date = 'on ' . date($format, $in_seconds);
       $old = true;

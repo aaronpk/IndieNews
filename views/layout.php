@@ -29,8 +29,8 @@
   <div class="navbar-inner">
     <a class="brand" href="/">IndieNews</a>
     <ul class="nav">
-      <li><a href="/">Home</a></li>
-      <li><a href="/submit">Submit</a></li>
+      <li><a href="/"><?= __('Home') ?></a></li>
+      <li><a href="/submit"><?= __('Submit') ?></a></li>
     </ul>
     <!--
     <? if(session('user')) { ?>
@@ -58,13 +58,13 @@
 
   <div class="footer">
     <ul class="nav-footer">
-      <li><a href="/submit">About IndieNews</a></li>
-      <li><a href="/how-to-submit-a-post">How to Submit a Post</a></li>
+      <li><a href="/submit"><?=__('About IndieNews')?></a></li>
+      <li><a href="/how-to-submit-a-post"><?= __('How to Submit a Post') ?></a></li>
     </ul>
     <p class="credits">&copy; <?=date('Y')?> by <a href="http://aaronparecki.com">Aaron Parecki</a>.
-      IndieNews is part of <a href="http://indiewebcamp.com/">IndieWebCamp</a>. 
-      This code is <a href="https://github.com/aaronpk/IndieNews">open source</a>. 
-      Feel free to send a pull request, or <a href="https://github.com/aaronpk/IndieNews/issues">file an issue</a>.</p>
+      IndieNews <?= __('is part of') ?> <a href="http://indiewebcamp.com/">IndieWebCamp</a>. 
+      <?= __('This code is {0}open source{1}.', ['<a href="https://github.com/aaronpk/IndieNews">', '</a>']) ?>
+      <?= __('Feel free to send a pull request, or {0}file an issue{1}.', ['<a href="https://github.com/aaronpk/IndieNews/issues">', '</a>']) ?></p>
   </div>
 </div>
 

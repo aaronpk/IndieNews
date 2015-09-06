@@ -1,0 +1,2 @@
+msgid "submitted ... from"
+msgstr "from"

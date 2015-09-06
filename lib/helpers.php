@@ -42,6 +42,10 @@ function friendly_url($url) {
   return preg_replace(['/https?:\/\//','/\/$/'],'',$url);
 }
 
+function pa($a) {
+  echo '<pre>'; print_r($a); echo '</pre>';  
+}
+
 /**
  * Converts base 10 to base 60. 
  * http://tantek.pbworks.com/NewBase60

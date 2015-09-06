@@ -1,5 +1,6 @@
 <?php
 use Cake\I18n\I18n;
+define('APP', dirname(__FILE__).'/../'); // cakephp needs this
 
 function getPostsForParentID($parentID) {
   return ORM::for_table('posts')->raw_query('
