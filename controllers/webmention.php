@@ -119,8 +119,7 @@ $app->post('/webmention', function() use($app) {
     $entry = $page->hevent;
     
   } else {
-    // $error($res, 'no_hentry', 'No h-entry was found on the page');
-    $notices[] = 'No h-entry was found on the page. Using the page title for the name' . ($parentID > 0 ? ', and no comment body will be imported.' : '.');
+    $notices[] = 'No h-entry was found on the page. Using the page title for the name.';
     $entry = false;
   }
 
@@ -164,31 +163,14 @@ $app->post('/webmention', function() use($app) {
   }
 
 
-  // After parsing the source URL, figure out of the in-reply-to it links
-  // to is an existing entry in the DB. If so, this is a comment so set the parent ID.
+  // Check for in-reply-to
 
-  // TODO: add support for rel=in-reply-to after the mf2 parser supports it
-  $parentID = 0;
-  $canonical = false;
   if($entry->property('in-reply-to')) {
     // We can only use the first in-reply-to. Not sure what the correct behavior would be for multiple.
     $inReplyTo = $entry->property('in-reply-to');
     $inReplyTo = $inReplyTo[0];
-
-    // If the post is in reply to an indienews URL, check for that post and return the canonical URL
-    if(preg_match('/^https?:\/\/' . $_SERVER['SERVER_NAME'] . '\/post\/(.+)/', $inReplyTo, $match)) {
-      $replyTo = ORM::for_table('posts')->where('href', 'http://' . $match[1])->find_one();
-      if($replyTo) {
-        $parentID = $replyTo->id;
-        $canonical = $replyTo->href;
-        $notices[] = 'Looks like you linked to an IndieNews URL as an in-reply-to. Instead, you should link to the canonical post and syndicate your reply to IndieNews. See news.indiewebcamp.com/how-to-comment for more information.';
-      }
-    } else {
-      $replyTo = ORM::for_table('posts')->where('href', $inReplyTo)->find_one();
-      if($replyTo) {
-        $parentID = $replyTo->id;
-      }
-    }
+  } else {
+    $inReplyTo = false;
   }
 
   # Get the domain of $source and find or create a user account
@@ -208,10 +190,13 @@ $app->post('/webmention', function() use($app) {
       $post->post_date = date('Y-m-d H:i:s', $data['date']);
     $post->domain = $data['domain'];
     $post->title = $data['title'];
+    if($inReplyTo)
+      $post->in_reply_to = $inReplyTo;
     if($data['body'])
       $post->body = $data['body'];
     $post->save();
     $notices[] = 'Already registered, updating properties of the post.';
+    $update = true;
   } else {
     # Record a new post from the domain
     $post = ORM::for_table('posts')->create();
@@ -221,11 +206,13 @@ $app->post('/webmention', function() use($app) {
       $post->post_date = date('Y-m-d H:i:s', $data['date']);
     $post->domain = $data['domain'];
     $post->title = $data['title'];
+    if($inReplyTo)
+      $post->in_reply_to = $inReplyTo;
     if($data['body'])
       $post->body = $data['body'];
     $post->href = $sourceURL;
-    $post->parent_id = $parentID;
     $post->save();
+    $update = false;
   }
 
   $res->status(201);
@@ -233,12 +220,12 @@ $app->post('/webmention', function() use($app) {
 
   $responseData = array(
     'title' => $data['title'],
-    'body' => ($parentID ? $data['body'] : ($data['body'] ? true : false)),
+    'body' => $data['body'] ? true : false,
     'author' => $data['domain'],
     'date' => ($data['date'] ? date('Y-m-d\TH:i:sP', $data['date']) : false)
   );
-  if($parentID) 
-    $responseData['in-reply-to'] = $replyTo->href;
+  if($inReplyTo) 
+    $responseData['in-reply-to'] = $inReplyTo;
 
   $response = array(
     'result' => 'success',
@@ -247,9 +234,6 @@ $app->post('/webmention', function() use($app) {
     'source' => $req->post('source'),
     'href' => Config::$baseURL . '/post/' . slugForURL($post->href)
   );
-
-  if($canonical)
-    $response['canonical'] = $canonical;
 
   $res['Location'] = Config::$baseURL . '/post/' . slugForURL($post->href);
   $res->body(json_encode($response));

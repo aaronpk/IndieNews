@@ -79,14 +79,10 @@ $app->get('/post/:slug(.:format)', function($slug, $format='html') use($app) {
     $app->pass(); // Will trigger a 404 error
   }
 
-  $replies = getPostsForParentID($post->id);
-
   ob_start();
   render('post', array(
     'title' => $post->title,
     'post' => $post,
-    'parent' => ($post->parent_id ? ORM::for_table('posts')->find_one($post->parent_id) : false),
-    'replies' => $replies,
     'view' => 'single',
     'meta' => ''
   ));
@@ -113,10 +109,7 @@ $app->get('/how', function() use($app) {
   $app->redirect('/how-to-submit-a-post', 301);
 });
 $app->get('/how-to-comment', function() use($app) {
-  render('comment-full', array(
-    'title' => 'IndieNews - How to comment',
-    'meta' => ''
-  ));
+  $app->redirect('/how-to-submit-a-post', 301);
 });
 $app->get('/technology', function() use($app) {
   render('technology', array(
@@ -125,10 +118,7 @@ $app->get('/technology', function() use($app) {
   ));
 });
 $app->get('/constructing-post-urls', function() use($app) {
-  render('post-urls', array(
-    'title' => 'Constructing Post URLs for IndieNews',
-    'meta' => ''
-  ));
+  $app->redirect('/how-to-submit-a-post', 301);
 });
 
 // Log in with IndieAuth
