@@ -1,22 +1,23 @@
 # LANGUAGE translation of CakePHP Application
 # Copyright YEAR NAME <EMAIL@ADDRESS>
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "POT-Creation-Date: 2015-09-06 03:40+0000\n"
-"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
-"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2015-09-07 21:01+0200\n"
+"Last-Translator: Matthias Pfefferle <pfefferle@gmail.com>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Language: de\n"
+"X-Generator: Poedit 1.8.4\n"
 
 #: /views/_post-row.php:7
 msgid "in reply to"
-msgstr ""
+msgstr "als Antwort auf"
 
 #: /views/_post-row.php:10
 msgid "submitted"
@@ -28,15 +29,15 @@ msgstr "von"
 
 #: /views/_post-row.php:12
 msgid "permalink"
-msgstr ""
+msgstr "Permalink"
 
 #: /views/layout.php:32
 msgid "Home"
-msgstr ""
+msgstr "Startseite"
 
 #: /views/layout.php:33
 msgid "Submit"
-msgstr ""
+msgstr "Einreichen"
 
 #: /views/layout.php:61
 msgid "About IndieNews"
@@ -44,7 +45,7 @@ msgstr "Über IndieNews"
 
 #: /views/layout.php:62
 msgid "How to Submit a Post"
-msgstr ""
+msgstr "Wie man einen Artikel einreicht"
 
 #: /views/layout.php:65
 msgid "is part of"
@@ -56,8 +57,8 @@ msgstr "Dieser Code ist {0}Open-Source{1}."
 
 #: /views/layout.php:67
 msgid "Feel free to send a pull request, or {0}file an issue{1}."
-msgstr ""
+msgstr "Zögern Sie nicht, einen Pull-Reuest zu senden, oder {0}einen Fehler zu melden{1}."
 
 #: /views/posts.php:14
 msgid "Older"
-msgstr ""
+msgstr "Ältere"
