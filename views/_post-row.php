@@ -7,7 +7,7 @@
         <a href="<?= $this->post->in_reply_to ?>" class="u-in-reply-to"><?= __('in reply to') ?></a> |
       <? } ?>
       <?= $this->post->post_date ? '<time class="dt-published" datetime="'.date('c', strtotime($this->post->post_date)).'">' . date('Y-m-d H:i T', strtotime($this->post->post_date)) . '</time> |' : '' ?>
-      <?= __('submitted') ?> <?= TimeAgo::inWords($this->post->date_submitted) ?> 
+      <?= __('submitted') ?> <time class="timeago" datetime="<?= date('c', strtotime($this->post->date_submitted)) ?>"><?= date('Y-m-d H:i T', strtotime($this->post->date_submitted)) ?></time>
       <?= $this->post->source_url != $this->post->href ? ' '.__('submitted ... from').' <a href="'.$this->post->source_url.'">'.(parse_url($this->post->source_url, PHP_URL_HOST)).'</a>' : '' ?> | 
       <a href="/<?= $this->post->lang ?>/<?= preg_replace('/^https?:\/\//', '', $this->post->href) ?>"><?= __('permalink') ?></a>
     </div>

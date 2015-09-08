@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="<?= $this->lang ?>">
 <head>
   <title><?= $this->title ?></title>
   <meta charset="utf-8">
@@ -22,6 +22,8 @@
   <link rel="stylesheet" href="/css/style.css">
 
   <script src="/js/jquery-1.7.1.min.js"></script>
+  <script src="/js/jquery.timeago.js"></script>
+  <script src="/js/timeago/jquery.timeago.<?= $this->lang ?>.js"></script>
 </head>
 <body>
 
@@ -68,5 +70,10 @@
   </div>
 </div>
 
+<script>
+jQuery(function($){
+  $("time.timeago").timeago();
+});
+</script>
 </body>
 </html>

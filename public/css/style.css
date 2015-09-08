@@ -53,6 +53,10 @@ body {
   font-size: 17px;
 }
 
+abbr.timeago {
+  cursor: auto;
+  border-bottom: none;
+}
 
 /* Table Styling since we're not using bootstrap tables */
 .single td {
