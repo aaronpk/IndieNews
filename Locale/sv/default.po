@@ -62,3 +62,39 @@ msgstr "Skicka gärna en pull request, eller {0}rapportera ett problemt{1}."
 #: /views/posts.php:14
 msgid "Older"
 msgstr "Äldre"
+
+#: /views/submit.php:3
+msgid "IndieNews is a community-curated list of articles relevant to the {0}Indie Web{1}."
+msgstr ""
+
+#: /views/submit.php:10
+msgid "You won't find a \"submit\" form on this site. You don't even need to be logged in to this site to submit a post!"
+msgstr ""
+
+#: /views/submit.php:12
+msgid "Write a Post"
+msgstr ""
+
+#: /views/submit.php:14
+msgid "Write a post on your own site, and mark it up with the Microformats markup for an {0}."
+msgstr ""
+
+#: /views/submit.php:16
+msgid "Link to IndieNews"
+msgstr ""
+
+#: /views/submit.php:18
+msgid "Somewhere on the page you are submitting, add a {0} link to {1}the IndieNews home page{2}, or the home page for your language."
+msgstr ""
+
+#: /views/submit.php:20
+msgid "Send a Webmention"
+msgstr ""
+
+#: /views/submit.php:22
+msgid "Send a {0} notification to let IndieNews know about your post. When the mention is received, IndieNews will fetch the page from your site and look for the {1} markup to find the post title and author."
+msgstr ""
+
+#: /views/submit.php:25
+msgid "Detailed instructions on how to submit a post"
+msgstr ""

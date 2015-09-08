@@ -259,10 +259,10 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
     'notices' => $notices,
     'data' => $responseData,
     'source' => $req->post('source'),
-    'href' => Config::$baseURL . '/post/' . slugForURL($post->href)
+    'href' => Config::$baseURL . '/' . $post->lang . '/' . slugForURL($post->href)
   );
 
-  $res['Location'] = Config::$baseURL . '/post/' . slugForURL($post->href);
+  $res['Location'] = Config::$baseURL . '/' . $post->lang . '/' . slugForURL($post->href);
   $res->body(json_encode($response));
 })->conditions(array('lang'=>'[a-z_A-Z]{2,5}'));
 

@@ -1,6 +1,8 @@
 <?php
 use Cake\I18n\I18n;
-define('APP', dirname(__FILE__).'/../'); // cakephp needs this
+define('APP', dirname(__FILE__).'/../'); // cakephp i18n needs this
+
+define('LANG_REGEX', '(en|sv|de)');
 
 function getPostsForParentID($parentID) {
   return ORM::for_table('posts')->raw_query('
@@ -31,7 +33,11 @@ function slugForURL($url) {
 }
 
 // Home Page
-$app->get('/(:lang)(.:format)', function($lang='en', $format='html') use($app) {
+$app->get('/', function() use($app) {
+  $app->redirect('/en', 302);
+});
+
+$app->get('/:lang(.:format)', function($lang='en', $format='html') use($app) {
 
   I18n::locale($lang);
 
@@ -63,12 +69,12 @@ $app->get('/(:lang)(.:format)', function($lang='en', $format='html') use($app) {
   ));
   $html = ob_get_clean();
   respondWithFormat($app, $html, $format);
-})->conditions(array('format'=>'json', 'lang'=>'[a-z_A-Z]{2,5}'));
+})->conditions(array('format'=>'json', 'lang'=>LANG_REGEX));
 
 // Redirect old feed URLs
-$app->get('/(newest|home)(.:format)', function($format='html') use($app) {
-  $app->redirect('/'.($format == 'json' ? 'index.json' : ''), 301);
-})->conditions(array('format'=>'json'));
+$app->get('/:path(.:format)', function($path, $format='html') use($app) {
+  $app->redirect('/en'.($format == 'json' ? '.json' : ''), 301);
+})->conditions(array('format'=>'json','path'=>'(home|newest)'));
 
 // Post IDs. Redirect to the post URL version
 $app->get('/post/:id(.:format)', function($id, $format='html') use($app) {
@@ -84,7 +90,9 @@ $app->get('/post/:id(.:format)', function($id, $format='html') use($app) {
 })->conditions(array('id'=>'\d+', 'format'=>'json'));
 
 
-$app->get('/post/:slug(.:format)', function($slug, $format='html') use($app) {
+$app->get('/(:lang)/:slug(.:format)', function($lang, $slug, $format='html') use($app) {
+
+  I18n::locale($lang);
 
   $post = ORM::for_table('posts')->where_in('href', array('http://'.$slug,'https://'.$slug))->find_one();
   $posts = array($post);
@@ -98,21 +106,26 @@ $app->get('/post/:slug(.:format)', function($slug, $format='html') use($app) {
     'title' => $post->title,
     'post' => $post,
     'view' => 'single',
-    'meta' => ''
+    'meta' => '',
+    'lang' => $lang
   ));
   $html = ob_get_clean();
   respondWithFormat($app, $html, $format);
 
-})->conditions(array('slug'=>'.+\..+/.+?', 'format'=>'json'));
+})->conditions(array('lang'=>LANG_REGEX, 'slug'=>'.+\..+/.+?', 'format'=>'json'));
 
 
 
-$app->get('/submit', function() use($app) {
+$app->get('/(:lang)/submit', function($lang) use($app) {
+  I18n::locale($lang);
+
   render('submit', array(
     'title' => 'About IndieNews',
-    'meta' => ''
+    'meta' => '',
+    'lang' => $lang
   ));
-});
+})->conditions(array('lang'=>LANG_REGEX));
+
 $app->get('/how-to-submit-a-post', function() use($app) {
   render('submit-full', array(
     'title' => 'IndieNews - How to submit a post',

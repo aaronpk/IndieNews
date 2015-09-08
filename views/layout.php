@@ -27,10 +27,10 @@
 
 <div class="navbar navbar-static-top">
   <div class="navbar-inner">
-    <a class="brand" href="/">IndieNews</a>
+    <a class="brand" href="/<?= $this->lang ?>">IndieNews</a>
     <ul class="nav">
-      <li><a href="/"><?= __('Home') ?></a></li>
-      <li><a href="/submit"><?= __('Submit') ?></a></li>
+      <li><a href="/<?= $this->lang ?>"><?= __('Home') ?></a></li>
+      <li><a href="/<?= $this->lang ?>/submit"><?= __('Submit') ?></a></li>
     </ul>
     <!--
     <? if(session('user')) { ?>
@@ -58,7 +58,7 @@
 
   <div class="footer">
     <ul class="nav-footer">
-      <li><a href="/submit"><?=__('About IndieNews')?></a></li>
+      <li><a href="/<?= $this->lang ?>/submit"><?=__('About IndieNews')?></a></li>
       <li><a href="/how-to-submit-a-post"><?= __('How to Submit a Post') ?></a></li>
     </ul>
     <p class="credits">&copy; <?=date('Y')?> by <a href="http://aaronparecki.com">Aaron Parecki</a>.

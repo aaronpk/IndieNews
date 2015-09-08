@@ -9,7 +9,7 @@
       <?= $this->post->post_date ? '<time class="dt-published" datetime="'.date('c', strtotime($this->post->post_date)).'">' . date('Y-m-d H:i T', strtotime($this->post->post_date)) . '</time> |' : '' ?>
       <?= __('submitted') ?> <?= TimeAgo::inWords($this->post->date_submitted) ?> 
       <?= $this->post->source_url != $this->post->href ? ' '.__('submitted ... from').' <a href="'.$this->post->source_url.'">'.(parse_url($this->post->source_url, PHP_URL_HOST)).'</a>' : '' ?> | 
-      <a href="/post/<?= preg_replace('/^https?:\/\//', '', $this->post->href) ?>"><?= __('permalink') ?></a>
+      <a href="/<?= $this->post->lang ?>/<?= preg_replace('/^https?:\/\//', '', $this->post->href) ?>"><?= __('permalink') ?></a>
     </div>
   </td>
 </tr>
