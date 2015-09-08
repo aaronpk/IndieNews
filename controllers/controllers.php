@@ -85,7 +85,7 @@ $app->get('/:lang/submit', function($lang) use($app) {
   I18n::locale($lang);
 
   render('submit', array(
-    'title' => 'About IndieNews',
+    'title' => __('About IndieNews'),
     'meta' => '',
     'lang' => $lang
   ));

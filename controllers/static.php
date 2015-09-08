@@ -1,12 +1,17 @@
 <?php
 $app->get('/', function() use($app) {
-  $app->redirect('/en', 302);
+  render('index', array(
+    'title' => 'IndieNews',
+    'meta' => '',
+    'lang' => 'en'
+  ));
 });
 
 $app->get('/how-to-submit-a-post', function() use($app) {
   render('submit-full', array(
     'title' => 'IndieNews - How to submit a post',
-    'meta' => ''
+    'meta' => '',
+    'lang' => 'en'
   ));
 });
 
@@ -16,13 +21,6 @@ $app->get('/how', function() use($app) {
 
 $app->get('/how-to-comment', function() use($app) {
   $app->redirect('/how-to-submit-a-post', 301);
-});
-
-$app->get('/technology', function() use($app) {
-  render('technology', array(
-    'title' => 'The Technology Behind IndieNews',
-    'meta' => ''
-  ));
 });
 
 $app->get('/constructing-post-urls', function() use($app) {

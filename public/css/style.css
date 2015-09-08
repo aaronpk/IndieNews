@@ -1,8 +1,26 @@
 
-.page {
-  width: 85%;
-  margin: 0 auto;
+body {
+  padding-left: 20px;
+  padding-right: 20px;
 }
+.navbar-fixed-top, .navbar-fixed-bottom, .navbar-static-top {
+  margin-left: -20px;
+  margin-right: -20px;
+}
+
+.language {
+  background: #eee;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 18pt;
+  float: left;
+}
+.language a {
+  margin: 40px 20px;
+  display: block;
+}
+
 
 .header, .header h2 {
   font-size: 13px;
