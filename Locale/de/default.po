@@ -15,6 +15,11 @@ msgstr ""
 "Language: de\n"
 "X-Generator: Poedit 1.8.4\n"
 
+#: /controllers/controllers.php:88
+#: /views/layout.php:63
+msgid "About IndieNews"
+msgstr "Über IndieNews"
+
 #: /views/_post-row.php:7
 msgid "in reply to"
 msgstr "als Antwort auf"
@@ -31,41 +36,48 @@ msgstr "von"
 msgid "permalink"
 msgstr "Permalink"
 
-#: /views/layout.php:32
+#: /views/index.php:3
+#: /views/submit.php:3
+msgid "IndieNews is a community-curated list of articles relevant to the {0}Indie Web{1}."
+msgstr ""
+
+#: /views/layout.php:34
 msgid "Home"
 msgstr "Startseite"
 
-#: /views/layout.php:33
+#: /views/layout.php:35
+#: /views/submit.php:8
 msgid "Submit"
 msgstr "Einreichen"
 
-#: /views/layout.php:61
-msgid "About IndieNews"
-msgstr "Über IndieNews"
-
-#: /views/layout.php:62
+#: /views/layout.php:64
 msgid "How to Submit a Post"
 msgstr "Wie man einen Artikel einreicht"
 
-#: /views/layout.php:65
+#: /views/layout.php:67
 msgid "is part of"
 msgstr "ist ein Teil der"
 
-#: /views/layout.php:66
+#: /views/layout.php:68
 msgid "This code is {0}open source{1}."
 msgstr "Dieser Code ist {0}Open-Source{1}."
 
-#: /views/layout.php:67
+#: /views/layout.php:69
 msgid "Feel free to send a pull request, or {0}file an issue{1}."
 msgstr "Zögern Sie nicht, einen Pull-Reuest zu senden, oder {0}einen Fehler zu melden{1}."
 
 #: /views/posts.php:14
+msgid "No posts yet!"
+msgstr ""
+
+#: /views/posts.php:15
+# should say "to the German feed"
+msgid "There are no posts submitted to the English feed yet! As soon as you {0}submit a post{1} it will show up here."
+msgstr ""
+
+#: /views/posts.php:22
 msgid "Older"
 msgstr "Ältere"
-
-#: /views/submit.php:3
-msgid "IndieNews is a community-curated list of articles relevant to the {0}Indie Web{1}."
-msgstr ""
 
 #: /views/submit.php:10
 msgid "You won't find a \"submit\" form on this site. You don't even need to be logged in to this site to submit a post!"
@@ -84,7 +96,7 @@ msgid "Link to IndieNews"
 msgstr ""
 
 #: /views/submit.php:18
-msgid "Somewhere on the page you are submitting, add a {0} link to {1}the IndieNews home page{2}, or the home page for your language."
+msgid "Somewhere on the page you are submitting, add a {0} or {1} link to {2}the IndieNews home page{3} for your language."
 msgstr ""
 
 #: /views/submit.php:20
@@ -98,3 +110,5 @@ msgstr ""
 #: /views/submit.php:25
 msgid "Detailed instructions on how to submit a post"
 msgstr ""
+
+

@@ -20,30 +20,37 @@ an <a href="http://microformats.org/wiki/microformats2#h-entry">h-entry</a>.</p>
 
 
 
-<h3>2. Add a "u-syndication" link to IndieNews</h3>
+<h3>2. Add a "u-syndication" or "u-category" link to IndieNews</h3>
 
-<p>Inside the h-entry, add a link to the IndieNews home page with the class
-  <a href="http://indiewebcamp.com/rel-syndication">u-syndication</a>. This usually
+<p>Inside the h-entry, add a link to the IndieNews home page for your language with the class
+  <a href="http://indiewebcamp.com/rel-syndication">u-syndication</a> or 
+  <a href="http://indiewebcamp.com/u-category">u-category</a>. This usually
   looks something like the following:</p>
 
-<p><pre><code>&lt;a href="http://news.indiewebcamp.com/" class="u-syndication"&gt;Also posted on IndieNews&lt;/a&gt;</code></pre></p>
+<p><pre><code>&lt;a href="http://news.indiewebcamp.com/en" class="u-syndication"&gt;
+  Also posted on IndieNews
+&lt;/a&gt;</code></pre></p>
 
+<p><pre><code>&lt;a href="http://news.indiewebcamp.com/en" class="u-category"&gt;#indienews&lt;/a&gt;</code></pre></p>
 
 
 <h3>3. Send a <a href="http://indiewebcamp.com/webmention">Webmention</a></h3>
 
 <h4>Example Request</h4>
 
-<p>Make a POST request to <code>http://news.indiewebcamp.com/webmention</code> with two parameters, 
+<p>Make a POST request to <code>http://news.indiewebcamp.com/en/webmention</code> with two parameters, 
   <code>source</code> and <code>target</code>, where target is 
-  <code>http://news.indiewebcamp.com/</code> and source is 
+  <code>http://news.indiewebcamp.com/en</code> and source is 
   <code>http://example.com/100</code> assuming you are submitting a page on your site with 
   the url <code>http://example.com/100</code>.</p>
 
-<pre><code>POST /webmention HTTP/1.1
+<p>Note that each language's home page has a unique Webmention endpoint, so you should 
+  do the Webmention endpoint discovery as normal to find it.</p>
+
+<pre><code>POST /en/webmention HTTP/1.1
 Host: news.indiewebcamp.com
 
-target=http://news.indiewebcamp.com/
+target=http://news.indiewebcamp.com/en
 &amp;source=http://aaronparecki.com/notes/2013/04/25/1/original-post-discovery
 </code></pre>
 
@@ -52,7 +59,7 @@ target=http://news.indiewebcamp.com/
 
 <pre><code>
 HTTP/1.1 201 Created
-Location: http://news.indiewebcamp.com/post/aaronparecki.com/notes/2013/04/25/1/original-post-discovery
+Location: http://news.indiewebcamp.com/en/aaronparecki.com/notes/2013/04/25/1/original-post-discovery
 
 {
  "result": "success",
@@ -64,7 +71,7 @@ Location: http://news.indiewebcamp.com/post/aaronparecki.com/notes/2013/04/25/1/
    "date": "2013-04-26T03:22:39+00:00"
  },
  "source": "http://aaronparecki.com/notes/2013/04/25/1/original-post-discovery",
- "href": "http://news.indiewebcamp.com/post/aaronparecki.com/notes/2013/04/25/1/original-post-discovery"
+ "url": "http://news.indiewebcamp.com/en/aaronparecki.com/notes/2013/04/25/1/original-post-discovery"
 }
 </code></pre>
 
@@ -77,24 +84,24 @@ Location: http://news.indiewebcamp.com/post/aaronparecki.com/notes/2013/04/25/1/
   <li><code>notices</code> - An array of string messages if there was anything that needs attention in your submission. These are not errors, but will indicate if microformat markup was not present or invalid.</li>
   <li><code>data</code> - This object shows the values extracted from the page, including title, author and date.</li>
   <li><code>source</code> - The source URL sent in the initial request</li>
-  <li><code>href</code> - The permalink to this submission on news.indiewebcamp.com.</li>
+  <li><code>url</code> - The permalink to this submission on news.indiewebcamp.com.</li>
 </ul>
 
 <h4>Sample Code</h4>
 
 <h5>Curl</h5>
-<pre><code>curl http://news.indiewebcamp.com/webmention -i \
-  -d target=http://news.indiewebcamp.com/ \
+<pre><code>curl http://news.indiewebcamp.com/en/webmention -i \
+  -d target=http://news.indiewebcamp.com/en \
   -d source=http://aaronparecki.com/notes/2013/04/25/1/original-post-discovery
 </code></pre>
 
 <h5>PHP</h5>
 <pre><code>&lt;?php
-$ch = curl_init("http://news.indiewebcamp.com/webmention");
+$ch = curl_init("http://news.indiewebcamp.com/en/webmention");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, array(
-  'target' => 'http://news.indiewebcamp.com/',
+  'target' => 'http://news.indiewebcamp.com/en',
   'source' => 'http://aaronparecki.com/notes/2013/04/25/1/original-post-discovery'
 ));
 echo curl_exec($ch);
@@ -104,8 +111,8 @@ echo curl_exec($ch);
 <pre><code>require 'rest-client'
 require 'json'
 
-data = JSON.parse RestClient.post "http://news.indiewebcamp.com/webmention", {
-  'target' => 'http://news.indiewebcamp.com/',
+data = JSON.parse RestClient.post "http://news.indiewebcamp.com/en/webmention", {
+  'target' => 'http://news.indiewebcamp.com/en',
   'source' => 'http://aaronparecki.com/notes/2013/04/25/1/original-post-discovery'
 }
 jj data

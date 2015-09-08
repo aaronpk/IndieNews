@@ -15,7 +15,7 @@
 
     <h4><?= __('Link to IndieNews') ?></h4>
 
-    <p><?= __('Somewhere on the page you are submitting, add a {0} link to {1}the IndieNews home page{2}, or the home page for your language.', ['<a href="http://indiewebcamp.com/rel-syndication">u-syndication</a>', '<a href="/">', '</a>']) ?></p>
+    <p><?= __('Somewhere on the page you are submitting, add a {0} or {1} link to {2}the IndieNews home page{3} for your language.', ['<a href="http://indiewebcamp.com/rel-syndication">u-syndication</a>', '<a href="http://indiewebcamp.com/u-category">u-category</a>', '<a href="/'.$this->lang.'">', '</a>']) ?></p>
 
     <h4><?= __('Send a Webmention') ?></h4>
 
