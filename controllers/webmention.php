@@ -267,7 +267,7 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
     'notices' => $notices,
     'data' => $responseData,
     'source' => $req->post('source'),
-    'href' => Config::$baseURL . '/' . $post->lang . '/' . slugForURL($post->href)
+    'url' => Config::$baseURL . '/' . $post->lang . '/' . slugForURL($post->href)
   );
 
   $res['Location'] = Config::$baseURL . '/' . $post->lang . '/' . slugForURL($post->href);
