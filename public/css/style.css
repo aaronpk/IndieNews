@@ -40,7 +40,6 @@ body {
 }
 
 .post .title {
-  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   display: block;
@@ -88,44 +87,6 @@ body {
   width: 100%;
 }
 
-@media (min-width: 1200px) { 
-  .post .title {
-    width: 1000px;
-  }
-}
-
-@media (min-width: 979px) and (max-width: 1199px) { 
-  .post .title {
-    width: 784px;
-  }
-}
- 
-/* Portrait tablet to landscape and desktop */
-@media (min-width: 768px) and (max-width: 979px) { 
-  .post .title {
-    width: 594px;
-  }
-}
- 
-/* Landscape phone to portrait tablet */
-@media (max-width: 767px) { 
-  .page {
-    width: 100%;
-  }
-  .post .title {
-    width: 380px;
-  }
-}
- 
-/* Landscape phones and down */
-@media (max-width: 480px) { 
-  .page {
-    width: 100%;
-  }
-  .post .title {
-    width: 200px;
-  }
-}
 
 .post .details {
   font-size: 11px;
