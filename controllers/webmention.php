@@ -264,7 +264,7 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
 
   $res['Location'] = Config::$baseURL . '/' . $post->lang . '/' . slugForURL($post->href);
   $res->body(json_encode($response));
-})->conditions(array('lang'=>'[a-z_A-Z]{2,5}'));
+})->conditions(array('lang'=>LANG_REGEX));
 
 $app->post('/webmention-error', function() use($app) {
 

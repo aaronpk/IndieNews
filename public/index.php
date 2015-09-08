@@ -21,6 +21,7 @@ $app = new \Slim\Slim(array(
   'view' => new \Slim\Extras\Views\Savant()
 ));
 
+require 'controllers/static.php';
 require 'controllers/controllers.php';
 require 'controllers/webmention.php';
 require 'controllers/parser.php';
