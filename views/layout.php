@@ -29,7 +29,7 @@
 
 <div class="navbar navbar-static-top">
   <div class="navbar-inner">
-    <a class="brand" href="/<?= $this->lang ?>">IndieNews</a>
+    <a class="brand" href="/">IndieNews</a>
     <ul class="nav">
       <li><a href="/<?= $this->lang ?>"><?= __('Home') ?></a></li>
       <li><a href="/<?= $this->lang ?>/submit"><?= __('Submit') ?></a></li>
