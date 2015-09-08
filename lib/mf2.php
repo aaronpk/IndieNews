@@ -54,9 +54,14 @@ class MF2Object {
       return array();
   }
 
-  protected function _stringForProperty($key) {
-    if($content=$this->property($key))
-      return implode(' ', $content);
+  protected function _stringForProperty($key, $single=false) {
+    if($content=$this->property($key)) {
+      if($single) {
+        return $content[0];
+      } else{
+        return implode(' ', $content);
+      }
+    }
     return '';    
   }
 }
@@ -168,35 +173,35 @@ class HCard extends MF2Object {
   protected $_url;
 
   protected function name() {
-    return $this->_stringForProperty('name');
+    return $this->_stringForProperty('name', true);
   }
 
   protected function nickname() {
-    return $this->_stringForProperty('nickname');
+    return $this->_stringForProperty('nickname', true);
   }
 
   protected function given_name() {
-    return $this->_stringForProperty('given-name');
+    return $this->_stringForProperty('given-name', true);
   }
 
   protected function family_name() {
-    return $this->_stringForProperty('family-name');
+    return $this->_stringForProperty('family-name', true);
   }
 
   protected function adr() {
-    return $this->_stringForProperty('adr');
+    return $this->_stringForProperty('adr'. true);
   }
 
   protected function note() {
-    return $this->_stringForProperty('note');
+    return $this->_stringForProperty('note', true);
   }
 
   protected function photo() {
-    return $this->_stringForProperty('photo');
+    return $this->_stringForProperty('photo', true);
   }
 
   protected function url() {
-    return $this->_stringForProperty('url');
+    return $this->_stringForProperty('url', true);
   }
 
 }
