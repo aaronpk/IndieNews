@@ -1,6 +1,6 @@
 <tr class="post post_<?= $this->post->id ?> single h-entry">
   <td>
-    <div class="title p-name"><a href="<?= $this->post->href ?>" class="u-url"><?= $this->post->title ?: preg_replace('/^https?:\/\//', '', $this->post->href) ?></a></div>
+    <div class="title p-name"><a href="<?= $this->post->href ?>" class="u-url"><?= htmlspecialchars($this->post->title ?: preg_replace('/^https?:\/\//', '', $this->post->href)) ?></a></div>
     <div class="details">
       <span class="p-author h-card"><a href="<?= $this->post->post_author ?>" class="u-url"><?= friendly_url($this->post->post_author) ?></a></span> | 
       <? if($this->post->in_reply_to) { ?>
