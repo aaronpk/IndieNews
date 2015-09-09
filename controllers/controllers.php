@@ -64,6 +64,10 @@ $app->get('/:lang/:slug(.:format)', function($lang, $slug, $format='html') use($
   $post = ORM::for_table('posts')->where_in('href', array('http://'.$slug,'https://'.$slug))->find_one();
   $posts = array($post);
 
+  $res = $app->response();
+  $res['X-Pingback'] = 'https://webmention.io/webmention?forward=' . Config::$baseURL . '/'.$lang.'/webmention';
+  $res['Link'] = '<' . Config::$baseURL . '/'.$lang.'/webmention>; rel="webmention"';
+
   if(!$post) {
     $app->pass(); // Will trigger a 404 error
   }
