@@ -45,10 +45,14 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
     return;
   }
 
-  if(!preg_match('/^https?:\/\/' . Config::$hostname . '\/?/', $targetURL, $match)) {
+  if(!preg_match('/^https?:\/\/' . Config::$hostname . '(?:\/'.LANG_REGEX.')?\/?/', $targetURL, $match)) {
     $error($res, 'target_not_supported', 'The target you specified does not appear to be a URL on this site.');
     return;
   }
+
+  // Parse the language from the target URL, so that the story ends up on the specified
+  // feed regardless of which endpoint it was sent to.
+  $lang = $match[1];
 
   $data = array(
     'post_author' => $source['scheme'].'://'.$source['host'],
