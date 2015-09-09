@@ -71,8 +71,7 @@ msgid "No posts yet!"
 msgstr ""
 
 #: /views/posts.php:15
-# should say "to the German feed"
-msgid "There are no posts submitted to the English feed yet! As soon as you {0}submit a post{1} it will show up here."
+msgid "There are no posts submitted to the German feed yet! As soon as you {0}submit a post{1} it will show up here."
 msgstr ""
 
 #: /views/posts.php:22
