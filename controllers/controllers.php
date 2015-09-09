@@ -20,7 +20,7 @@ $app->get('/post/:id(.:format)', function($id, $format='html') use($app) {
 // Redirect old "/post/" permalinks
 $app->get('/post/:slug', function($slug) use($app) {
   $app->redirect(Config::$baseURL . '/en/'.$slug, 301);
-})->conditions(array('slug'=>'.+\..+/.+?'));
+})->conditions(array('slug'=>'.+\..+?'));
 
 // Language-specific feeds
 $app->get('/:lang(.:format)', function($lang='en', $format='html') use($app) {
@@ -78,7 +78,7 @@ $app->get('/:lang/:slug(.:format)', function($lang, $slug, $format='html') use($
   ));
   $html = ob_get_clean();
   respondWithFormat($app, $html, $format);
-})->conditions(array('lang'=>LANG_REGEX, 'slug'=>'.+\..+/.+?', 'format'=>'json'));
+})->conditions(array('lang'=>LANG_REGEX, 'slug'=>'.+\..+?', 'format'=>'json'));
 
 // Language-specific submit instructions
 $app->get('/:lang/submit', function($lang) use($app) {
