@@ -18,6 +18,12 @@ using the <a href="http://indiewebcamp.com/webmention">webmention</a> protocol!<
 <p>Create a new post on your site, and mark it up with the Microformats markup for 
 an <a href="http://microformats.org/wiki/microformats2#h-entry">h-entry</a>.</p>
 
+<p>If you are submitting your own post, that's all you have to do.</p>
+
+<p>To submit someone else's post, you can post a bookmark on your site and submit that
+  URL to IndieNews! Post an h-entry as normal, then include a 
+  <a href="http://indiewebcamp.com/bookmark#How">u-bookmark-of</a> property
+  linking to the actual URL you want to submit.</p>
 
 
 <h3>2. Add a "u-syndication" or "u-category" link to IndieNews</h3>
@@ -57,8 +63,7 @@ target=http://news.indiewebcamp.com/en
 
 <h4>Example Response</h4>
 
-<pre><code>
-HTTP/1.1 201 Created
+<pre><code>HTTP/1.1 201 Created
 Location: http://news.indiewebcamp.com/en/aaronparecki.com/notes/2013/04/25/1/original-post-discovery
 
 {
