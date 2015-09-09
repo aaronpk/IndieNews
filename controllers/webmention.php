@@ -216,6 +216,8 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
     }
   }
 
+  $indieNewsPermalink = Config::$baseURL . '/' . $lang . '/' . slugForURL($href);
+
   # If there is no existing post for $source, update the properties
   $post = ORM::for_table('posts')->where('lang', $lang)->where('href', $href)->find_one();
   if($post != FALSE) {
@@ -248,6 +250,8 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
     $post->source_url = $sourceURL;
     $post->save();
     $update = false;
+
+    irc_notice('[indienews] New post: ' . $post->href . ($sourceURL == $href ? '' : ' (from ' . $sourceURL . ')') . ' ' . $indieNewsPermalink);
   }
 
   $res->status(201);
@@ -267,10 +271,10 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
     'notices' => $notices,
     'data' => $responseData,
     'source' => $req->post('source'),
-    'url' => Config::$baseURL . '/' . $post->lang . '/' . slugForURL($post->href)
+    'url' => $indieNewsPermalink
   );
 
-  $res['Location'] = Config::$baseURL . '/' . $post->lang . '/' . slugForURL($post->href);
+  $res['Location'] = $indieNewsPermalink;
   $res->body(json_encode($response));
 })->conditions(array('lang'=>LANG_REGEX));
 

@@ -7,4 +7,6 @@ class Config {
   public static $dbName = 'indienews';
   public static $dbUsername = 'indienews';
   public static $dbPassword = '';
+
+  public static $ircURL = 'http://example.com:11001/channel/%23indiewebcamp';
 }

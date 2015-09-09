@@ -76,6 +76,18 @@ function pa($a) {
   echo '<pre>'; print_r($a); echo '</pre>';  
 }
 
+function irc_notice($msg) {
+  if(isset(Config::$ircURL)) {
+    $ch = curl_init(Config::$ircURL);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array(
+      'message' => $msg
+    )));
+    curl_exec($ch);
+  }
+}
+
 /**
  * Converts base 10 to base 60. 
  * http://tantek.pbworks.com/NewBase60
