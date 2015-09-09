@@ -72,8 +72,8 @@ msgid "No posts yet!"
 msgstr ""
 
 #: /views/posts.php:15
-msgid "There are no posts submitted to the Swedish feed yet! As soon as you {0}submit a post{1} it will show up here."
-msgstr ""
+msgid "There are no posts submitted to the English feed yet! As soon as you {0}submit a post{1} it will show up here."
+msgstr "There are no posts submitted to the Swedish feed yet! As soon as you {0}submit a post{1} it will show up here."
 
 #: /views/posts.php:22
 msgid "Older"
