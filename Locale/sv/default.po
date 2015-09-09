@@ -61,11 +61,11 @@ msgstr "Denna kod är {0}öppen källkod{1}."
 
 #: /views/layout.php:69
 msgid "Feel free to send a pull request, or {0}file an issue{1}."
-msgstr "Skicka gärna en pull request, eller {0}rapportera ett problemt{1}."
+msgstr "Skicka gärna en pull request, eller {0}rapportera ett problem{1}."
 
 #: /views/posts.php:14
 msgid "No posts yet!"
-msgstr "Inga poster ännu!"
+msgstr "Inga inlägg ännu!"
 
 #: /views/posts.php:15
 msgid "There are no posts submitted to the English feed yet! As soon as you {0}submit a post{1} it will show up here."
