@@ -52,7 +52,10 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
 
   // Parse the language from the target URL, so that the story ends up on the specified
   // feed regardless of which endpoint it was sent to.
-  $lang = $match[1];
+  // If no lang was sent in the target param (like if they just linked to the indienews home page),
+  // then use the language specified by the webmention endpoint.
+  if(array_key_exists(1, $match))
+    $lang = $match[1];
 
   $data = array(
     'post_author' => $source['scheme'].'://'.$source['host'],
