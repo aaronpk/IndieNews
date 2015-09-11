@@ -39,7 +39,7 @@ msgstr "Permalink"
 #: /views/index.php:3
 #: /views/submit.php:3
 msgid "IndieNews is a community-curated list of articles relevant to the {0}Indie Web{1}."
-msgstr "IndieNews ist eine gemeinschaftlich kuratierte Liste von Artikeln im zum Thema {0}Indie Web{1}."
+msgstr "IndieNews ist eine gemeinschaftlich kuratierte Liste von Artikeln zum Thema {0}Indie Web{1}."
 
 #: /views/layout.php:34
 msgid "Home"
