@@ -72,7 +72,7 @@ msgstr "Bisher keine Artikel!"
 
 #: /views/posts.php:15
 msgid "There are no posts submitted to the English feed yet! As soon as you {0}submit a post{1} it will show up here."
-msgstr "Es gibt hier keinen Artikel. Wenn mann {0}einen Artikel einreicht,{1} wird er hier erscheinen."
+msgstr "Es gibt hier keinen Artikel. Wenn man {0}einen Artikel einreicht,{1} wird er hier erscheinen."
 
 #: /views/posts.php:22
 msgid "Older"
