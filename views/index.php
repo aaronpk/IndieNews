@@ -4,14 +4,17 @@
 </div>
 
 <div class="row">
-  <div class="span4 language">
+  <div class="span3 language">
     <a href="/en">English</a>
   </div>
-  <div class="span4 language">
+  <div class="span3 language">
     <a href="/sv">Svenska</a>
   </div>
-  <div class="span4 language">
+  <div class="span3 language">
     <a href="/de">Deutsch</a>
+  </div>
+  <div class="span3 language">
+    <a href="/fr">Français</a>
   </div>
 </div>
 
