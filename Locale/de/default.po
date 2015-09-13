@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "POT-Creation-Date: 2015-09-06 03:40+0000\n"
-"PO-Revision-Date: 2015-09-07 21:01+0200\n"
-"Last-Translator: Matthias Pfefferle <pfefferle@gmail.com>\n"
+"PO-Revision-Date: 2015-09-11 09:00+0200\n"
+"Last-Translator: Felix Schwenzel <ix@wirres.net>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -39,7 +39,7 @@ msgstr "Permalink"
 #: /views/index.php:3
 #: /views/submit.php:3
 msgid "IndieNews is a community-curated list of articles relevant to the {0}Indie Web{1}."
-msgstr ""
+msgstr "IndieNews ist eine gemeinschaftlich kuratierte Liste von Artikeln zum Thema {0}Indie Web{1}."
 
 #: /views/layout.php:34
 msgid "Home"
@@ -64,15 +64,15 @@ msgstr "Dieser Code ist {0}Open-Source{1}."
 
 #: /views/layout.php:69
 msgid "Feel free to send a pull request, or {0}file an issue{1}."
-msgstr "Zögern Sie nicht, einen Pull-Reuest zu senden, oder {0}einen Fehler zu melden{1}."
+msgstr "Zögere nicht, einen Pull-Reuest zu senden, oder {0}einen Fehler zu melden{1}."
 
 #: /views/posts.php:14
 msgid "No posts yet!"
-msgstr ""
+msgstr "Bisher keine Artikel!"
 
 #: /views/posts.php:15
 msgid "There are no posts submitted to the English feed yet! As soon as you {0}submit a post{1} it will show up here."
-msgstr "Es gibt hier keinen Artikel. Wenn mann {0}einen Artikel einreicht,{1} wird es hier sein."
+msgstr "Es gibt hier keinen Artikel. Wenn man {0}einen Artikel einreicht,{1} wird er hier erscheinen."
 
 #: /views/posts.php:22
 msgid "Older"
@@ -80,34 +80,34 @@ msgstr "Ältere"
 
 #: /views/submit.php:10
 msgid "You won't find a \"submit\" form on this site. You don't even need to be logged in to this site to submit a post!"
-msgstr ""
+msgstr "Es gibt keine Einreichungsformular auf dieser Site. Du musst dich noch nicht einmal einloggen, um hier einen Artikel einzureichen!"
 
 #: /views/submit.php:12
 msgid "Write a Post"
-msgstr ""
+msgstr "Schreibe einen Artikel"
 
 #: /views/submit.php:14
 msgid "Write a post on your own site, and mark it up with the Microformats markup for an {0}."
-msgstr ""
+msgstr "Schreibe einen Artikel auf deiner eigenen Site und füge Microformat-Markup für eine {0} hinzu."
 
 #: /views/submit.php:16
 msgid "Link to IndieNews"
-msgstr ""
+msgstr "Verlinke IndieNews"
 
 #: /views/submit.php:18
 msgid "Somewhere on the page you are submitting, add a {0} or {1} link to {2}the IndieNews home page{3} for your language."
-msgstr ""
+msgstr "Füge irgendwo in dem Artikel, den du einreichen möchtest, einen {0}- oder {1}-Link auf {2}die IndieNews Startseite{3} deiner Sprache hinzu."
 
 #: /views/submit.php:20
 msgid "Send a Webmention"
-msgstr ""
+msgstr "Sende einen Webmention"
 
 #: /views/submit.php:22
 msgid "Send a {0} notification to let IndieNews know about your post. When the mention is received, IndieNews will fetch the page from your site and look for the {1} markup to find the post title and author."
-msgstr ""
+msgstr "Sende einen {0}, damit die IndieNews-Site von deinem Artikel erfährt. Sobald IndieNews den Mention empfängt, wird IndieNews den Artikel von deiner Seite laden und nach dem {1}-Markup suchen, um den Titel und Autoren-Namen zu finden."
 
 #: /views/submit.php:25
 msgid "Detailed instructions on how to submit a post"
-msgstr ""
+msgstr "Ausführliche Anleitung wie man einen Artikel einreicht"
 
 
