@@ -159,8 +159,10 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
     }
     if($categories=$entry->property('category')) {
       foreach($categories as $cat) {
-        if(preg_match('/^https?:\/\/' . Config::$hostname . '\/?/', $cat, $match)) {
-          $synURL = $cat;
+        if(is_string($cat) || (is_object($cat) && property_exists($cat,'value') && ($cat=$cat->value))) {
+          if(preg_match('/^https?:\/\/' . Config::$hostname . '\/?/', $cat, $match)) {
+            $synURL = $cat;
+          }
         }
       }
     }
