@@ -69,6 +69,9 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
   $ch = curl_init();
   curl_setopt($ch, CURLOPT_URL, $sourceURL);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+  # allow up to 2 redirects, since Github Pages sometimes sends a 301 response for a page
+  curl_setopt($ch, CURLOPT_MAXREDIRS, 2);
   $html = curl_exec($ch);
 
   $parser = new ParserPlus($html);
@@ -159,8 +162,10 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
     }
     if($categories=$entry->property('category')) {
       foreach($categories as $cat) {
-        if(preg_match('/^https?:\/\/' . Config::$hostname . '\/?/', $cat, $match)) {
-          $synURL = $cat;
+        if(is_string($cat) || (is_object($cat) && property_exists($cat,'value') && ($cat=$cat->value))) {
+          if(preg_match('/^https?:\/\/' . Config::$hostname . '\/?/', $cat, $match)) {
+            $synURL = $cat;
+          }
         }
       }
     }
