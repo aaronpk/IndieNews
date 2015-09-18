@@ -44,7 +44,7 @@ an <a href="http://microformats.org/wiki/microformats2#h-entry">h-entry</a>.</p>
 
 <h4>Example Request</h4>
 
-<p>Make a POST request to <code>http://news.indiewebcamp.com/en/webmention</code> with two parameters, 
+<p>Make a POST request to <code>http://news.indiewebcamp.com/webmention</code> with two parameters, 
   <code>source</code> and <code>target</code>, where target is 
   <code>http://news.indiewebcamp.com/en</code> and source is 
   <code>http://example.com/100</code> assuming you are submitting a page on your site with 
@@ -53,7 +53,7 @@ an <a href="http://microformats.org/wiki/microformats2#h-entry">h-entry</a>.</p>
 <p>Note that each language's home page has a unique Webmention endpoint, so you should 
   do the Webmention endpoint discovery as normal to find it.</p>
 
-<pre><code>POST /en/webmention HTTP/1.1
+<pre><code>POST /webmention HTTP/1.1
 Host: news.indiewebcamp.com
 
 target=http://news.indiewebcamp.com/en
@@ -95,14 +95,14 @@ Location: http://news.indiewebcamp.com/en/aaronparecki.com/notes/2013/04/25/1/or
 <h4>Sample Code</h4>
 
 <h5>Curl</h5>
-<pre><code>curl http://news.indiewebcamp.com/en/webmention -i \
+<pre><code>curl http://news.indiewebcamp.com/webmention -i \
   -d target=http://news.indiewebcamp.com/en \
   -d source=http://aaronparecki.com/notes/2013/04/25/1/original-post-discovery
 </code></pre>
 
 <h5>PHP</h5>
 <pre><code>&lt;?php
-$ch = curl_init("http://news.indiewebcamp.com/en/webmention");
+$ch = curl_init("http://news.indiewebcamp.com/webmention");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, array(
@@ -116,7 +116,7 @@ echo curl_exec($ch);
 <pre><code>require 'rest-client'
 require 'json'
 
-data = JSON.parse RestClient.post "http://news.indiewebcamp.com/en/webmention", {
+data = JSON.parse RestClient.post "http://news.indiewebcamp.com/webmention", {
   'target' => 'http://news.indiewebcamp.com/en',
   'source' => 'http://aaronparecki.com/notes/2013/04/25/1/original-post-discovery'
 }

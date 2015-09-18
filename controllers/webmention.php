@@ -18,6 +18,11 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
       $error['error_description'] = $description;
     $res->body(json_encode($error));
   };
+
+  if($sourceURL == FALSE) {
+    $error($res, 'missing_source_url');
+    return;
+  }
   
   $source = parse_url($sourceURL);
 
@@ -28,12 +33,18 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
     || !array_key_exists('host', $source)
     || ($source['host'] == gethostbyname($source['host']))
   ) {
-    $error($res, 'source_not_found');
+    $error($res, 'invalid_source_url');
+    return;
+  }
+
+  if($targetURL == FALSE) {
+    $error($res, 'missing_target_url');
     return;
   }
 
   # Verify $target is actually a resource under our control (home page, individual post)
   $target = parse_url($targetURL);
+
   # Verify $source is valid
   if($target == FALSE
     || !array_key_exists('scheme', $target)
