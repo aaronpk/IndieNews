@@ -60,8 +60,11 @@ $app->get('/parse', function() use($app) {
       $data['name'] = trim($page->hentry->property('name', true));
 
     if($page->hentry->author) {
-      if($page->hentry->author->url)
-        $data['author']['url'] = $page->hentry->author->url;
+      if($page->hentry->author->url) {
+        $url = $page->hentry->author->property('url');
+        if(is_array($url)) $url = $url[0];
+        $data['author']['url'] = $url;
+      }
       if($page->hentry->author->name)
         $data['author']['name'] = $page->hentry->author->name;
       if($page->hentry->author->photo)

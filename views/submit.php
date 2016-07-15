@@ -1,6 +1,6 @@
 <div class="hero-unit" style="padding: 40px;">
   <h2>IndieNews</h2>
-  <p><?= __('IndieNews is a community-curated list of articles relevant to the {0}Indie Web{1}.', ['<a href="http://indiewebcamp.com/why">', '</a>']) ?></p>
+  <p><?= __('IndieNews is a community-curated list of articles relevant to the {0}Indie Web{1}.', ['<a href="https://indieweb.org/why">', '</a>']) ?></p>
 </div>
 
 <div class="row">
@@ -15,11 +15,11 @@
 
     <h4><?= __('Link to IndieNews') ?></h4>
 
-    <p><?= __('Somewhere on the page you are submitting, add a {0} or {1} link to {2}the IndieNews home page{3} for your language.', ['<a href="http://indiewebcamp.com/rel-syndication">u-syndication</a>', '<a href="http://indiewebcamp.com/u-category">u-category</a>', '<a href="/'.$this->lang.'">', '</a>']) ?></p>
+    <p><?= __('Somewhere on the page you are submitting, add a {0} or {1} link to {2}the IndieNews home page{3} for your language.', ['<a href="https://indieweb.org/rel-syndication">u-syndication</a>', '<a href="https://indieweb.org/u-category">u-category</a>', '<a href="/'.$this->lang.'">', '</a>']) ?></p>
 
     <h4><?= __('Send a Webmention') ?></h4>
 
-    <p><?= __('Send a {0} notification to let IndieNews know about your post. When the mention is received, IndieNews will fetch the page from your site and look for the {1} markup to find the post title and author.', ['<a href="http://indiewebcamp.com/webmention">Webmention</a>', '<a href="http://microformats.org/wiki/microformats2#h-entry">h-entry</a>']) ?></p>
+    <p><?= __('Send a {0} notification to let IndieNews know about your post. When the mention is received, IndieNews will fetch the page from your site and look for the {1} markup to find the post title and author.', ['<a href="https://indieweb.org/webmention">Webmention</a>', '<a href="http://microformats.org/wiki/microformats2#h-entry">h-entry</a>']) ?></p>
 
     <p style="border-top: 1px #ddd solid; margin-top: 20px; font-style: italic;">
       <a href="/how-to-submit-a-post"><?= __('Detailed instructions on how to submit a post') ?></a>

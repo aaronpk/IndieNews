@@ -64,7 +64,7 @@
       <li><a href="/how-to-submit-a-post"><?= __('How to Submit a Post') ?></a></li>
     </ul>
     <p class="credits">&copy; <?=date('Y')?> by <a href="http://aaronparecki.com">Aaron Parecki</a>.
-      IndieNews <?= __('is part of') ?> <a href="http://indiewebcamp.com/">IndieWebCamp</a>. 
+      IndieNews <?= __('is part of') ?> <a href="https://indieweb.org/">IndieWebCamp</a>. 
       <?= __('This code is {0}open source{1}.', ['<a href="https://github.com/aaronpk/IndieNews">', '</a>']) ?>
       <?= __('Feel free to send a pull request, or {0}file an issue{1}.', ['<a href="https://github.com/aaronpk/IndieNews/issues">', '</a>']) ?></p>
   </div>

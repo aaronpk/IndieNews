@@ -181,7 +181,7 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
       }
     }
     if(!$synURL) {
-      $error($res, 'no_link_found', 'Could not find a syndication or category link for this entry to news.indiewebcamp.com. Please see http://news.indiewebcamp.com/how for more information.');
+      $error($res, 'no_link_found', 'Could not find a syndication or category link for this entry to news.indieweb.org. Please see https://news.indieweb.org/how for more information.');
       return;
     }
     if($synURL != $targetURL) {
@@ -274,7 +274,7 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
     $post->save();
     $update = false;
 
-    irc_notice('[indienews] New post: ' . $post->href . ($sourceURL == $href ? '' : ' (from ' . $sourceURL . ')') . ' ' . $indieNewsPermalink);
+    irc_notice('[indienews] New post: ' . ($post->title ? '"'.$post->title.'" ' : '') . $post->href . ($sourceURL == $href ? '' : ' (from ' . $sourceURL . ')'));
   }
 
   $res->status(201);

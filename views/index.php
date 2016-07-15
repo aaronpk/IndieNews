@@ -1,6 +1,6 @@
 <div class="hero-unit" style="padding: 40px;">
   <h2>IndieNews</h2>
-  <p><?= __('IndieNews is a community-curated list of articles relevant to the {0}Indie Web{1}.', ['<a href="http://indiewebcamp.com/why">', '</a>']) ?></p>
+  <p><?= __('IndieNews is a community-curated list of articles relevant to the {0}Indie Web{1}.', ['<a href="https://indieweb.org/why">', '</a>']) ?></p>
 </div>
 
 <div class="row">

@@ -1,7 +1,7 @@
 # IndieNews
 
-This site will eventually live on http://news.indiewebcamp.com. It is a news aggregator for [IndieWeb](http://indiewebcamp.com)-related posts.
+This site is live on https://news.indieweb.org. It is a news aggregator for [IndieWeb](https://indieweb.org)-related posts.
 
-To submit one of your posts, link to http://news.indiewebcamp.com/ from one the post and send a [Pingback](http://indiewebcamp.com/pingback) or [WebMention](http://indiewebcamp.com/webmention) to http://news.indiewebcamp.com/.
+To submit one of your posts, link to https://news.indieweb.org/en from one the post and send a [Webmention](https://indieweb.org/webmention) to https://news.indieweb.org/webmention.
 
-This project is still very much in progress. It's probably best if you don't go anywhere near it yet.
+[Full instructions](https://news.indieweb.org/how-to-submit-a-post)
