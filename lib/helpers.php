@@ -1,6 +1,6 @@
 <?php
 define('APP', dirname(__FILE__).'/../'); // cakephp i18n needs this
-define('LANG_REGEX', '(en|sv|de|fr)');
+define('LANG_REGEX', '(en|sv|de|fr|nl)');
 
 function getPostsForParentID($parentID) {
   return ORM::for_table('posts')->raw_query('

@@ -8,19 +8,6 @@ body {
   margin-right: -20px;
 }
 
-.language {
-  background: #eee;
-  margin-bottom: 10px;
-  border-radius: 10px;
-  text-align: center;
-  font-size: 18pt;
-  float: left;
-}
-.language a {
-  margin: 40px 20px;
-  display: block;
-}
-
 
 .header, .header h2 {
   font-size: 13px;
