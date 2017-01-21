@@ -30,6 +30,14 @@ function slugForURL($url) {
   return preg_replace('/https?:\/\//', '', $url);
 }
 
+function permalinkForURL($lang, $url) {
+  return Config::$baseURL . '/' . $lang . '/' . slugForURL($url);
+}
+
+function shouldDisplayPostName($name) {
+  return $name && strlen($name) < 200 && substr_count($name, "\n") < 2;
+}
+
 function render($page, $data) {
   global $app;
   return $app->render('layout.php', array_merge($data, array('page' => $page)));
@@ -68,7 +76,7 @@ function getLoggedInUser() {
   }
 }
 
-function friendly_url($url) {
+function display_url($url) {
   return preg_replace(['/https?:\/\//','/\/$/'],'',$url);
 }
 

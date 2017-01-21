@@ -34,6 +34,9 @@ body {
 
 .post .content {
   white-space: pre-wrap;
+  font-size: 13px;
+  line-height: 15px;
+  margin-top: 0.5em;
 }
 
 .single .title {
