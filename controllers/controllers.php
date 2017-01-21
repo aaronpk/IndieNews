@@ -31,7 +31,9 @@ $app->get('/:lang(.:format)', function($lang='en', $format='html') use($app) {
 
   $res = $app->response();
   $res['X-Pingback'] = 'https://webmention.io/webmention?forward=' . Config::$baseURL . '/'.$lang.'/webmention';
-  $res['Link'] = '<' . Config::$baseURL . '/'.$lang.'/webmention>; rel="webmention"';
+  $res['Link'] = '<' . Config::$baseURL . '/'.$lang.'/webmention>; rel="webmention"' . "\n"
+    . '<' . Config::$baseURL . '/'.$lang.'>; rel="self"' . "\n"
+   . '<' . Config::$hubURL . '>; rel="hub"';
 
   // Get posts ordered by date submitted
   $posts = ORM::for_table('posts')
