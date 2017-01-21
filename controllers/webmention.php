@@ -256,7 +256,7 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
     $post->save();
     $update = false;
 
-    irc_notice('[indienews' . ($lang == 'en' ? '' : ' '.strtoupper($lang)) . '] New post: ' . ($post->title ? '"'.$post->title.'" ' : '') . $post->href . ($sourceURL == $href ? '' : ' (from ' . $sourceURL . ')'));
+    irc_notice('[indienews' . ($lang == 'en' ? '' : '/'.strtolower($lang)) . '] New post: ' . ($post->title ? '"'.$post->title.'" ' : '') . $post->href . ($sourceURL == $href ? '' : ' (from ' . $sourceURL . ')'));
   }
 
   $res->status(201);
