@@ -257,6 +257,18 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
     $update = false;
 
     irc_notice('[indienews' . ($lang == 'en' ? '' : '/'.strtolower($lang)) . '] New post: ' . ($post->title ? '"'.$post->title.'" ' : '') . $post->href . ($sourceURL == $href ? '' : ' (from ' . $sourceURL . ')'));
+
+    # Ping the hub
+    if(Config::$hubURL) {
+      $ch = curl_init(Config::$hubURL);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
+        'hub.mode' => 'publish',
+        'hub.topic' => Config::$baseURL . '/' . $lang
+      ]));
+      curl_setopt($ch, CURLOPT_TIMEOUT, 4);
+      curl_exec($ch);
+    }
   }
 
   $res->status(201);

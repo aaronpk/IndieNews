@@ -22,7 +22,6 @@
   </div>
   <?php endif; ?>
 
-
   <?php if(count($this->posts)): ?>
   <div style="padding-left: 8px;">
     <a href="/<?= $this->lang ?>?before=<?= b10to60(strtotime($this->posts[count($this->posts)-1]->date_submitted)) ?>"><?= __('Older') ?></a>

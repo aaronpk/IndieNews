@@ -50,7 +50,7 @@ $app->get('/:lang(.:format)', function($lang='en', $format='html') use($app) {
     'title' => 'IndieNews',
     'posts' => $posts,
     'view' => 'list',
-    'meta' => '',
+    'meta' => (Config::$hubURL ? '<link rel="hub" href="' . Config::$hubURL . '">' : ''),
     'lang' => $lang
   ));
   $html = ob_get_clean();
