@@ -50,7 +50,7 @@ $app->get('/:lang(.:format)', function($lang='en', $format='html') use($app) {
     'title' => 'IndieNews',
     'posts' => $posts,
     'view' => 'list',
-    'meta' => (Config::$hubURL ? '<link rel="hub" href="' . Config::$hubURL . '">' : ''),
+    'meta' => (Config::$hubURL ? '<link rel="hub" href="' . Config::$hubURL . '"><link rel="self" href="' . Config::$baseURL . '/' . $lang . '">' : ''),
     'lang' => $lang
   ));
   $html = ob_get_clean();
@@ -65,7 +65,7 @@ $app->get('/:lang/:slug(.:format)', function($lang, $slug, $format='html') use($
   $posts = array($post);
 
   $res = $app->response();
-  $res['X-Pingback'] = 'https://webmention.io/webmention?forward=' . Config::$baseURL . '/'.$lang.'/webmention';
+  $res['X-Pingback'] = 'https://webmention.io/webmention?forward=' . Config::$baseURL . '/' . $lang . '/webmention';
   $res['Link'] = '<' . Config::$baseURL . '/'.$lang.'/webmention>; rel="webmention"';
 
   if(!$post) {
