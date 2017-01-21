@@ -63,11 +63,15 @@ msgstr "Denna kod är {0}öppen källkod{1}."
 msgid "Feel free to send a pull request, or {0}file an issue{1}."
 msgstr "Skicka gärna en pull request, eller {0}rapportera ett problem{1}."
 
-#: /views/posts.php:14
+#: /views/posts.php:4
+msgid "IndieNews English"
+msgstr "IndieNews Svenska"
+
+#: /views/posts.php:20
 msgid "No posts yet!"
 msgstr "Inga inlägg ännu!"
 
-#: /views/posts.php:15
+#: /views/posts.php:21
 msgid "There are no posts submitted to the English feed yet! As soon as you {0}submit a post{1} it will show up here."
 msgstr "Där är inga inlägg inskickade till det svenska flödet ännu! Så snart du {0}skickar in ett inlägg{1} så dyker det upp här."
 

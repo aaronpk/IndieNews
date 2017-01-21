@@ -66,11 +66,15 @@ msgstr "Dieser Code ist {0}Open-Source{1}."
 msgid "Feel free to send a pull request, or {0}file an issue{1}."
 msgstr "Zögere nicht, einen Pull-Reuest zu senden, oder {0}einen Fehler zu melden{1}."
 
-#: /views/posts.php:14
+#: /views/posts.php:4
+msgid "IndieNews English"
+msgstr "IndieNews Deutsch"
+
+#: /views/posts.php:20
 msgid "No posts yet!"
 msgstr "Bisher keine Artikel!"
 
-#: /views/posts.php:15
+#: /views/posts.php:21
 msgid "There are no posts submitted to the English feed yet! As soon as you {0}submit a post{1} it will show up here."
 msgstr "Es gibt hier keinen Artikel. Wenn man {0}einen Artikel einreicht,{1} wird er hier erscheinen."
 
