@@ -3,7 +3,7 @@ CREATE TABLE `users` (
   `url` varchar(255) DEFAULT NULL,
   `date_created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-);
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `posts` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -19,5 +19,5 @@ CREATE TABLE `posts` (
   `in_reply_to` varchar(512) DEFAULT NULL,
   `source_url` varchar(512) DEFAULT NULL,
   PRIMARY KEY (`id`)
-);
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

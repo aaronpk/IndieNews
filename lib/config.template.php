@@ -8,5 +8,10 @@ class Config {
   public static $dbUsername = 'indienews';
   public static $dbPassword = '';
 
-  public static $ircURL = 'http://example.com:11001/channel/%23indiewebcamp';
+  public static $xrayURL = 'https://xray.p3k.io/parse';
+
+  // Sends to https://github.com/aaronpk/TikTokBot
+  public static $ircURL = 'http://example.com/message';
+  public static $ircToken = '';
+  public static $ircChannel = '#indieweb';
 }

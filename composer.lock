@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fa64caf6228b70cc44d7a51715fd4256",
+    "content-hash": "dafa6204ae736e4d4b64bda553c4eb6f",
     "packages": [
         {
             "name": "aura/installer-default",
@@ -45,7 +45,7 @@
                 "aura",
                 "installer"
             ],
-            "time": "2012-11-26 21:35:57"
+            "time": "2012-11-26T21:35:57+00:00"
         },
         {
             "name": "aura/intl",
@@ -123,7 +123,7 @@
                 "l10n",
                 "localization"
             ],
-            "time": "2014-08-24 00:00:00"
+            "time": "2014-08-24T00:00:00+00:00"
         },
         {
             "name": "cakephp/core",
@@ -162,7 +162,7 @@
                 }
             ],
             "description": "CakePHP Framework Core classes",
-            "time": "2015-07-21 06:30:44"
+            "time": "2015-07-21T06:30:44+00:00"
         },
         {
             "name": "cakephp/i18n",
@@ -207,7 +207,7 @@
                 }
             ],
             "description": "CakePHP Internationalization library with support for messages translation and dates and numbers localization",
-            "time": "2015-08-19 20:24:42"
+            "time": "2015-08-19T20:24:42+00:00"
         },
         {
             "name": "cakephp/utility",
@@ -243,7 +243,7 @@
                 }
             ],
             "description": "CakePHP Utility classes such as Inflector, String, Hash, and Security",
-            "time": "2015-07-23 16:38:36"
+            "time": "2015-07-23T16:38:36+00:00"
         },
         {
             "name": "j4mie/idiorm",
@@ -301,7 +301,7 @@
                 "orm",
                 "query builder"
             ],
-            "time": "2013-01-31 12:19:07"
+            "time": "2013-01-31T12:19:07+00:00"
         },
         {
             "name": "mf2/mf2",
@@ -354,7 +354,7 @@
                 "parser",
                 "semantic"
             ],
-            "time": "2015-07-12 14:10:01"
+            "time": "2015-07-12T14:10:01+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -400,7 +400,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2014-09-26 02:52:02"
+            "time": "2014-09-26T02:52:02+00:00"
         },
         {
             "name": "slim/slim",
@@ -443,13 +443,38 @@
                 "rest",
                 "router"
             ],
-            "time": "2012-12-13 02:15:50"
+            "time": "2012-12-13T02:15:50+00:00"
+        },
+        {
+            "name": "tantek/cassis",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tantek/cassis.git",
+                "reference": "312d8b99d912ee9aa90ca9966d4db27690982fbc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tantek/cassis/zipball/312d8b99d912ee9aa90ca9966d4db27690982fbc",
+                "reference": "312d8b99d912ee9aa90ca9966d4db27690982fbc",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "cassis.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "time": "2017-01-21 01:31:11"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "tantek/cassis": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

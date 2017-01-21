@@ -1,6 +1,6 @@
 <?php
 define('APP', dirname(__FILE__).'/../'); // cakephp i18n needs this
-define('LANG_REGEX', '(en|sv|de|fr)');
+define('LANG_REGEX', '(en|sv|de|fr|nl)');
 
 function getPostsForParentID($parentID) {
   return ORM::for_table('posts')->raw_query('
@@ -28,6 +28,18 @@ function respondWithFormat($app, $html, $format) {
 // Strip the http:// prefix
 function slugForURL($url) {
   return preg_replace('/https?:\/\//', '', $url);
+}
+
+function permalinkForURL($lang, $url) {
+  return Config::$baseURL . '/' . $lang . '/' . slugForURL($url);
+}
+
+function shouldDisplayPostName($name) {
+  if(!$name) return false;
+  $name = str_replace('http://','https://',$name);
+  return strlen($name) < 200                  # must be less than 200 chars
+    && substr_count($name, "\n") <= 1         # must be less than 2 lines
+    && substr_count($name, "https://") <= 1;  # must have at most 1 URL
 }
 
 function render($page, $data) {
@@ -68,7 +80,7 @@ function getLoggedInUser() {
   }
 }
 
-function friendly_url($url) {
+function display_url($url) {
   return preg_replace(['/https?:\/\//','/\/$/'],'',$url);
 }
 
@@ -81,8 +93,12 @@ function irc_notice($msg) {
     $ch = curl_init(Config::$ircURL);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+      'Authorization: Bearer ' . Config::$ircToken
+    ]);
     curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array(
-      'message' => $msg
+      'content' => $msg,
+      'channel' => Config::$ircChannel
     )));
     curl_exec($ch);
   }

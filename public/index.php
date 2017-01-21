@@ -11,9 +11,10 @@ require 'lib/config.php';
 \Slim\Extras\Views\Savant::$savantOptions = array('template_path' => 'views');
 
 // Set up the database connection
-ORM::configure('mysql:host=' . Config::$dbHost . ';dbname=' . Config::$dbName);
+ORM::configure('mysql:host=' . Config::$dbHost . ';dbname=' . Config::$dbName . ';charset=utf8mb4');
 ORM::configure('username', Config::$dbUsername);
 ORM::configure('password', Config::$dbPassword);
+ORM::configure('driver_options', array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4'));
 
 // Create a new app object with the Savant view renderer
 $app = new \Slim\Slim(array(
@@ -23,7 +24,6 @@ $app = new \Slim\Slim(array(
 require 'controllers/static.php';
 require 'controllers/controllers.php';
 require 'controllers/webmention.php';
-require 'controllers/parser.php';
 
 session_start();
 
