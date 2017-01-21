@@ -47,12 +47,15 @@ $app->get('/:lang(.:format)', function($lang='en', $format='html') use($app) {
 
   $posts = $posts->limit(20)->find_many();
 
+  $atomFeed = '<link rel="alternate" type="application/atom+xml" href="https://granary-demo.appspot.com/url?input=html&output=atom&url=' . urlencode(Config::$baseURL . '/' . $lang) . '">';
+  $webSubTags = '<link rel="hub" href="' . Config::$hubURL . '">' . "\n" . '<link rel="self" href="' . Config::$baseURL . '/' . $lang . '">';
+
   ob_start();
   render('posts', array(
     'title' => 'IndieNews',
     'posts' => $posts,
     'view' => 'list',
-    'meta' => (Config::$hubURL ? '<link rel="hub" href="' . Config::$hubURL . '"><link rel="self" href="' . Config::$baseURL . '/' . $lang . '">' : ''),
+    'meta' => (Config::$hubURL ? $webSubTags : '') . "\n" . $atomFeed,
     'lang' => $lang
   ));
   $html = ob_get_clean();
