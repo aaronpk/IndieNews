@@ -18,7 +18,7 @@
             . date('Y-m-d H:i T', strtotime($this->post->post_date)) 
             . '</time> |' : '' ?>
       <?= __('submitted') ?> 
-      <a href="/<?= permalinkForURL($this->post->lang, $this->post->href) ?>">
+      <a href="<?= permalinkForURL($this->post->lang, $this->post->href) ?>">
         <time class="timeago" datetime="<?= date('c', strtotime($this->post->date_submitted)) ?>"><?= date('Y-m-d H:i T', strtotime($this->post->date_submitted)) ?>
         </time>
       </a>
