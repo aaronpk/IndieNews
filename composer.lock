@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "42e514f7f12d6e5b59e28928c4a069d3",
+    "content-hash": "dafa6204ae736e4d4b64bda553c4eb6f",
     "packages": [
         {
             "name": "aura/installer-default",
@@ -447,16 +447,16 @@
         },
         {
             "name": "tantek/cassis",
-            "version": "v0.2.16895",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tantek/cassis.git",
-                "reference": "357e30ad12017b4d67cac5f4400e8f371cd2f504"
+                "reference": "312d8b99d912ee9aa90ca9966d4db27690982fbc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tantek/cassis/zipball/357e30ad12017b4d67cac5f4400e8f371cd2f504",
-                "reference": "357e30ad12017b4d67cac5f4400e8f371cd2f504",
+                "url": "https://api.github.com/repos/tantek/cassis/zipball/312d8b99d912ee9aa90ca9966d4db27690982fbc",
+                "reference": "312d8b99d912ee9aa90ca9966d4db27690982fbc",
                 "shasum": ""
             },
             "type": "library",
@@ -466,13 +466,15 @@
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2016-04-04T15:31:04+00:00"
+            "time": "2017-01-21 01:31:11"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "tantek/cassis": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

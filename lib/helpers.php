@@ -35,7 +35,11 @@ function permalinkForURL($lang, $url) {
 }
 
 function shouldDisplayPostName($name) {
-  return $name && strlen($name) < 200 && substr_count($name, "\n") < 2;
+  if(!$name) return false;
+  $name = str_replace('http://','https://',$name);
+  return strlen($name) < 200                  # must be less than 200 chars
+    && substr_count($name, "\n") <= 1         # must be less than 2 lines
+    && substr_count($name, "https://") <= 1;  # must have at most 1 URL
 }
 
 function render($page, $data) {
