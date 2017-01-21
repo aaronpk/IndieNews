@@ -1,13 +1,19 @@
 
-  <table class="table table-striped">
-    <?php foreach($this->posts as $i=>$post): ?>
-      <?= partial('_post-row', array(
-        'post' => $post,
-        'position' => $i+1, 
-        'view' => 'list'))
-      ?>
-    <?php endforeach; ?>
-  </table>
+  <div class="h-feed">
+    <div style="display: none;">
+      <a href="/<?= $this->lang ?>" class="u-url"><h2 class="p-name"><?= __('IndieNews English') ?></h2></a>
+    </div>
+
+    <table class="table table-striped">
+      <?php foreach($this->posts as $i=>$post): ?>
+        <?= partial('_post-row', array(
+          'post' => $post,
+          'position' => $i+1, 
+          'view' => 'list'))
+        ?>
+      <?php endforeach; ?>
+    </table>
+  </div>
 
   <?php if(count($this->posts) == 0): ?>
   <div class="hero-unit">
