@@ -89,8 +89,12 @@ function irc_notice($msg) {
     $ch = curl_init(Config::$ircURL);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+      'Authorization: Bearer ' . Config::$ircToken
+    ]);
     curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array(
-      'message' => $msg
+      'content' => $msg,
+      'channel' => Config::$ircChannel
     )));
     curl_exec($ch);
   }
