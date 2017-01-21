@@ -37,7 +37,7 @@ msgstr "permalink"
 
 #: /views/index.php:3 /views/submit.php:3
 msgid "IndieNews is a community-curated list of articles relevant to the {0}Indie Web{1}."
-msgstr "IndieNews is een door de community gecureerde lijst van artikelen die relevant zijn voor {0}IndieWeb{1}."
+msgstr "IndieNews is een door de community gecureerde lijst van voor {0}IndieWeb{1} relevante artikelen."
 
 #: /views/layout.php:34
 msgid "Home"
@@ -49,11 +49,11 @@ msgstr "Insturen"
 
 #: /views/layout.php:64
 msgid "How to Submit a Post"
-msgstr "Hoe kan je een artikel insturen"
+msgstr "Hoe kan een artikel insturen?"
 
 #: /views/layout.php:67
 msgid "is part of"
-msgstr "is een deel van"
+msgstr "is een onderdeel van"
 
 #: /views/layout.php:68
 msgid "This code is {0}open source{1}."
@@ -61,7 +61,7 @@ msgstr "Deze code is {0}open source{1}."
 
 #: /views/layout.php:69
 msgid "Feel free to send a pull request, or {0}file an issue{1}."
-msgstr "Voel je vrij om een pull request te sturen, of {0}meld een probleem{1}."
+msgstr "Stuur een pull request of {0}meld een probleem{1}."
 
 #: /views/posts.php:14
 msgid "No posts yet!"
@@ -69,7 +69,7 @@ msgstr "Nog geen posts!"
 
 #: /views/posts.php:15
 msgid "There are no posts submitted to the English feed yet! As soon as you {0}submit a post{1} it will show up here."
-msgstr "Er zijn nog geen artikelen aan de Nederlandse feed toegevoegd! Zodra je een {0}artikel indient{1} komt die hier te staan."
+msgstr "Er zijn nog geen artikelen aan de Nederlandse feed toegevoegd! Zodra je een {0}artikel instuurt{1} komt die hier te staan."
 
 #: /views/posts.php:22
 msgid "Older"
@@ -77,7 +77,7 @@ msgstr "Ouder"
 
 #: /views/submit.php:10
 msgid "You won't find a \"submit\" form on this site. You don't even need to be logged in to this site to submit a post!"
-msgstr "Je vindt op deze site geen formulier om nieuwe artikelen in te sturen. Je hoeft niet eens in te loggen op deze site om een artikel te plaatsen!"
+msgstr "Je vindt op deze site geen formulier om nieuwe artikelen in te sturen. Om een artikel te plaatsen hoeft je niet eens in te loggen op deze site!"
 
 #: /views/submit.php:12
 msgid "Write a Post"
@@ -85,7 +85,7 @@ msgstr "Schrijf een artikel"
 
 #: /views/submit.php:14
 msgid "Write a post on your own site, and mark it up with the Microformats markup for an {0}."
-msgstr "Schrijf een artikel op je eigen site en maak het op met de Microformats markup voor een {0}."
+msgstr "Schrijf een artikel op je eigen site en maak het op met de Microformats mark-up voor een {0}."
 
 #: /views/submit.php:16
 msgid "Link to IndieNews"
@@ -93,7 +93,7 @@ msgstr "Link naar IndieNews"
 
 #: /views/submit.php:18
 msgid "Somewhere on the page you are submitting, add a {0} or {1} link to {2}the IndieNews home page{3} for your language."
-msgstr "Zet ergens op de pagina die je wilt inzenden een {0} of {1} link naar {2}de homepagina van IndieNews{3} voor jouw taal."
+msgstr "Zet ergens op de pagina die je wilt inzenden een link met {0} of {1} naar {2}de homepagina van IndieNews{3} voor jouw taal."
 
 #: /views/submit.php:20
 msgid "Send a Webmention"
@@ -101,8 +101,8 @@ msgstr "Stuur een Webmention"
 
 #: /views/submit.php:22
 msgid "Send a {0} notification to let IndieNews know about your post. When the mention is received, IndieNews will fetch the page from your site and look for the {1} markup to find the post title and author."
-msgstr "Stuur een {0} notificatie om IndieNews op de hoogte te stellen van je post. Als de Webmention ontvangen is zal IndieNews de pagina opvragen en naar de {1} markup kijken om de titel en auteur van het artikel te vinden."
+msgstr "Stuur een {0} notificatie om IndieNews op de hoogte te stellen van je post. Als de Webmention ontvangen is zal IndieNews de ingestuurde pagina opvragen en naar de {1} mark-up kijken om de titel en auteur van het artikel te vinden."
 
 #: /views/submit.php:25
 msgid "Detailed instructions on how to submit a post"
-msgstr "Gedetailleerde instructies over hoe je moet insturen"
+msgstr "Uitgebreide Engelse instructies over hoe je moet insturen"
