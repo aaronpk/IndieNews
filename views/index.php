@@ -4,21 +4,11 @@
 </div>
 
 <div class="languages">
-  <div>
-    <a href="/en">English</a>
-  </div>
-  <div>
-    <a href="/sv">Svenska</a>
-  </div>
-  <div>
-    <a href="/de">Deutsch</a>
-  </div>
-  <div>
-    <a href="/fr">Français</a>
-  </div>
-  <div>
-    <a href="/nl">Nederlands</a>
-  </div>
+  <?php foreach(supportedLanguages() as $l=>$lang): ?>
+    <div>
+      <a href="/<?= $l ?>"><?= $lang ?></a>
+    </div>
+  <?php endforeach; ?>
 </div>
 
 <div class="row" style="margin-top: 20px;">

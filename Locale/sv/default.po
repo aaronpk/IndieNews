@@ -104,8 +104,8 @@ msgid "Send a Webmention"
 msgstr "Skicka en WebMention"
 
 #: /views/submit.php:22
-msgid "Send a {0} notification to let IndieNews know about your post. When the mention is received, IndieNews will fetch the page from your site and look for the {1} markup to find the post title and author."
-msgstr "Skicka en {0} notifikation för att informera IndieNews om ditt inlägg. När omnämnandet är mottaget hämtar IndieNews sidan från din sajt och letar efter {1} formatering för att hitta inläggstitel och författare."
+msgid "IndieNews will fetch the page from your site and look for the {1} markup to find the post title and author."
+msgstr "När omnämnandet är mottaget hämtar IndieNews sidan från din sajt och letar efter {1} formatering för att hitta inläggstitel och författare."
 
 #: /views/submit.php:25
 msgid "Detailed instructions on how to submit a post"

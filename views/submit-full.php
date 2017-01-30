@@ -42,9 +42,11 @@ an <a href="http://microformats.org/wiki/microformats2#h-entry">h-entry</a>.</p>
 
 <h3>3. Send a <a href="https://indieweb.org/webmention">Webmention</a></h3>
 
+<p>If your website sends <a href="https://www.w3.org/TR/webmention/">Webmentions</a> automatically, then you don't need to worry about this step. Otherwise, follow the instructions below to send a Webmention, or just use the Webmention form available at <a href="/en/webmention">the IndieNews Webmention endpoint</a>.</p>
+
 <h4>Example Request</h4>
 
-<p>Make a POST request to <code>https://news.indieweb.org/webmention</code> with two parameters, 
+<p>Make a POST request to <code>https://news.indieweb.org/en/webmention</code> with two parameters, 
   <code>source</code> and <code>target</code>, where target is 
   <code>https://news.indieweb.org/en</code> and source is 
   <code>http://example.com/100</code> assuming you are submitting a page on your site with 

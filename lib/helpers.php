@@ -2,6 +2,16 @@
 define('APP', dirname(__FILE__).'/../'); // cakephp i18n needs this
 define('LANG_REGEX', '(en|sv|de|fr|nl)');
 
+function supportedLanguages() {
+  return [
+    'en' => 'English',
+    'sv' => 'Svenska',
+    'de' => 'Deutsch',
+    'fr' => 'Français',
+    'nl' => 'Nederlands',
+  ];
+}
+
 function getPostsForParentID($parentID) {
   return ORM::for_table('posts')->raw_query('
     SELECT *, GREATEST(1, TIMESTAMPDIFF(HOUR, date_submitted, NOW())) AS age
