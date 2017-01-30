@@ -29,6 +29,7 @@
           <button type="submit" class="btn"><?= __('Send Webmention') ?></button>
         </div>
       </div>
+      <input type="hidden" name="html" value="1">
     </form>
 
   </div>
