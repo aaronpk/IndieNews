@@ -15,22 +15,34 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
   $req = $app->request();
   $res = $app->response();
 
+  $is_html = $req->post('html');
+
   $sourceURL = $req->post('source');
   $targetURL = $req->post('target');
 
-  $error = function($res, $err, $description=false) {
+  $error = function($res, $err, $description=false) use($is_html, $lang) {
     $res->status(400);
-    $res['Content-Type'] = 'application/json';
-    $error = array(
-      'error' => $err
-    );
-    if($description)
-      $error['error_description'] = $description;
-    $res->body(json_encode($error, JSON_PRETTY_PRINT));
+    if($is_html) {
+      render('webmention-error', array(
+        'title' => 'Webmention Error',
+        'error' => $err,
+        'description' => $description,
+        'meta' => '',
+        'lang' => $lang
+      ));
+    } else {
+      $res['Content-Type'] = 'application/json';
+      $error = array(
+        'error' => $err
+      );
+      if($description)
+        $error['error_description'] = $description;
+      $res->body(json_encode($error, JSON_PRETTY_PRINT));
+    }
   };
 
   if($sourceURL == FALSE) {
-    $error($res, 'missing_source_url');
+    $error($res, 'missing_source_url', 'No source URL was provided in the request.');
     return;
   }
   
@@ -43,12 +55,12 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
     || !array_key_exists('host', $source)
     || ($source['host'] == gethostbyname($source['host']))
   ) {
-    $error($res, 'invalid_source_url');
+    $error($res, 'invalid_source_url', 'The source URL was not valid. Ensure the URL is an http or https URL.');
     return;
   }
 
   if($targetURL == FALSE) {
-    $error($res, 'missing_target_url');
+    $error($res, 'missing_target_url', 'No target URL was provided in the request.');
     return;
   }
 
@@ -62,7 +74,7 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
     || !array_key_exists('host', $target)
     || $target['host'] != Config::$hostname
   ) {
-    $error($res, 'target_not_supported');
+    $error($res, 'target_not_supported', 'The target URL provided is not supported. Only http or https URLs for '.Config::$hostname.' are accepted.');
     return;
   }
 
@@ -94,7 +106,7 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
   curl_setopt($ch, CURLOPT_URL, Config::$xrayURL);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
   curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
-    'url' => $sourceURL
+    'url' => $sourceURL,
   ]));
   $response = json_decode(curl_exec($ch), true);
 
@@ -192,7 +204,7 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
     return;
   }
   if($synURL != $targetURL) {
-    $error($res, 'target_mismatch', 'The URL on the page did not match the target URL of the Webmention.');
+    $error($res, 'target_mismatch', 'The URL on the page did not match the target URL of the Webmention. Make sure your post links to ' . $targetURL);
     return;
   }
 
@@ -281,28 +293,32 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
     }
   }
 
-  $res->status(201);
-  $res['Content-Type'] = 'application/json';
+  if($is_html) {
+    $res->redirect($indieNewsPermalink, 302);
+  } else {
+    $res->status(201);
+    $res['Content-Type'] = 'application/json';
 
-  $responseData = array(
-    'title' => $record['title'],
-    'body' => $record['body'] ? true : false,
-    'author' => $record['post_author'],
-    'date' => ($record['date'] ? date('Y-m-d\TH:i:sP', $record['date']) : false)
-  );
-  if($inReplyTo) 
-    $responseData['in-reply-to'] = $inReplyTo;
+    $responseData = array(
+      'title' => $record['title'],
+      'body' => $record['body'] ? true : false,
+      'author' => $record['post_author'],
+      'date' => ($record['date'] ? date('Y-m-d\TH:i:sP', $record['date']) : false)
+    );
+    if($inReplyTo) 
+      $responseData['in-reply-to'] = $inReplyTo;
 
-  $response = array(
-    'result' => 'success',
-    'notices' => $notices,
-    'data' => $responseData,
-    'source' => $req->post('source'),
-    'url' => $indieNewsPermalink
-  );
+    $response = array(
+      'result' => 'success',
+      'notices' => $notices,
+      'data' => $responseData,
+      'source' => $req->post('source'),
+      'url' => $indieNewsPermalink
+    );
 
-  $res['Location'] = $indieNewsPermalink;
-  $res->body(json_encode($response, JSON_PRETTY_PRINT));
+    $res['Location'] = $indieNewsPermalink;
+    $res->body(json_encode($response, JSON_PRETTY_PRINT));
+  }
 })->conditions(array('lang'=>LANG_REGEX));
 
 $app->post('/webmention-error', function() use($app) {
