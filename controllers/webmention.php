@@ -1,7 +1,17 @@
 <?php
 
-$app->post('/(:lang/)webmention', function($lang='en') use($app) {
+$app->get('/(:lang/)webmention', function($lang='en') use($app) {
+  $req = $app->request();
+  $res = $app->response();
 
+  render('webmention', array(
+    'title' => 'IndieNews Webmention Endpoint',
+    'meta' => '',
+    'lang' => $lang
+  ));
+})->conditions(array('lang'=>LANG_REGEX));
+
+$app->post('/(:lang/)webmention', function($lang='en') use($app) {
   $req = $app->request();
   $res = $app->response();
 
@@ -16,7 +26,7 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
     );
     if($description)
       $error['error_description'] = $description;
-    $res->body(json_encode($error));
+    $res->body(json_encode($error, JSON_PRETTY_PRINT));
   };
 
   if($sourceURL == FALSE) {
@@ -292,7 +302,7 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
   );
 
   $res['Location'] = $indieNewsPermalink;
-  $res->body(json_encode($response));
+  $res->body(json_encode($response, JSON_PRETTY_PRINT));
 })->conditions(array('lang'=>LANG_REGEX));
 
 $app->post('/webmention-error', function() use($app) {
@@ -304,5 +314,5 @@ $app->post('/webmention-error', function() use($app) {
   $res['Content-Type'] = 'application/json';
   $res->body(json_encode(array(
     'error' => 'no_link_found'
-  )));
+  ), JSON_PRETTY_PRINT));
 });
