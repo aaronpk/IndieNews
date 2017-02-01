@@ -11,6 +11,7 @@ CREATE TABLE `posts` (
   `user_id` bigint(20) unsigned DEFAULT NULL,
   `date_submitted` datetime NOT NULL,
   `post_date` datetime DEFAULT NULL,
+  `tzoffset` int(11) NOT NULL DEFAULT 0,
   `post_author` varchar(255) DEFAULT NULL,
   `title` varchar(512) DEFAULT NULL,
   `href` varchar(512) DEFAULT NULL,

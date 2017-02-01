@@ -14,8 +14,8 @@
         <a href="<?= $this->post->in_reply_to ?>" class="u-in-reply-to"><?= __('in reply to') ?></a> |
       <? endif ?>
       <?= $this->post->post_date ? 
-          '<time class="dt-published" datetime="'.date('c', strtotime($this->post->post_date)).'">' 
-            . date('Y-m-d H:i T', strtotime($this->post->post_date)) 
+          '<time class="dt-published" datetime="'.printLocalDate('c', $this->post->post_date, $this->post->tzoffset).'">' 
+            . printLocalDate('Y-m-d H:i T', $this->post->post_date, $this->post->tzoffset) 
             . '</time> |' : '' ?>
       <?= __('submitted') ?> 
       <a href="<?= permalinkForURL($this->post->lang, $this->post->href) ?>">

@@ -142,7 +142,9 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
 
     if(array_key_exists('published', $post)) {
       $published = new DateTime($post['published']);
-      $record['date'] = $published->format('U');
+      $record['date'] = $published;
+      $utcdate = clone $published;
+      $utcdate->setTimeZone(new DateTimeZone('UTC'));
     } else {
       $notices[] = 'No published date found';
     }
@@ -158,7 +160,9 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
     if(isset($post['start'])) {
       $start = new DateTime($post['start']);
       if($start) {
-        $record['date'] = $start->format('U');
+        $record['date'] = $start;
+        $utcdate = clone $start;
+        $utcdate->setTimeZone(new DateTimeZone('UTC'));
       }
     }
 
@@ -248,8 +252,10 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
   # If there is no existing post for $source, update the properties
   $post = ORM::for_table('posts')->where('lang', $lang)->where('href', $href)->find_one();
   if($post != FALSE) {
-    if($record['date'])
-      $post->post_date = date('Y-m-d H:i:s', $record['date']);
+    if($record['date']) {
+      $post->post_date = $utcdate->format('Y-m-d H:i:s');
+      $post->tzoffset = $record['date']->format('Z');
+    }
     $post->post_author = $record['post_author'];
     $post->title = $record['title'];
     if($inReplyTo)
@@ -265,8 +271,10 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
     $post->lang = $lang;
     $post->user_id = $user->id;
     $post->date_submitted = date('Y-m-d H:i:s');
-    if($record['date'])
-      $post->post_date = date('Y-m-d H:i:s', $record['date']);
+    if($record['date']) {
+      $post->post_date = $utcdate->format('Y-m-d H:i:s');
+      $post->tzoffset = $record['date']->format('Z');
+    }
     $post->post_author = $record['post_author'];
     $post->title = $record['title'];
     if($inReplyTo)
@@ -303,7 +311,7 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
       'title' => $record['title'],
       'body' => $record['body'] ? true : false,
       'author' => $record['post_author'],
-      'date' => ($record['date'] ? date('Y-m-d\TH:i:sP', $record['date']) : false)
+      'date' => ($record['date'] ? $record['date']->format('c') : false)
     );
     if($inReplyTo) 
       $responseData['in-reply-to'] = $inReplyTo;

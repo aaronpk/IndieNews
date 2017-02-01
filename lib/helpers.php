@@ -35,6 +35,19 @@ function respondWithFormat($app, $html, $format) {
   }
 }
 
+// $format - one of the php.net/date format strings
+// $date - a string that will be passed to DateTime()
+// $offset - numeric timezone offset
+function printLocalDate($format, $date, $offset) {
+  if($offset != 0)
+    $tz = new DateTimeZone(floor($offset / 60 / 60) . ':' . (($offset / 60) % 60));
+  else
+    $tz = new DateTimeZone('UTC');
+  $d = new DateTime($date);
+  $d->setTimeZone($tz);
+  return $d->format($format);
+}
+
 // Strip the http:// prefix
 function slugForURL($url) {
   return preg_replace('/https?:\/\//', '', $url);
