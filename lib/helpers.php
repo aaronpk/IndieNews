@@ -40,7 +40,7 @@ function respondWithFormat($app, $html, $format) {
 // $offset - numeric timezone offset
 function printLocalDate($format, $date, $offset) {
   if($offset != 0)
-    $tz = new DateTimeZone(floor($offset / 60 / 60) . ':' . (($offset / 60) % 60));
+    $tz = new DateTimeZone(($offset < 0 ? '-' : '') . sprintf('%02d:%02d', abs(floor($offset / 60 / 60)), (($offset / 60) % 60)));
   else
     $tz = new DateTimeZone('UTC');
   $d = new DateTime($date);
