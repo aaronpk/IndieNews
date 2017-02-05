@@ -18,7 +18,8 @@ ORM::configure('driver_options', array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAME
 
 // Create a new app object with the Savant view renderer
 $app = new \Slim\Slim(array(
-  'view' => new \Slim\Extras\Views\Savant()
+  'view' => new \Slim\Extras\Views\Savant(),
+  'debug' => Config::$debug
 ));
 
 require 'controllers/static.php';
