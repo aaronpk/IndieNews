@@ -5,8 +5,8 @@
       <div class="content e-content"><?= auto_link(htmlspecialchars(substr($this->post->title ?: $this->post->body,0,600))) ?></div>
     <? endif; ?>
     <div class="details">
-      <span class="<?= $this->post->source_url != $this->post->href ? '' : 'p-author h-card' ?>">
-        <a href="<?= $this->post->post_author ?>" class="<?= $this->post->source_url != $this->post->href ? '' : 'u-url' ?>">
+      <span>
+        <a href="<?= $this->post->post_author ?>" class="u-author h-card">
           <?= display_url($this->post->post_author) ?>
         </a>
       </span> | 
@@ -24,7 +24,7 @@
       </a>
       <?= $this->post->source_url != $this->post->href ? 
           ' ' . __('submitted ... from')
-          . ' <a href="'.$this->post->source_url.'" class="u-author h-card">'
+          . ' <a href="'.$this->post->source_url.'">'
           . (parse_url($this->post->source_url, PHP_URL_HOST)) 
           . '</a>' : '' ?>
     </div>
