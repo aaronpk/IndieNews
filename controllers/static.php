@@ -1,7 +1,7 @@
 <?php
 $app->get('/', function() use($app) {
   render('index', array(
-    'title' => 'IndieNews',
+    'title' => 'IndieNews homepage',
     'meta' => '',
     'lang' => 'en'
   ));

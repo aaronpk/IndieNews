@@ -52,7 +52,7 @@ $app->get('/:lang(.:format)', function($lang='en', $format='html') use($app) {
 
   ob_start();
   render('posts', array(
-    'title' => 'IndieNews',
+    'title' => 'IndieNews ' . $lang,
     'posts' => $posts,
     'view' => 'list',
     'meta' => (Config::$hubURL ? $webSubTags : '') . "\n" . $atomFeed,
@@ -99,4 +99,3 @@ $app->get('/:lang/submit', function($lang) use($app) {
     'lang' => $lang
   ));
 })->conditions(array('lang'=>LANG_REGEX));
-
