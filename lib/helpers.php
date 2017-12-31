@@ -30,6 +30,11 @@ function respondWithFormat($app, $html, $format) {
     $output['note'][] = "If you see a problem with the output, please let me know! (github.com/aaronpk/IndieNews/issues)";
     $res['Content-Type'] = 'application/json';
     $res->body(json_encode($output));
+  } elseif($format == 'jf2') {
+    $xray = new p3k\XRay();
+    $parsed = $xray->parse(Config::$baseURL, $html);
+    $res['Content-Type'] = 'application/json';
+    $res->body(json_encode($parsed));
   } else {
     $res->body($html);
   }

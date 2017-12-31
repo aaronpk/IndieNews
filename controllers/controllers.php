@@ -60,7 +60,7 @@ $app->get('/:lang(.:format)', function($lang='en', $format='html') use($app) {
   ));
   $html = ob_get_clean();
   respondWithFormat($app, $html, $format);
-})->conditions(array('format'=>'json', 'lang'=>LANG_REGEX));
+})->conditions(array('format'=>'json|jf2', 'lang'=>LANG_REGEX));
 
 // Language-specific permalinks
 $app->get('/:lang/:slug(.:format)', function($lang, $slug, $format='html') use($app) {
