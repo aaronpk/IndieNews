@@ -62,6 +62,69 @@ $app->get('/:lang(.:format)', function($lang='en', $format='html') use($app) {
   respondWithFormat($app, $html, $format);
 })->conditions(array('format'=>'json|jf2', 'lang'=>LANG_REGEX));
 
+$app->get('/:lang/:year/:month', function($lang='en', $year, $month) use($app) {
+
+  I18n::locale($lang);
+  setlocale(LC_ALL, localeFromLangCode($lang));
+
+  $req = $app->request();
+
+  $date = new DateTime($year.'-'.$month.'-01');
+
+  $posts = ORM::for_table('posts')
+    ->where('lang', $lang)
+    ->where_lte('date_submitted', $date->format('Y-m-t').' 23:59:59')
+    ->where_gte('date_submitted', $date->format('Y-m-01'))
+    ->order_by_asc('date_submitted')
+    ->find_many();
+
+  $prev = false;
+  $next = false;
+
+  $prevPost = ORM::for_table('posts')
+    ->where('lang', $lang)
+    ->where_lt('date_submitted', $date->format('Y-m-01'))
+    ->order_by_desc('date_submitted')
+    ->find_one();
+  if($prevPost) {
+    $prev = new DateTime($prevPost->date_submitted);
+  }
+
+  $nextPost = ORM::for_table('posts')
+    ->where('lang', $lang)
+    ->where_gt('date_submitted', $date->format('Y-m-t').' 23:59:59')
+    ->order_by_asc('date_submitted')
+    ->find_one();
+  if($nextPost) {
+    $next = new DateTime($nextPost->date_submitted);
+  }
+
+  $calendar = [];
+  foreach($posts as $post) {
+    $postDate = $post->post_date ?: $post->date_submitted;
+    $day = printLocalDate('j', $postDate, $post->tzoffset);
+    if(!array_key_exists($day, $calendar))
+      $calendar[(int)$day] = [];
+    $calendar[(int)$day][] = $post;
+  }
+  ksort($calendar);
+
+  ob_start();
+  render('calendar', array(
+    'title' => 'IndieNews ' . $lang,
+    'date' => $date,
+    'year' => $year,
+    'month' => $month,
+    'calendar' => $calendar,
+    'meta' => '',
+    'lang' => $lang,
+    'next' => $next,
+    'prev' => $prev
+  ));
+  $html = ob_get_clean();
+  respondWithFormat($app, $html, 'html');
+})->conditions(array('lang'=>LANG_REGEX, 'year'=>'\d{4}', 'month'=>'\d{2}'));
+
 // Language-specific permalinks
 $app->get('/:lang/:slug(.:format)', function($lang, $slug, $format='html') use($app) {
   I18n::locale($lang);

@@ -12,6 +12,21 @@ function supportedLanguages() {
   ];
 }
 
+function localeFromLangCode($code) {
+  switch($code) {
+    case 'en':
+      return 'en_US';
+    case 'sv':
+      return 'sv_SV';
+    case 'de':
+      return 'de_DE';
+    case 'fr':
+      return 'fr_FR';
+    case 'nl':
+      return 'nl_NL';
+  }
+}
+
 function getPostsForParentID($parentID) {
   return ORM::for_table('posts')->raw_query('
     SELECT *, GREATEST(1, TIMESTAMPDIFF(HOUR, date_submitted, NOW())) AS age
