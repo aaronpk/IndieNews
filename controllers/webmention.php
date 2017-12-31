@@ -131,13 +131,13 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
   if($post['type'] == 'entry') {
 
     if(isset($post['name'])) {
-      $record['title'] = $post['name'];
+      $record['title'] = ellipsize_to_word($post['name'], 200, '...', 10);
     } else {
       $notices[] = 'No "name" property found on the h-entry.';
     }
 
     if(isset($post['content'])) {
-      $record['body'] = $post['content']['text'];
+      $record['body'] = ellipsize_to_word($post['content']['text'], 500, '...', 10);
     }
 
     if(array_key_exists('published', $post)) {
@@ -152,7 +152,7 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
 
   } elseif($post['type'] == 'event') {
     if(isset($post['name'])) {
-      $record['title'] = $post['name'];
+      $record['title'] = ellipsize_to_word($post['name'], 200, '...', 10);
     } else {
       $notices[] = 'No "name" was found for this h-event';
     }
@@ -171,7 +171,7 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
       if(array_key_exists($locationURL, $refs)) {
         $location = $refs[$locationURL];
         if(array_key_exists('name', $location)) {
-          $record['title'] .= ' at ' . $location['name'];
+          $record['title'] .= ' at ' . ellipsize_to_word($location['name'], 200, '...', 10);
         }
       }
     }
