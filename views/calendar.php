@@ -33,13 +33,17 @@
 
       if(array_key_exists($i, $this->calendar)) {
         foreach($this->calendar[$i] as $post) {
-          echo '<a href="' . $post->href . '" class="post">';
-          if(shouldDisplayPostName($post->title)) {
-            echo htmlspecialchars($post->title);
-          } else {
-            echo display_url($post->href);
-          }
-          echo '</a>'."\n";
+          echo '<div class="post">';
+            echo '<a href="' . $post->href . '">';
+            if(shouldDisplayPostName($post->title)) {
+              echo htmlspecialchars($post->title);
+            } else {
+              echo display_url($post->href);
+            }
+            echo '</a>'."\n";
+            if(shouldDisplayPostName($post->title)) 
+              echo ' <span class="author">' . display_url($post->post_author) . '</span>';
+          echo '</div>';
         }
       }
 
@@ -87,6 +91,10 @@
   display: block;
   word-wrap: break-word;
   margin-bottom: 12px;
+}
+.cal-cell .post .author {
+  font-size: 80%;
+  line-height: 0.8em;
 }
 nav.months .prev { float: left; }
 nav.months .next { float: right; }
