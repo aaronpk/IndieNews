@@ -1,8 +1,9 @@
 <tr class="post post_<?= $this->post->id ?> single h-entry">
   <td>
-    <div class="title p-name"><a href="<?= $this->post->href ?>" class="u-url"><?= htmlspecialchars(shouldDisplayPostName($this->post->title) ? $this->post->title : display_url($this->post->href)) ?></a></div>
-    <? if(!shouldDisplayPostName($this->post->title)): ?>
-      <div class="content e-content"><?= auto_link(htmlspecialchars(substr($this->post->title ?: $this->post->body,0,600))) ?></div>
+    <? if(shouldDisplayPostName($this->post->title)): ?>
+      <div class="title p-name"><a href="<?= $this->post->href ?>" class="u-url"><?= htmlspecialchars(shouldDisplayPostName($this->post->title) ? $this->post->title : display_url($this->post->href)) ?></a></div>
+    <? else: ?>
+      <div class="content e-content p-name"><?= auto_link(htmlspecialchars(substr($this->post->title ?: $this->post->body,0,600))) ?></div>
     <? endif; ?>
     <div class="details">
       <span>
