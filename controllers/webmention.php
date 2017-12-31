@@ -232,7 +232,8 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
   $href = $sourceURL;
 
   if(array_key_exists('bookmark-of', $post)) {
-    $href = $post['bookmark-of'][0];
+    // Strip utm tracking params
+    $href = p3k\url\strip_tracking_params($post['bookmark-of'][0]);
     if(array_key_exists($href, $refs)) {
       if(array_key_exists('name', $refs[$href])) {
         $record['title'] = $refs[$href]['name'];

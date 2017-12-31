@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "dafa6204ae736e4d4b64bda553c4eb6f",
+    "content-hash": "37a63a484f259ae3bc44134c3ebc23c2",
     "packages": [
         {
             "name": "aura/installer-default",
@@ -403,6 +403,51 @@
             "time": "2014-09-26T02:52:02+00:00"
         },
         {
+            "name": "p3k/utils",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aaronpk/p3k-utils.git",
+                "reference": "4f2ab159bae3d79a21fb02f30a03eed3d57aab96"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aaronpk/p3k-utils/zipball/4f2ab159bae3d79a21fb02f30a03eed3d57aab96",
+                "reference": "4f2ab159bae3d79a21fb02f30a03eed3d57aab96",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8.13",
+                "predis/predis": "1.1.*"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/global.php",
+                    "src/url.php",
+                    "src/utils.php",
+                    "src/date.php",
+                    "src/cache.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aaron Parecki",
+                    "homepage": "https://aaronparecki.com"
+                }
+            ],
+            "description": "Some helpful functions used by https://p3k.io projects",
+            "homepage": "https://github.com/aaronpk/p3k-utils",
+            "time": "2017-04-30T16:14:20+00:00"
+        },
+        {
             "name": "slim/slim",
             "version": "2.2.0",
             "source": {
@@ -466,7 +511,7 @@
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2017-01-21 01:31:11"
+            "time": "2017-01-21T01:31:11+00:00"
         }
     ],
     "packages-dev": [],
