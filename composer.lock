@@ -4,116 +4,43 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "37a63a484f259ae3bc44134c3ebc23c2",
+    "content-hash": "aa00802e3496538bc975cc9dc9e24318",
     "packages": [
         {
-            "name": "aura/installer-default",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/auraphp/installer-default.git",
-                "reference": "52f8de3670cc1ef45a916f40f732937436d028c8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/auraphp/installer-default/zipball/52f8de3670cc1ef45a916f40f732937436d028c8",
-                "reference": "52f8de3670cc1ef45a916f40f732937436d028c8",
-                "shasum": ""
-            },
-            "type": "composer-installer",
-            "extra": {
-                "class": "Aura\\Composer\\DefaultInstaller"
-            },
-            "autoload": {
-                "psr-0": {
-                    "Aura\\Composer\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Paul M. Jones",
-                    "email": "pmjones88@gmail.com",
-                    "homepage": "http://paul-m-jones.com"
-                }
-            ],
-            "description": "Installs Aura packages using the Composer defaults.",
-            "keywords": [
-                "aura",
-                "installer"
-            ],
-            "time": "2012-11-26T21:35:57+00:00"
-        },
-        {
             "name": "aura/intl",
-            "version": "1.1.1",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/auraphp/Aura.Intl.git",
-                "reference": "c5fe620167550ad6fa77dd3570fba2efc77a2a21"
+                "reference": "7fce228980b19bf4dee2d7bbd6202a69b0dde926"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/auraphp/Aura.Intl/zipball/c5fe620167550ad6fa77dd3570fba2efc77a2a21",
-                "reference": "c5fe620167550ad6fa77dd3570fba2efc77a2a21",
+                "url": "https://api.github.com/repos/auraphp/Aura.Intl/zipball/7fce228980b19bf4dee2d7bbd6202a69b0dde926",
+                "reference": "7fce228980b19bf4dee2d7bbd6202a69b0dde926",
                 "shasum": ""
             },
             "require": {
-                "aura/installer-default": "1.0.*",
-                "php": ">=5.4.0"
+                "php": "^5.6|^7.0"
             },
-            "type": "aura-package",
-            "extra": {
-                "aura": {
-                    "type": "library",
-                    "config": {
-                        "common": "Aura\\Intl\\_Config\\Common"
-                    }
-                },
-                "branch-alias": {
-                    "dev-develop": "1.1.x-dev"
-                }
-            },
+            "type": "library",
             "autoload": {
-                "psr-0": {
-                    "Aura\\Intl": "src/"
-                },
                 "psr-4": {
-                    "Aura\\Intl\\_Config\\": "config/"
+                    "Aura\\Intl\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD-2-Clause"
+                "MIT"
             ],
             "authors": [
                 {
-                    "name": "Paul M. Jones",
-                    "email": "pmjones88@gmail.com",
-                    "homepage": "http://paul-m-jones.com"
-                },
-                {
                     "name": "Aura.Intl Contributors",
                     "homepage": "https://github.com/auraphp/Aura.Intl/contributors"
-                },
-                {
-                    "name": "Pascal Borreli",
-                    "email": "pascal@borreli.com"
-                },
-                {
-                    "name": "Mapthegod",
-                    "email": "mapthegod@gmail.com"
-                },
-                {
-                    "name": "Jose Lorenzo Rodriguez",
-                    "email": "jose.zap@gmail.com"
                 }
             ],
-            "description": "The Aura.Intl package provides internationalization (I18N) tools, specifically\npackage-oriented per-locale message translation.",
-            "homepage": "http://auraphp.com/Aura.Intl",
+            "description": "The Aura Intl package provides internationalization tools, specifically message translation.",
+            "homepage": "https://github.com/auraphp/Aura.Intl",
             "keywords": [
                 "g11n",
                 "globalization",
@@ -123,24 +50,82 @@
                 "l10n",
                 "localization"
             ],
-            "time": "2014-08-24T00:00:00+00:00"
+            "time": "2017-01-20T05:00:11+00:00"
         },
         {
-            "name": "cakephp/core",
-            "version": "3.0.12",
+            "name": "cakephp/chronos",
+            "version": "1.1.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/cakephp/core.git",
-                "reference": "2889cb0959016eab84965c0cf5eaf4372493ff34"
+                "url": "https://github.com/cakephp/chronos.git",
+                "reference": "56d98330d366a469745848b07540373846c40561"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/core/zipball/2889cb0959016eab84965c0cf5eaf4372493ff34",
-                "reference": "2889cb0959016eab84965c0cf5eaf4372493ff34",
+                "url": "https://api.github.com/repos/cakephp/chronos/zipball/56d98330d366a469745848b07540373846c40561",
+                "reference": "56d98330d366a469745848b07540373846c40561",
                 "shasum": ""
             },
             "require": {
-                "cakephp/utility": "~3.0"
+                "php": "^5.5.9|^7"
+            },
+            "require-dev": {
+                "athletic/athletic": "~0.1",
+                "cakephp/cakephp-codesniffer": "~2.3",
+                "phpbench/phpbench": "@dev",
+                "phpstan/phpstan": "^0.6.4",
+                "phpunit/phpunit": "<6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Cake\\Chronos\\": "src"
+                },
+                "files": [
+                    "src/carbon_compat.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Brian Nesbitt",
+                    "email": "brian@nesbot.com",
+                    "homepage": "http://nesbot.com"
+                },
+                {
+                    "name": "The CakePHP Team",
+                    "homepage": "http://cakephp.org"
+                }
+            ],
+            "description": "A simple API extension for DateTime.",
+            "homepage": "http://cakephp.org",
+            "keywords": [
+                "date",
+                "datetime",
+                "time"
+            ],
+            "time": "2017-12-25T22:42:18+00:00"
+        },
+        {
+            "name": "cakephp/core",
+            "version": "3.5.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cakephp/core.git",
+                "reference": "80e5807f6f484def52be60a3c5e2374d7dc47ed2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cakephp/core/zipball/80e5807f6f484def52be60a3c5e2374d7dc47ed2",
+                "reference": "80e5807f6f484def52be60a3c5e2374d7dc47ed2",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/utility": "^3.0.0",
+                "php": ">=5.6.0"
             },
             "type": "library",
             "autoload": {
@@ -158,31 +143,38 @@
             "authors": [
                 {
                     "name": "CakePHP Community",
-                    "homepage": "http://cakephp.org"
+                    "homepage": "https://github.com/cakephp/core/graphs/contributors"
                 }
             ],
             "description": "CakePHP Framework Core classes",
-            "time": "2015-07-21T06:30:44+00:00"
+            "homepage": "https://cakephp.org",
+            "keywords": [
+                "cakephp",
+                "core",
+                "framework"
+            ],
+            "time": "2017-12-16T20:39:54+00:00"
         },
         {
             "name": "cakephp/i18n",
-            "version": "3.0.12",
+            "version": "3.5.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/i18n.git",
-                "reference": "ce98c7c9e94c669c3426cf291dcaab6aaaddfee3"
+                "reference": "4b62fc4840a6c1abcea9b1ea7e3d767332ba054e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/i18n/zipball/ce98c7c9e94c669c3426cf291dcaab6aaaddfee3",
-                "reference": "ce98c7c9e94c669c3426cf291dcaab6aaaddfee3",
+                "url": "https://api.github.com/repos/cakephp/i18n/zipball/4b62fc4840a6c1abcea9b1ea7e3d767332ba054e",
+                "reference": "4b62fc4840a6c1abcea9b1ea7e3d767332ba054e",
                 "shasum": ""
             },
             "require": {
-                "aura/intl": "1.1.*",
-                "cakephp/core": "~3.0",
+                "aura/intl": "^3.0.0",
+                "cakephp/chronos": "^1.0.0",
+                "cakephp/core": "^3.0.0",
                 "ext-intl": "*",
-                "nesbot/carbon": "1.13.*"
+                "php": ">=5.6.0"
             },
             "suggest": {
                 "cakephp/cache": "Require this if you want automatic caching of translators"
@@ -203,25 +195,44 @@
             "authors": [
                 {
                     "name": "CakePHP Community",
-                    "homepage": "http://cakephp.org"
+                    "homepage": "https://github.com/cakephp/i18n/graphs/contributors"
                 }
             ],
             "description": "CakePHP Internationalization library with support for messages translation and dates and numbers localization",
-            "time": "2015-08-19T20:24:42+00:00"
+            "homepage": "https://cakephp.org",
+            "keywords": [
+                "cakephp",
+                "date",
+                "i18n",
+                "internationalisation",
+                "internationalization",
+                "localisation",
+                "localization",
+                "number",
+                "translation"
+            ],
+            "time": "2017-12-12T21:46:45+00:00"
         },
         {
             "name": "cakephp/utility",
-            "version": "3.0.12",
+            "version": "3.5.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/utility.git",
-                "reference": "4d16e1fb52d62bef3ee2cba618718769d70653cf"
+                "reference": "a5d42fdc2607051e210f8ee42936f99ef6e100af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/utility/zipball/4d16e1fb52d62bef3ee2cba618718769d70653cf",
-                "reference": "4d16e1fb52d62bef3ee2cba618718769d70653cf",
+                "url": "https://api.github.com/repos/cakephp/utility/zipball/a5d42fdc2607051e210f8ee42936f99ef6e100af",
+                "reference": "a5d42fdc2607051e210f8ee42936f99ef6e100af",
                 "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6.0"
+            },
+            "suggest": {
+                "ext-intl": "To use Text::transliterate() or Text::slug()",
+                "lib-ICU": "To use Text::transliterate() or Text::slug()"
             },
             "type": "library",
             "autoload": {
@@ -239,11 +250,273 @@
             "authors": [
                 {
                     "name": "CakePHP Community",
-                    "homepage": "http://cakephp.org"
+                    "homepage": "https://github.com/cakephp/utility/graphs/contributors"
                 }
             ],
             "description": "CakePHP Utility classes such as Inflector, String, Hash, and Security",
-            "time": "2015-07-23T16:38:36+00:00"
+            "homepage": "https://cakephp.org",
+            "keywords": [
+                "cakephp",
+                "hash",
+                "inflector",
+                "security",
+                "string",
+                "utility"
+            ],
+            "time": "2017-12-28T08:12:52+00:00"
+        },
+        {
+            "name": "cebe/markdown",
+            "version": "1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cebe/markdown.git",
+                "reference": "25b28bae8a6f185b5030673af77b32e1163d5c6e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cebe/markdown/zipball/25b28bae8a6f185b5030673af77b32e1163d5c6e",
+                "reference": "25b28bae8a6f185b5030673af77b32e1163d5c6e",
+                "shasum": ""
+            },
+            "require": {
+                "lib-pcre": "*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "cebe/indent": "*",
+                "facebook/xhprof": "*@dev",
+                "phpunit/phpunit": "4.1.*"
+            },
+            "bin": [
+                "bin/markdown"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "cebe\\markdown\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Carsten Brandt",
+                    "email": "mail@cebe.cc",
+                    "homepage": "http://cebe.cc/",
+                    "role": "Creator"
+                }
+            ],
+            "description": "A super fast, highly extensible markdown parser for PHP",
+            "homepage": "https://github.com/cebe/markdown#readme",
+            "keywords": [
+                "extensible",
+                "fast",
+                "gfm",
+                "markdown",
+                "markdown-extra"
+            ],
+            "time": "2017-07-16T21:13:23+00:00"
+        },
+        {
+            "name": "dg/twitter-php",
+            "version": "v3.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dg/twitter-php.git",
+                "reference": "dd872ad12121ff919b358989e61f7f08ba6cc7a8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dg/twitter-php/zipball/dd872ad12121ff919b358989e61f7f08ba6cc7a8",
+                "reference": "dd872ad12121ff919b358989e61f7f08ba6cc7a8",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "David Grudl",
+                    "homepage": "https://davidgrudl.com"
+                }
+            ],
+            "description": "Small and easy Twitter library for PHP",
+            "homepage": "https://github.com/dg/twitter-php",
+            "keywords": [
+                "oauth",
+                "twitter"
+            ],
+            "time": "2016-08-15T16:46:22+00:00"
+        },
+        {
+            "name": "ezyang/htmlpurifier",
+            "version": "v4.9.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ezyang/htmlpurifier.git",
+                "reference": "95e1bae3182efc0f3422896a3236e991049dac69"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/95e1bae3182efc0f3422896a3236e991049dac69",
+                "reference": "95e1bae3182efc0f3422896a3236e991049dac69",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "require-dev": {
+                "simpletest/simpletest": "^1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "HTMLPurifier": "library/"
+                },
+                "files": [
+                    "library/HTMLPurifier.composer.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL"
+            ],
+            "authors": [
+                {
+                    "name": "Edward Z. Yang",
+                    "email": "admin@htmlpurifier.org",
+                    "homepage": "http://ezyang.com"
+                }
+            ],
+            "description": "Standards compliant HTML filter written in PHP",
+            "homepage": "http://htmlpurifier.org/",
+            "keywords": [
+                "html"
+            ],
+            "time": "2017-06-03T02:28:16+00:00"
+        },
+        {
+            "name": "facebook/graph-sdk",
+            "version": "5.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/facebook/php-graph-sdk.git",
+                "reference": "2f9639c15ae043911f40ffe44080b32bac2c5280"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/facebook/php-graph-sdk/zipball/2f9639c15ae043911f40ffe44080b32bac2c5280",
+                "reference": "2f9639c15ae043911f40ffe44080b32bac2c5280",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.4|^7.0"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": "~5.0",
+                "mockery/mockery": "~0.8",
+                "phpunit/phpunit": "~4.0"
+            },
+            "suggest": {
+                "guzzlehttp/guzzle": "Allows for implementation of the Guzzle HTTP client",
+                "paragonie/random_compat": "Provides a better CSPRNG option in PHP 5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Facebook\\": "src/Facebook/"
+                },
+                "files": [
+                    "src/Facebook/polyfills.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Facebook Platform"
+            ],
+            "authors": [
+                {
+                    "name": "Facebook",
+                    "homepage": "https://github.com/facebook/php-graph-sdk/contributors"
+                }
+            ],
+            "description": "Facebook SDK for PHP",
+            "homepage": "https://github.com/facebook/php-graph-sdk",
+            "keywords": [
+                "facebook",
+                "sdk"
+            ],
+            "time": "2017-08-16T17:28:07+00:00"
+        },
+        {
+            "name": "indieweb/link-rel-parser",
+            "version": "0.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/indieweb/link-rel-parser-php.git",
+                "reference": "295420e4f16d9a9d262a3c25a7a583794428f055"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/indieweb/link-rel-parser-php/zipball/295420e4f16d9a9d262a3c25a7a583794428f055",
+                "reference": "295420e4f16d9a9d262a3c25a7a583794428f055",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/IndieWeb/link_rel_parser.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Aaron Parecki",
+                    "homepage": "http://aaronparecki.com"
+                },
+                {
+                    "name": "Tantek Çelik",
+                    "homepage": "http://tantek.com"
+                }
+            ],
+            "description": "Parse rel values from HTTP headers",
+            "homepage": "https://github.com/indieweb/link-rel-parser-php",
+            "keywords": [
+                "http",
+                "indieweb",
+                "microformats2"
+            ],
+            "time": "2017-01-11T17:14:49+00:00"
         },
         {
             "name": "j4mie/idiorm",
@@ -305,23 +578,25 @@
         },
         {
             "name": "mf2/mf2",
-            "version": "v0.2.12",
+            "version": "v0.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/indieweb/php-mf2.git",
-                "reference": "6701504876d6c9242eb310b35f41d40d9785ab4e"
+                "reference": "dc0d90d4ee30864bcf37cd3a8fc8db94f9134cc4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/indieweb/php-mf2/zipball/6701504876d6c9242eb310b35f41d40d9785ab4e",
-                "reference": "6701504876d6c9242eb310b35f41d40d9785ab4e",
+                "url": "https://api.github.com/repos/indieweb/php-mf2/zipball/dc0d90d4ee30864bcf37cd3a8fc8db94f9134cc4",
+                "reference": "dc0d90d4ee30864bcf37cd3a8fc8db94f9134cc4",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": ">=5.4.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "3.7.*"
+                "mf2/tests": "@dev",
+                "phpdocumentor/phpdocumentor": "v2.8.4",
+                "phpunit/phpunit": "4.8.*"
             },
             "suggest": {
                 "barnabywalters/mf-cleaner": "To more easily handle the canonical data php-mf2 gives you"
@@ -338,7 +613,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "MIT"
+                "CC0"
             ],
             "authors": [
                 {
@@ -354,32 +629,46 @@
                 "parser",
                 "semantic"
             ],
-            "time": "2015-07-12T14:10:01+00:00"
+            "time": "2017-05-27T15:27:47+00:00"
         },
         {
-            "name": "nesbot/carbon",
-            "version": "1.13.0",
+            "name": "miniflux/picofeed",
+            "version": "v0.1.37",
             "source": {
                 "type": "git",
-                "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "5cb6e71055f7b0b57956b73d324cc4de31278f42"
+                "url": "https://github.com/aaronpk/picoFeed.git",
+                "reference": "402b7f07629577e7929625e78bc88d3d5831a22d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/5cb6e71055f7b0b57956b73d324cc4de31278f42",
-                "reference": "5cb6e71055f7b0b57956b73d324cc4de31278f42",
+                "url": "https://api.github.com/repos/aaronpk/picoFeed/zipball/402b7f07629577e7929625e78bc88d3d5831a22d",
+                "reference": "402b7f07629577e7929625e78bc88d3d5831a22d",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "ext-dom": "*",
+                "ext-iconv": "*",
+                "ext-libxml": "*",
+                "ext-simplexml": "*",
+                "ext-xml": "*",
+                "php": ">=5.3.0",
+                "zendframework/zendxml": "^1.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.0"
+                "phpdocumentor/reflection-docblock": "2.0.4",
+                "phpunit/phpunit": "4.8.26",
+                "symfony/yaml": "2.8.7"
             },
+            "suggest": {
+                "ext-curl": "PicoFeed will use cURL if present"
+            },
+            "bin": [
+                "picofeed"
+            ],
             "type": "library",
             "autoload": {
                 "psr-0": {
-                    "Carbon": "src"
+                    "PicoFeed": "lib/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -388,19 +677,92 @@
             ],
             "authors": [
                 {
-                    "name": "Brian Nesbitt",
-                    "email": "brian@nesbot.com",
-                    "homepage": "http://nesbot.com"
+                    "name": "Frédéric Guillot"
                 }
             ],
-            "description": "A simple API extension for DateTime.",
-            "homepage": "https://github.com/briannesbitt/Carbon",
+            "description": "Modern library to handle RSS/Atom feeds",
+            "homepage": "https://github.com/miniflux/picoFeed",
+            "time": "2017-11-02T03:20:36+00:00"
+        },
+        {
+            "name": "p3k/http",
+            "version": "0.1.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aaronpk/p3k-http.git",
+                "reference": "3740fe135e6d58457d7528e7c05a67b68e020a79"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aaronpk/p3k-http/zipball/3740fe135e6d58457d7528e7c05a67b68e020a79",
+                "reference": "3740fe135e6d58457d7528e7c05a67b68e020a79",
+                "shasum": ""
+            },
+            "require": {
+                "indieweb/link-rel-parser": "0.1.*",
+                "mf2/mf2": "0.3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "p3k\\": "src/p3k"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aaron Parecki",
+                    "homepage": "https://aaronparecki.com"
+                }
+            ],
+            "description": "A simple wrapper API around the PHP curl functions",
+            "homepage": "https://github.com/aaronpk/p3k-http",
+            "time": "2017-04-29T17:43:29+00:00"
+        },
+        {
+            "name": "p3k/timezone",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aaronpk/p3k-timezone.git",
+                "reference": "68d3490d896f98cf0727dc937f0bb6b045050c83"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aaronpk/p3k-timezone/zipball/68d3490d896f98cf0727dc937f0bb6b045050c83",
+                "reference": "68d3490d896f98cf0727dc937f0bb6b045050c83",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/p3k/Timezone.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Aaron Parecki",
+                    "homepage": "https://aaronparecki.com"
+                }
+            ],
+            "description": "Find the timezone of a given location",
+            "homepage": "https://github.com/aaronpk/p3k-timezone",
             "keywords": [
                 "date",
-                "datetime",
-                "time"
+                "p3k",
+                "timezone"
             ],
-            "time": "2014-09-26T02:52:02+00:00"
+            "time": "2017-01-12T17:30:08+00:00"
         },
         {
             "name": "p3k/utils",
@@ -446,6 +808,54 @@
             "description": "Some helpful functions used by https://p3k.io projects",
             "homepage": "https://github.com/aaronpk/p3k-utils",
             "time": "2017-04-30T16:14:20+00:00"
+        },
+        {
+            "name": "p3k/xray",
+            "version": "v1.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aaronpk/XRay.git",
+                "reference": "7872429f0c0a38bb905f27a25ebd8dee5804a6fa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aaronpk/XRay/zipball/7872429f0c0a38bb905f27a25ebd8dee5804a6fa",
+                "reference": "7872429f0c0a38bb905f27a25ebd8dee5804a6fa",
+                "shasum": ""
+            },
+            "require": {
+                "cebe/markdown": "1.1.*",
+                "dg/twitter-php": "3.6.*",
+                "ezyang/htmlpurifier": "4.*",
+                "facebook/graph-sdk": "^5.5",
+                "indieweb/link-rel-parser": "0.1.*",
+                "mf2/mf2": "^0.3.2",
+                "miniflux/picofeed": "^0.1.37",
+                "p3k/http": "0.1.*",
+                "p3k/timezone": "*"
+            },
+            "require-dev": {
+                "league/plates": "3.*",
+                "league/route": "1.*",
+                "phpunit/phpunit": "4.8.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "p3k\\XRay\\": "lib/XRay"
+                },
+                "files": [
+                    "lib/helpers.php",
+                    "lib/XRay.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "X-Ray returns structured data from any URL",
+            "homepage": "https://github.com/aaronpk/XRay",
+            "time": "2017-11-24T17:55:41+00:00"
         },
         {
             "name": "slim/slim",
@@ -496,12 +906,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/tantek/cassis.git",
-                "reference": "312d8b99d912ee9aa90ca9966d4db27690982fbc"
+                "reference": "09ac2b30845b7d66583615f508a45185820324c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tantek/cassis/zipball/312d8b99d912ee9aa90ca9966d4db27690982fbc",
-                "reference": "312d8b99d912ee9aa90ca9966d4db27690982fbc",
+                "url": "https://api.github.com/repos/tantek/cassis/zipball/09ac2b30845b7d66583615f508a45185820324c8",
+                "reference": "09ac2b30845b7d66583615f508a45185820324c8",
                 "shasum": ""
             },
             "type": "library",
@@ -511,7 +921,52 @@
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2017-01-21T01:31:11+00:00"
+            "time": "2017-12-30T01:14:56+00:00"
+        },
+        {
+            "name": "zendframework/zendxml",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zendframework/ZendXml.git",
+                "reference": "7b64507bc35d841c9c5802d67f6f87ef8e1a58c9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/7b64507bc35d841c9c5802d67f6f87ef8e1a58c9",
+                "reference": "7b64507bc35d841c9c5802d67f6f87ef8e1a58c9",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.3.3 || ^7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^3.7 || ^4.0",
+                "squizlabs/php_codesniffer": "^1.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "ZendXml\\": "library/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Utility library for XML usage, best practices, and security in PHP",
+            "homepage": "http://packages.zendframework.com/",
+            "keywords": [
+                "security",
+                "xml",
+                "zf2"
+            ],
+            "time": "2016-02-04T21:02:08+00:00"
         }
     ],
     "packages-dev": [],

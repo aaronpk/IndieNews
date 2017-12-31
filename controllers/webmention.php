@@ -98,17 +98,10 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
   );
   $notices = array();
 
-  // $error($res, 'ok_so_far', '');
-  // return;
-
   # Now fetch and parse the page looking for Microformats
-  $ch = curl_init();
-  curl_setopt($ch, CURLOPT_URL, Config::$xrayURL);
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-  curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
-    'url' => $sourceURL,
-  ]));
-  $response = json_decode(curl_exec($ch), true);
+  $xray = new p3k\XRay();
+  $xray->http = new p3k\HTTP('IndieNews/1.0.0 (https://news.indieweb.org/)');
+  $response = $xray->parse($sourceURL);
 
   if(isset($response['error'])) {
     $error($res, $response['error'], 'An error occurred while attempting to fetch the source URL: ' . $response['error_description']);
