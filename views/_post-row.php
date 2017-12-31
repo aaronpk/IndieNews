@@ -15,12 +15,12 @@
         <a href="<?= $this->post->in_reply_to ?>" class="u-in-reply-to"><?= __('in reply to') ?></a> |
       <? endif ?>
       <?= $this->post->post_date ? 
-          '<time class="dt-published" datetime="'.printLocalDate('c', $this->post->post_date, $this->post->tzoffset).'">' 
+          '<time class="" datetime="'.printLocalDate('c', $this->post->post_date, $this->post->tzoffset).'">' 
             . printLocalDate('Y-m-d H:i T', $this->post->post_date, $this->post->tzoffset) 
             . '</time> |' : '' ?>
       <?= __('submitted') ?> 
       <a href="<?= permalinkForURL($this->post->lang, $this->post->href) ?>">
-        <time class="timeago" datetime="<?= date('c', strtotime($this->post->date_submitted)) ?>"><?= date('Y-m-d H:i T', strtotime($this->post->date_submitted)) ?>
+        <time class="timeago dt-published" datetime="<?= date('c', strtotime($this->post->date_submitted)) ?>"><?= date('Y-m-d H:i T', strtotime($this->post->date_submitted)) ?>
         </time>
       </a>
       <?= $this->post->source_url != $this->post->href ? 
