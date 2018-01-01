@@ -17,13 +17,13 @@ function localeFromLangCode($code) {
     case 'en':
       return 'en_US';
     case 'sv':
-      return 'sv_SE';
+      return 'sv_SE.UTF-8';
     case 'de':
-      return 'de_DE';
+      return 'de_DE.UTF-8';
     case 'fr':
-      return 'fr_FR';
+      return 'fr_FR.UTF-8';
     case 'nl':
-      return 'nl_NL';
+      return 'nl_NL.UTF-8';
   }
 }
 
