@@ -17,7 +17,7 @@ function localeFromLangCode($code) {
     case 'en':
       return 'en_US';
     case 'sv':
-      return 'sv_SV';
+      return 'sv_SE';
     case 'de':
       return 'de_DE';
     case 'fr':
