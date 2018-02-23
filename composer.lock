@@ -369,16 +369,16 @@
         },
         {
             "name": "ezyang/htmlpurifier",
-            "version": "v4.9.3",
+            "version": "v4.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ezyang/htmlpurifier.git",
-                "reference": "95e1bae3182efc0f3422896a3236e991049dac69"
+                "reference": "d85d39da4576a6934b72480be6978fb10c860021"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/95e1bae3182efc0f3422896a3236e991049dac69",
-                "reference": "95e1bae3182efc0f3422896a3236e991049dac69",
+                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/d85d39da4576a6934b72480be6978fb10c860021",
+                "reference": "d85d39da4576a6934b72480be6978fb10c860021",
                 "shasum": ""
             },
             "require": {
@@ -412,7 +412,7 @@
             "keywords": [
                 "html"
             ],
-            "time": "2017-06-03T02:28:16+00:00"
+            "time": "2018-02-23T01:58:20+00:00"
         },
         {
             "name": "facebook/graph-sdk",
@@ -722,6 +722,58 @@
             "time": "2017-04-29T17:43:29+00:00"
         },
         {
+            "name": "p3k/picofeed",
+            "version": "v0.1.38",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aaronpk/picoFeed.git",
+                "reference": "989c0bcf2eac016a4104abce1aadff791fc287ab"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aaronpk/picoFeed/zipball/989c0bcf2eac016a4104abce1aadff791fc287ab",
+                "reference": "989c0bcf2eac016a4104abce1aadff791fc287ab",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "ext-iconv": "*",
+                "ext-libxml": "*",
+                "ext-simplexml": "*",
+                "ext-xml": "*",
+                "php": ">=5.3.0",
+                "zendframework/zendxml": "^1.0"
+            },
+            "require-dev": {
+                "phpdocumentor/reflection-docblock": "2.0.4",
+                "phpunit/phpunit": "4.8.26",
+                "symfony/yaml": "2.8.7"
+            },
+            "suggest": {
+                "ext-curl": "PicoFeed will use cURL if present"
+            },
+            "bin": [
+                "picofeed"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "PicoFeed": "lib/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Frédéric Guillot"
+                }
+            ],
+            "description": "Modern library to handle RSS/Atom feeds",
+            "homepage": "https://github.com/miniflux/picoFeed",
+            "time": "2017-11-30T00:16:58+00:00"
+        },
+        {
             "name": "p3k/timezone",
             "version": "0.1.0",
             "source": {
@@ -810,27 +862,27 @@
         },
         {
             "name": "p3k/xray",
-            "version": "v1.4.6",
+            "version": "v1.4.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aaronpk/XRay.git",
-                "reference": "66f4a8b0078e133f3f4e292ae7cc234655d8d041"
+                "reference": "9e66c6839af046bc3fe9c8db5ddd28456fb86639"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aaronpk/XRay/zipball/66f4a8b0078e133f3f4e292ae7cc234655d8d041",
-                "reference": "66f4a8b0078e133f3f4e292ae7cc234655d8d041",
+                "url": "https://api.github.com/repos/aaronpk/XRay/zipball/9e66c6839af046bc3fe9c8db5ddd28456fb86639",
+                "reference": "9e66c6839af046bc3fe9c8db5ddd28456fb86639",
                 "shasum": ""
             },
             "require": {
                 "cebe/markdown": "1.1.*",
                 "dg/twitter-php": "3.6.*",
-                "ezyang/htmlpurifier": "4.*",
+                "ezyang/htmlpurifier": "4.10.*",
                 "facebook/graph-sdk": "^5.5",
                 "indieweb/link-rel-parser": "0.1.*",
                 "mf2/mf2": "^0.3.2",
-                "miniflux/picofeed": ">=0.1.38",
                 "p3k/http": "0.1.*",
+                "p3k/picofeed": ">=0.1.38",
                 "p3k/timezone": "*"
             },
             "require-dev": {
@@ -854,7 +906,7 @@
             ],
             "description": "X-Ray returns structured data from any URL",
             "homepage": "https://github.com/aaronpk/XRay",
-            "time": "2017-12-01T18:09:15+00:00"
+            "time": "2018-02-23T20:04:53+00:00"
         },
         {
             "name": "slim/slim",

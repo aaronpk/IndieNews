@@ -4,13 +4,11 @@ class Config {
 
   public static $hostname = 'news.indieweb.org';
   public static $baseURL = 'https://news.indieweb.org';
-  
+
   public static $dbHost = '127.0.0.1';
   public static $dbName = 'indienews';
   public static $dbUsername = 'indienews';
   public static $dbPassword = '';
-
-  public static $xrayURL = 'https://xray.p3k.io/parse';
 
   public static $hubURL = 'https://switchboard.p3k.io/';
 
