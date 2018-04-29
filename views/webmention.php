@@ -19,7 +19,7 @@
         <div class="controls">
           <select name="target">
             <?php foreach(supportedLanguages() as $l=>$lang): ?>
-              <option value="<?= $l ?>" <?= $this->lang == $l ? ' selected="selected"' : '' ?>><?= $lang ?></option>
+              <option value="<?= Config::$baseURL.'/'.$l ?>" <?= $this->lang == $l ? ' selected="selected"' : '' ?>><?= $lang ?></option>
             <?php endforeach; ?>
           </select>
         </div>
