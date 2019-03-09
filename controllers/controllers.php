@@ -162,3 +162,28 @@ $app->get('/:lang/submit', function($lang) use($app) {
     'lang' => $lang
   ));
 })->conditions(array('lang'=>LANG_REGEX));
+
+$app->get('/:lang/members', function($lang) use($app) {
+  I18n::locale($lang);
+
+  $users = ORM::for_table('users')
+    ->select('users.*')
+    ->select_expr('COUNT(posts.id) AS num_posts')
+    ->join('posts', ['posts.user_id', '=', 'users.id'])
+    ->where('posts.lang', $lang)
+    ->where_gt('posts.date_submitted', date('Y-m-d H:i:s', strtotime('2 year ago')))
+    ->group_by('users.id')
+    ->order_by_desc('num_posts')
+    ->find_many();
+
+  // dedupe records that have no scheme since old records were stored that way
+  $members = [];
+
+  render('members', array(
+    'title' => __('IndieNews Members'),
+    'meta' => '',
+    'lang' => $lang,
+    'users' => $users
+  ));
+})->conditions(array('lang'=>LANG_REGEX));
+

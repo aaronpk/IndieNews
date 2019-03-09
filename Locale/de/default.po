@@ -114,4 +114,8 @@ msgstr "IndieNews wird den Artikel von deiner Seite laden und nach dem {1}-Marku
 msgid "Detailed instructions on how to submit a post"
 msgstr "Ausführliche Anleitung wie man einen Artikel einreicht"
 
+msgid "posts"
+msgstr "Artikel"
 
+msgid "post"
+msgstr "Artikel"
