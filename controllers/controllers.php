@@ -171,7 +171,7 @@ $app->get('/:lang/members', function($lang) use($app) {
     ->select_expr('COUNT(posts.id) AS num_posts')
     ->join('posts', ['posts.user_id', '=', 'users.id'])
     ->where('posts.lang', $lang)
-    ->where_gt('posts.date_submitted', date('Y-m-d H:i:s', strtotime('2 year ago')))
+    ->where_gt('posts.date_submitted', date('Y-m-d H:i:s', strtotime('1 year ago')))
     ->group_by('users.id')
     ->order_by_desc('num_posts')
     ->find_many();
