@@ -5,7 +5,9 @@
     "cakephp/i18n": "^3.0",
     "tantek/cassis": "dev-master",
     "p3k/utils": "^1.0",
-    "p3k/xray": "1.4.*"
+    "p3k/xray": "^1.8",
+    "mf2/mf2": "^0.4.6",
+    "p3k/http": "^0.1.8"
   },
   "repositories": [
     {
