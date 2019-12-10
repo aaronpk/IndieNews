@@ -1,6 +1,6 @@
 <?php
 define('APP', dirname(__FILE__).'/../'); // cakephp i18n needs this
-define('LANG_REGEX', '(en|sv|de|fr|nl)');
+define('LANG_REGEX', '(en|sv|de|fr|nl|ru)');
 
 function supportedLanguages() {
   return [
@@ -9,6 +9,7 @@ function supportedLanguages() {
     'de' => 'Deutsch',
     'fr' => 'Français',
     'nl' => 'Nederlands',
+    'ru' => 'русский',
   ];
 }
 
@@ -24,6 +25,8 @@ function localeFromLangCode($code) {
       return 'fr_FR.UTF-8';
     case 'nl':
       return 'nl_NL.UTF-8';
+    case 'ru':
+      return 'ru_RU.UTF-8';
   }
 }
 
@@ -128,7 +131,7 @@ function display_url($url) {
 }
 
 function pa($a) {
-  echo '<pre>'; print_r($a); echo '</pre>';  
+  echo '<pre>'; print_r($a); echo '</pre>';
 }
 
 function irc_notice($msg) {
@@ -148,19 +151,19 @@ function irc_notice($msg) {
 }
 
 /**
- * Converts base 10 to base 60. 
+ * Converts base 10 to base 60.
  * http://tantek.pbworks.com/NewBase60
  * @param int $n
  * @return string
- */ 
+ */
 function b10to60($n)
 {
   $s = "";
   $m = "0123456789ABCDEFGHJKLMNPQRSTUVWXYZ_abcdefghijkmnopqrstuvwxyz";
-  if ($n==0) 
-    return 0; 
+  if ($n==0)
+    return 0;
 
-  while ($n>0) 
+  while ($n>0)
   {
     $d = $n % 60;
     $s = $m[$d] . $s;
@@ -180,7 +183,7 @@ function b60to10($s)
   $n = 0;
   for($i = 0; $i < strlen($s); $i++) // iterate from first to last char of $s
   {
-    $c = ord($s[$i]); //  put current ASCII of char into $c  
+    $c = ord($s[$i]); //  put current ASCII of char into $c
     if ($c>=48 && $c<=57) { $c=$c-48; }
     else if ($c>=65 && $c<=72) { $c-=55; }
     else if ($c==73 || $c==108) { $c=1; } // typo capital I, lowercase l to 1
