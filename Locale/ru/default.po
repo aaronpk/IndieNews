@@ -26,7 +26,7 @@ msgstr "в ответ на"
 
 #: /views/_post-row.php:10
 msgid "submitted"
-msgstr "запостил"
+msgstr "добавлено"
 
 #: /views/_post-row.php:11
 msgid "submitted ... from"
@@ -48,7 +48,7 @@ msgstr "Дом"
 #: /views/layout.php:35
 #: /views/submit.php:8
 msgid "Submit"
-msgstr "Отправить"
+msgstr "Добавить"
 
 #: /views/layout.php:64
 msgid "How to Submit a Post"
