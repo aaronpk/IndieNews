@@ -134,10 +134,16 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
     }
 
     if(array_key_exists('published', $post)) {
-      $published = new DateTime($post['published']);
-      $record['date'] = $published;
-      $utcdate = clone $published;
-      $utcdate->setTimeZone(new DateTimeZone('UTC'));
+      try {
+        $published = new DateTime($post['published']);
+      } catch($e) {
+        $notices[] = 'Failed to parse published date';
+      }
+      if(isset($published)) {
+        $record['date'] = $published;
+        $utcdate = clone $published;
+        $utcdate->setTimeZone(new DateTimeZone('UTC'));
+      }
     } else {
       $notices[] = 'No published date found';
     }
@@ -151,8 +157,12 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
     }
 
     if(isset($post['start'])) {
-      $start = new DateTime($post['start']);
-      if($start) {
+      try {
+        $start = new DateTime($post['start']);
+      } catch($e) {
+        $notices[] = 'Failed to parse start date';
+      }
+      if(isset($start) && $start) {
         $record['date'] = $start;
         $utcdate = clone $start;
         $utcdate->setTimeZone(new DateTimeZone('UTC'));
