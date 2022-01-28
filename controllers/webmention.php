@@ -136,7 +136,7 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
     if(array_key_exists('published', $post)) {
       try {
         $published = new DateTime($post['published']);
-      } catch($e) {
+      } catch(Exception $e) {
         $notices[] = 'Failed to parse published date';
       }
       if(isset($published)) {
@@ -159,7 +159,7 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
     if(isset($post['start'])) {
       try {
         $start = new DateTime($post['start']);
-      } catch($e) {
+      } catch(Exception $e) {
         $notices[] = 'Failed to parse start date';
       }
       if(isset($start) && $start) {
