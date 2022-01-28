@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "29b5dbf607fb706ad56906845864f2f6",
+    "content-hash": "9be3e77318e4854f9a0f80fadfcdf557",
     "packages": [
         {
             "name": "aura/intl",
@@ -577,6 +577,66 @@
             "time": "2013-01-31T12:19:07+00:00"
         },
         {
+            "name": "laminas/laminas-xml",
+            "version": "1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laminas/laminas-xml.git",
+                "reference": "dcadeefdb6d7ed6b39d772b47e3845003d6ea60f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laminas/laminas-xml/zipball/dcadeefdb6d7ed6b39d772b47e3845003d6ea60f",
+                "reference": "dcadeefdb6d7ed6b39d772b47e3845003d6ea60f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "ext-simplexml": "*",
+                "php": "^7.3 || ~8.0.0 || ~8.1.0"
+            },
+            "conflict": {
+                "zendframework/zendxml": "*"
+            },
+            "require-dev": {
+                "ext-iconv": "*",
+                "laminas/laminas-coding-standard": "~1.0.0",
+                "phpunit/phpunit": "^9.5.8",
+                "squizlabs/php_codesniffer": "3.6.1 as 2.9999999.9999999"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Laminas\\Xml\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Utility library for XML usage, best practices, and security in PHP",
+            "homepage": "https://laminas.dev",
+            "keywords": [
+                "laminas",
+                "security",
+                "xml"
+            ],
+            "support": {
+                "chat": "https://laminas.dev/chat",
+                "forum": "https://discourse.laminas.dev",
+                "issues": "https://github.com/laminas/laminas-xml/issues",
+                "rss": "https://github.com/laminas/laminas-xml/releases.atom",
+                "source": "https://github.com/laminas/laminas-xml"
+            },
+            "funding": [
+                {
+                    "url": "https://funding.communitybridge.org/projects/laminas-project",
+                    "type": "community_bridge"
+                }
+            ],
+            "time": "2021-11-30T02:16:35+00:00"
+        },
+        {
             "name": "masterminds/html5",
             "version": "2.7.0",
             "source": {
@@ -700,69 +760,17 @@
             "time": "2018-08-24T14:47:04+00:00"
         },
         {
-            "name": "miniflux/picofeed",
-            "version": "v0.1.38",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/aaronpk/picoFeed.git",
-                "reference": "989c0bcf2eac016a4104abce1aadff791fc287ab"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/aaronpk/picoFeed/zipball/989c0bcf2eac016a4104abce1aadff791fc287ab",
-                "reference": "989c0bcf2eac016a4104abce1aadff791fc287ab",
-                "shasum": ""
-            },
-            "require": {
-                "ext-dom": "*",
-                "ext-iconv": "*",
-                "ext-libxml": "*",
-                "ext-simplexml": "*",
-                "ext-xml": "*",
-                "php": ">=5.3.0",
-                "zendframework/zendxml": "^1.0"
-            },
-            "require-dev": {
-                "phpdocumentor/reflection-docblock": "2.0.4",
-                "phpunit/phpunit": "4.8.26",
-                "symfony/yaml": "2.8.7"
-            },
-            "suggest": {
-                "ext-curl": "PicoFeed will use cURL if present"
-            },
-            "bin": [
-                "picofeed"
-            ],
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "PicoFeed": "lib/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Frédéric Guillot"
-                }
-            ],
-            "description": "Modern library to handle RSS/Atom feeds",
-            "homepage": "https://github.com/miniflux/picoFeed",
-            "time": "2017-11-30T00:16:58+00:00"
-        },
-        {
             "name": "p3k/http",
-            "version": "0.1.8",
+            "version": "0.1.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aaronpk/p3k-http.git",
-                "reference": "a43977636d7a930080009eddda06994037c88fd7"
+                "reference": "cf9c5b7cdbe1800bfb9587a20953ed8d20322e0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aaronpk/p3k-http/zipball/a43977636d7a930080009eddda06994037c88fd7",
-                "reference": "a43977636d7a930080009eddda06994037c88fd7",
+                "url": "https://api.github.com/repos/aaronpk/p3k-http/zipball/cf9c5b7cdbe1800bfb9587a20953ed8d20322e0b",
+                "reference": "cf9c5b7cdbe1800bfb9587a20953ed8d20322e0b",
                 "shasum": ""
             },
             "require": {
@@ -787,20 +795,24 @@
             ],
             "description": "A simple wrapper API around the PHP curl functions",
             "homepage": "https://github.com/aaronpk/p3k-http",
-            "time": "2019-06-15T20:49:26+00:00"
+            "support": {
+                "issues": "https://github.com/aaronpk/p3k-http/issues",
+                "source": "https://github.com/aaronpk/p3k-http/tree/0.1.12"
+            },
+            "time": "2021-10-12T14:12:29+00:00"
         },
         {
             "name": "p3k/picofeed",
-            "version": "v0.1.38",
+            "version": "v0.1.40",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aaronpk/picoFeed.git",
-                "reference": "989c0bcf2eac016a4104abce1aadff791fc287ab"
+                "reference": "356fd66d48779193b10ac28532cb4a4e11bb801c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aaronpk/picoFeed/zipball/989c0bcf2eac016a4104abce1aadff791fc287ab",
-                "reference": "989c0bcf2eac016a4104abce1aadff791fc287ab",
+                "url": "https://api.github.com/repos/aaronpk/picoFeed/zipball/356fd66d48779193b10ac28532cb4a4e11bb801c",
+                "reference": "356fd66d48779193b10ac28532cb4a4e11bb801c",
                 "shasum": ""
             },
             "require": {
@@ -809,8 +821,11 @@
                 "ext-libxml": "*",
                 "ext-simplexml": "*",
                 "ext-xml": "*",
-                "php": ">=5.3.0",
-                "zendframework/zendxml": "^1.0"
+                "laminas/laminas-xml": "^1.2",
+                "php": ">=5.3.0"
+            },
+            "replace": {
+                "miniflux/picofeed": "0.1.35"
             },
             "require-dev": {
                 "phpdocumentor/reflection-docblock": "2.0.4",
@@ -838,8 +853,8 @@
                 }
             ],
             "description": "Modern library to handle RSS/Atom feeds",
-            "homepage": "https://github.com/miniflux/picoFeed",
-            "time": "2017-11-30T00:16:58+00:00"
+            "homepage": "https://github.com/aaronpk/picoFeed",
+            "time": "2020-04-25T17:48:36+00:00"
         },
         {
             "name": "p3k/timezone",
@@ -930,28 +945,28 @@
         },
         {
             "name": "p3k/xray",
-            "version": "v1.8.2",
+            "version": "v1.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aaronpk/XRay.git",
-                "reference": "5b779feb8a13c259d253a8d45202ac489b0bc32c"
+                "reference": "dfc620d10282d6af1302ab70adb8cb11915a2a30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aaronpk/XRay/zipball/5b779feb8a13c259d253a8d45202ac489b0bc32c",
-                "reference": "5b779feb8a13c259d253a8d45202ac489b0bc32c",
+                "url": "https://api.github.com/repos/aaronpk/XRay/zipball/dfc620d10282d6af1302ab70adb8cb11915a2a30",
+                "reference": "dfc620d10282d6af1302ab70adb8cb11915a2a30",
                 "shasum": ""
             },
             "require": {
                 "cebe/markdown": "1.1.*",
                 "dg/twitter-php": "3.6.*",
-                "ezyang/htmlpurifier": "4.10.*",
+                "ezyang/htmlpurifier": "^4.10",
                 "facebook/graph-sdk": "^5.5",
                 "indieweb/link-rel-parser": "0.1.*",
                 "masterminds/html5": "^2.3",
                 "mf2/mf2": "^0.4",
-                "p3k/http": ">=0.1.7",
-                "p3k/picofeed": ">=0.1.38",
+                "p3k/http": ">=0.1.11",
+                "p3k/picofeed": ">=0.1.39",
                 "p3k/timezone": "*"
             },
             "require-dev": {
@@ -975,7 +990,11 @@
             ],
             "description": "X-Ray returns structured data from any URL",
             "homepage": "https://github.com/aaronpk/XRay",
-            "time": "2019-01-15T19:30:03+00:00"
+            "support": {
+                "issues": "https://github.com/aaronpk/XRay/issues",
+                "source": "https://github.com/aaronpk/XRay/tree/v1.11.1"
+            },
+            "time": "2021-02-13T23:05:06+00:00"
         },
         {
             "name": "slim/slim",
@@ -1042,51 +1061,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "time": "2017-12-30T01:14:56+00:00"
-        },
-        {
-            "name": "zendframework/zendxml",
-            "version": "1.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/zendframework/ZendXml.git",
-                "reference": "7b64507bc35d841c9c5802d67f6f87ef8e1a58c9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/7b64507bc35d841c9c5802d67f6f87ef8e1a58c9",
-                "reference": "7b64507bc35d841c9c5802d67f6f87ef8e1a58c9",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^5.3.3 || ^7.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^3.7 || ^4.0",
-                "squizlabs/php_codesniffer": "^1.5"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "ZendXml\\": "library/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "description": "Utility library for XML usage, best practices, and security in PHP",
-            "homepage": "http://packages.zendframework.com/",
-            "keywords": [
-                "security",
-                "xml",
-                "zf2"
-            ],
-            "time": "2016-02-04T21:02:08+00:00"
         }
     ],
     "packages-dev": [],
@@ -1098,5 +1072,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.1.0"
 }
