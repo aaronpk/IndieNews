@@ -253,8 +253,8 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
 
   $indieNewsPermalink = permalinkForURL($lang, $href);
 
-  # If there is no existing post for $source, update the properties
-  $post = ORM::for_table('posts')->where('lang', $lang)->where('href', $href)->find_one();
+  # If there is no existing post for $sourceURL, update the properties
+  $post = ORM::for_table('posts')->where('lang', $lang)->where('source_url', $sourceURL)->find_one();
   if($post != FALSE) {
     if($record['date']) {
       $post->post_date = $utcdate->format('Y-m-d H:i:s');
