@@ -1,6 +1,7 @@
 <?php
 define('APP', dirname(__FILE__).'/../'); // cakephp i18n needs this
 define('LANG_REGEX', '(en|sv|de|fr|nl|ru)');
+error_reporting(E_ALL ^ E_DEPRECATED);
 
 function supportedLanguages() {
   return [
