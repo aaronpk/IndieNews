@@ -1,0 +1,111 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2015-09-06 03:40+0000\n"
+"PO-Revision-Date: 2022-02-15 09:00+0200\n"
+"Last-Translator: kinduff <kinduff@pm.me>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Language: es\n"
+
+#: /controllers/controllers.php:88 /views/layout.php:63
+msgid "About IndieNews"
+msgstr "Acerca de IndieNews"
+
+#: /views/_post-row.php:7
+msgid "in reply to"
+msgstr "en respuesta a"
+
+#: /views/_post-row.php:10
+msgid "submitted"
+msgstr "enviado"
+
+#: /views/_post-row.php:11
+msgid "submitted ... from"
+msgstr "enviado ... de"
+
+#: /views/_post-row.php:12
+msgid "permalink"
+msgstr "enlace permanente"
+
+#: /views/index.php:3 /views/submit.php:3
+msgid "IndieNews is a community-curated list of articles relevant to the {0}Indie Web{1}."
+msgstr "IndieNews es una lista de artículos relevantes para la {0}Indie Web{1}."
+
+#: /views/layout.php:34
+msgid "Home"
+msgstr "Inicio"
+
+#: /views/layout.php:35 /views/submit.php:8
+msgid "Submit"
+msgstr "Enviar"
+
+#: /views/layout.php:64
+msgid "How to Submit a Post"
+msgstr "Cómo enviar una publicación"
+
+#: /views/layout.php:67
+msgid "is part of"
+msgstr "fait partie de "
+
+#: /views/layout.php:68
+msgid "This code is {0}open source{1}."
+msgstr "Este código es de {0}código abierto{1}."
+
+#: /views/layout.php:69
+msgid "Feel free to send a pull request, or {0}file an issue{1}."
+msgstr "Siéntase libre de enviar un pull request, o {0}abrir un issue{1}."
+
+#: /views/posts.php:4
+msgid "IndieNews English"
+msgstr "IndieNews Español"
+
+#: /views/posts.php:20
+msgid "No posts yet!"
+msgstr "Aún no hay publicaciones!"
+
+#: /views/posts.php:21
+msgid "There are no posts submitted to the English feed yet! As soon as you {0}submit a post{1} it will show up here."
+msgstr "¡No hay publicaciones enviadas al feed de Español aún! Tan pronto como envíes una publicación, se mostrará aquí."
+
+#: /views/posts.php:22
+msgid "Older"
+msgstr "Anteriores"
+
+#: /views/submit.php:10
+msgid "You won't find a \"submit\" form on this site. You don't even need to be logged in to this site to submit a post!"
+msgstr "No encontrarás un formulario de \"enviar\" en este sitio. ¡Tampoco necesitas estar conectado a este sitio para enviar una publicación!"
+
+#: /views/submit.php:12
+msgid "Write a Post"
+msgstr "Escribir una publicación"
+
+#: /views/submit.php:14
+msgid "Write a post on your own site, and mark it up with the Microformats markup for an {0}."
+msgstr "Escribe una publicación en tu propio sitio, y marca la publicación con elementos de Microformats para un {0}."
+
+#: /views/submit.php:16
+msgid "Link to IndieNews"
+msgstr "Enlace a IndieNews"
+
+#: /views/submit.php:18
+msgid "Somewhere on the page you are submitting, add a {0} or {1} link to {2}the IndieNews home page{3} for your language."
+msgstr "Alguna parte de la página que estás enviando, añade un {0} o {1} enlace a {2}la página de inicio de IndieNews{3} para tu idioma."
+
+#: /views/submit.php:20
+msgid "Send a Webmention"
+msgstr "Enviar un Webmention"
+
+#: /views/submit.php:22
+msgid "IndieNews will fetch the page from your site and look for the {1} markup to find the post title and author."
+msgstr "IndieNews buscará la página en tu sitio y buscará el {1} marcado para encontrar el título de la publicación y el autor."
+
+#: /views/submit.php:25
+msgid "Detailed instructions on how to submit a post"
+msgstr "Instrucciones detalladas para enviar una publicación"
