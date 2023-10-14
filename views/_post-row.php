@@ -1,40 +1,40 @@
-<tr class="post post_<?= $this->post->id ?> single h-entry">
+<tr class="post post_<?= $post->id ?> single h-entry">
   <td>
-    <? if(shouldDisplayPostName($this->post->title)): ?>
-      <div class="title p-name"><a href="<?= $this->post->href ?>"><?= htmlspecialchars(shouldDisplayPostName($this->post->title) ? $this->post->title : display_url($this->post->href)) ?></a></div>
-    <? else: ?>
-      <div class="content e-content p-name"><?= auto_link(htmlspecialchars(substr($this->post->title ?: $this->post->body,0,600))) ?></div>
-    <? endif; ?>
+    <?php if(shouldDisplayPostName($post->title)): ?>
+      <div class="title p-name"><a href="<?= $post->href ?>"><?= htmlspecialchars(shouldDisplayPostName($post->title) ? $post->title : display_url($post->href)) ?></a></div>
+    <?php else: ?>
+      <div class="content e-content p-name"><?= auto_link(htmlspecialchars(substr($post->title ?: $post->body,0,600))) ?></div>
+    <?php endif; ?>
     <div class="details">
       <span>
-        <a href="<?= $this->post->post_author ?>" class="u-author h-card">
-          <?= display_url($this->post->post_author) ?>
+        <a href="<?= $post->post_author ?>" class="u-author h-card">
+          <?= display_url($post->post_author) ?>
         </a>
       </span> | 
       
-      <? if($this->post->in_reply_to): ?>
-        <a href="<?= $this->post->in_reply_to ?>" class="u-in-reply-to"><?= __('in reply to') ?></a> |
-      <? endif ?>
+      <?php if($post->in_reply_to): ?>
+        <a href="<?= $post->in_reply_to ?>" class="u-in-reply-to"><?= __('in reply to') ?></a> |
+      <?php endif ?>
 
-      <a href="<?= $this->post->href ?>" class="u-url">
-      <? if($this->post->post_date): ?> 
-        <time class="" datetime="'.printLocalDate('c', $this->post->post_date, $this->post->tzoffset).'">
-          <?= printLocalDate('Y-m-d H:i T', $this->post->post_date, $this->post->tzoffset) ?>
+      <a href="<?= $post->href ?>" class="u-url">
+      <?php if($post->post_date): ?> 
+        <time class="" datetime="'.printLocalDate('c', $post->post_date, $post->tzoffset).'">
+          <?= printLocalDate('Y-m-d H:i T', $post->post_date, $post->tzoffset) ?>
         </time>
-      <? else: ?>
+      <?php else: ?>
         <?= __('permalink') ?>
-      <? endif ?>
+      <?php endif ?>
       </a> |
 
       <?= __('submitted') ?> 
-      <a href="<?= permalinkForURL($this->post->lang, $this->post->href) ?>">
-        <time class="timeago dt-published" datetime="<?= date('c', strtotime($this->post->date_submitted)) ?>"><?= date('Y-m-d H:i T', strtotime($this->post->date_submitted)) ?>
+      <a href="<?= permalinkForURL($post->lang, $post->href) ?>">
+        <time class="timeago dt-published" datetime="<?= date('c', strtotime($post->date_submitted)) ?>"><?= date('Y-m-d H:i T', strtotime($post->date_submitted)) ?>
         </time>
       </a>
-      <?= $this->post->source_url != $this->post->href ? 
+      <?= $post->source_url != $post->href ? 
           ' ' . __('submitted ... from')
-          . ' <a href="'.$this->post->source_url.'">'
-          . (parse_url($this->post->source_url, PHP_URL_HOST)) 
+          . ' <a href="'.$post->source_url.'">'
+          . (parse_url($post->source_url, PHP_URL_HOST)) 
           . '</a>' : '' ?>
     </div>
   </td>

@@ -1,16 +1,15 @@
 <!doctype html>
-<html lang="<?= $this->lang ?>">
+<html lang="<?= $lang ?>">
 <head>
-  <title><?= $this->title ?></title>
+  <title><?= $title ?></title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="description" content="IndieNews">
-  <?php if(property_exists($this, 'lang')): ?>
-  <link rel="pingback" href="https://webmention.io/webmention?forward=<?= Config::$baseURL ?>/<?= $this->lang ?>/webmention" />
-  <link rel="webmention" href="<?= Config::$baseURL ?>/<?= $this->lang ?>/webmention" />
+  <?php if(isset($lang)): ?>
+  <link rel="webmention" href="<?= Config::$baseURL ?>/<?= $lang ?>/webmention" />
   <?php endif; ?>
 
-  <?= $this->meta ?>
+  <?= $meta ?>
 
   <!--[if lt IE 9]>
   <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -23,7 +22,7 @@
 
   <script src="/js/jquery-1.7.1.min.js"></script>
   <script src="/js/jquery.timeago.js"></script>
-  <script src="/js/timeago/jquery.timeago.<?= $this->lang ?>.js"></script>
+  <script src="/js/timeago/jquery.timeago.<?= $lang ?>.js"></script>
 </head>
 <body>
 
@@ -31,40 +30,23 @@
   <div class="navbar-inner">
     <a class="brand" href="/">IndieNews</a>
     <ul class="nav">
-      <li><a href="/<?= $this->lang ?>"><?= __('Home') ?></a></li>
-      <li><a href="/<?= $this->lang ?>/submit"><?= __('Submit') ?></a></li>
-      <li><a href="/<?= $this->lang ?>/members"><?= __('Members') ?></a></li>
+      <li><a href="/<?= $lang ?>"><?= __('Home') ?></a></li>
+      <li><a href="/<?= $lang ?>/submit"><?= __('Submit') ?></a></li>
+      <li><a href="/<?= $lang ?>/members"><?= __('Members') ?></a></li>
     </ul>
-    <!--
-    <? if(session('user')) { ?>
-      <ul class="nav pull-right">
-        <li><a href="<?= session('user') ?>"><?= session('user') ?></a></li>
-        <li><a href="/signout">Sign Out</a></li>
-      </ul>
-    <? } else { ?>
-      <ul class="nav pull-right" style="font-size: 8pt;">
-        <li><a href="https://indieauth.com/setup">What's This?</a></li>
-      </ul>
-      <form action="https://indieauth.com/auth" method="get" class="navbar-form pull-right">
-        <input type="text" name="me" placeholder="yourdomain.com" class="span2" />
-        <button type="submit" class="btn">Sign In</button>
-        <input type="hidden" name="redirect_uri" value="<?= Config::$baseURL ?>/indieauth" />
-      </form>
-    <? } ?>
-    -->
   </div>
 </div>
 
 <div class="page">
 
-  <?= $this->fetch($this->page . '.php') ?>
+  <?= $content ?>
 
   <div class="footer">
     <ul class="nav-footer">
-      <li><a href="/<?= $this->lang ?>/submit"><?=__('About IndieNews')?></a></li>
+      <li><a href="/<?= $lang ?>/submit"><?=__('About IndieNews')?></a></li>
       <li><a href="/how-to-submit-a-post"><?= __('How to Submit a Post') ?></a></li>
     </ul>
-    <p class="credits">&copy; <?=date('Y')?> by <a href="http://aaronparecki.com">Aaron Parecki</a>.
+    <p class="credits">&copy; <?= date('Y') ?> by <a href="http://aaronparecki.com">Aaron Parecki</a>.
       IndieNews <?= __('is part of') ?> <a href="https://indieweb.org/">IndieWebCamp</a>.
       <?= __('This code is {0}open source{1}.', ['<a href="https://github.com/aaronpk/IndieNews">', '</a>']) ?>
       <?= __('Feel free to send a pull request, or {0}file an issue{1}.', ['<a href="https://github.com/aaronpk/IndieNews/issues">', '</a>']) ?></p>

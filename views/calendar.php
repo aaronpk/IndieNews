@@ -1,6 +1,6 @@
-<h2><?php echo strftime('%B %Y', $this->date->format('U')); ?></h2>
+<h2><?php echo strftime('%B %Y', $date->format('U')); ?></h2>
 
-<? $start = 1; // Monday ?>
+<?php $start = 1; // Monday ?>
 
 <table class="month-calendar" width="100%">
   <tr>
@@ -10,8 +10,8 @@
   </tr>
 
   <?php
-  $firstDayOfWeek = $this->date->format($start==1?'N':'w');
-  $lastDayOfWeek = date($start==1?'N':'w', strtotime($this->date->format('Y-m-t')));
+  $firstDayOfWeek = $date->format($start==1?'N':'w');
+  $lastDayOfWeek = date($start==1?'N':'w', strtotime($date->format('Y-m-t')));
 
   if($firstDayOfWeek > $start) {
     echo '<tr>'."\n";
@@ -19,8 +19,8 @@
       echo "\t".'<td class="cal-cell cal-'.($i == 6||$i == 7? 'weekend' : 'weekday').'"></td>'."\n";
     }
   }
-  for($i = 1; $i <= $this->date->format('t'); $i++) {
-    $thisDay = mktime(0,0,0,$this->month,$i,$this->year);
+  for($i = 1; $i <= $date->format('t'); $i++) {
+    $thisDay = mktime(0,0,0,$month,$i,$year);
     if(strftime('%w',$thisDay) == $start)
       echo '</tr>'."\n";
 
@@ -31,8 +31,8 @@
       
       echo '<div class="cal-day">' . $i . '</div>' . "\n";
 
-      if(array_key_exists($i, $this->calendar)) {
-        foreach($this->calendar[$i] as $post) {
+      if(array_key_exists($i, $calendar)) {
+        foreach($calendar[$i] as $post) {
           echo '<div class="post">';
             echo '<a href="' . $post->href . '">';
             if(shouldDisplayPostName($post->title)) {
@@ -63,15 +63,15 @@
 </table>
 
 <nav class="months">
-  <?php if($this->prev): ?>
+  <?php if($prev): ?>
     <div class="prev">
       &larr;
-      <a href="/<?= $this->lang . '/' . $this->prev->format('Y/m') ?>" rel="prev"><?php echo strftime('%B %Y', $this->prev->format('U')); ?></a>
+      <a href="/<?= $lang . '/' . $prev->format('Y/m') ?>" rel="prev"><?php echo strftime('%B %Y', $prev->format('U')); ?></a>
     </div>
   <?php endif; ?>
-  <?php if($this->next): ?>
+  <?php if($next): ?>
     <div class="next">
-      <a href="/<?= $this->lang . '/' . $this->next->format('Y/m') ?>" rel="next"><?php echo strftime('%B %Y', $this->next->format('U')); ?></a>
+      <a href="/<?= $lang . '/' . $next->format('Y/m') ?>" rel="next"><?php echo strftime('%B %Y', $next->format('U')); ?></a>
       &rarr;
     </div>
   <?php endif; ?>

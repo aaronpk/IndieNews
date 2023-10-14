@@ -5,8 +5,8 @@
       <strong><?= __('Error') ?>!</strong> <?= __('There was an error with your submission. See the details below.') ?>
     </div>
 
-    <p><?= __('Error') ?>: <code><?= $this->error ?></code></p>
-    <p><?= htmlspecialchars($this->description) ?></p>
+    <p><?= __('Error') ?>: <code><?= $error ?></code></p>
+    <p><?= htmlspecialchars($description) ?></p>
 
   </div>
 </div>

@@ -6,7 +6,7 @@
     <p><?= __('People who have submitted posts in the last year') ?></p>
 
     <ul>
-    <?php foreach($this->users as $u): ?>
+    <?php foreach($users as $u): ?>
       <li><a href="<?= htmlspecialchars($u->url) ?>"><?= htmlspecialchars($u->url) ?></a> (<?= $u->num_posts ?> <?= __($u->num_posts == 1 ? 'post' : 'posts') ?>)</li>
     <?php endforeach ?>
     </ul>

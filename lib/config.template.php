@@ -2,7 +2,6 @@
 class Config {
   public static $debug = false;
 
-  public static $hostname = 'news.indieweb.org';
   public static $baseURL = 'https://news.indieweb.org';
 
   public static $dbHost = '127.0.0.1';

@@ -1,73 +1,77 @@
 <?php
 use Cake\I18n\I18n;
+use Slim\Views\PhpRenderer;
 
 // Redirect old feed URLs
-$app->get('/:path(.:format)', function($path, $format='html') use($app) {
-  $app->redirect(Config::$baseURL . '/en'.($format == 'json' ? '.json' : ''), 301);
-})->conditions(array('format'=>'json','path'=>'(home|newest)'));
+$app->redirect('/home.json', '/en.json', 301);
+$app->redirect('/newest.json', '/en.json', 301);
 
 // Redirect post IDs to the post URL version
-$app->get('/post/:id(.:format)', function($id, $format='html') use($app) {
-  $post = ORM::for_table('posts')->where('id', $id)->find_one();
+$app->get('/post/{id:[0-9]+}{format:|\.json}', function($request, $response, $args) {
+  $post = ORM::for_table('posts')->where('id', $args['id'])->find_one();
 
-  if(!$post) {
-    $app->pass(); // Will trigger a 404 error
-  }
+  if(!$post)
+    return $response->withStatus(404);
 
-  $app->redirect(Config::$baseURL . '/post/' . slugForURL($post->href) . ($format == 'html' ? '' : '.'.$format), 302);
-})->conditions(array('id'=>'\d+', 'format'=>'json'));
+  $url = Config::$baseURL . '/post/'. slugForURL($post->href) . ($args['format']);
 
-// Redirect old "/post/" permalinks
-$app->get('/post/:slug', function($slug) use($app) {
-  $app->redirect(Config::$baseURL . '/en/'.$slug, 301);
-})->conditions(array('slug'=>'.+\..+?'));
+  return $response
+    ->withHeader('Location', $url)
+    ->withStatus(302);
+});
 
 // Language-specific feeds
-$app->get('/:lang(.:format)', function($lang='en', $format='html') use($app) {
+$app->get('/{lang:'.LANG_REGEX.'}{format:|\.json|\.jf2}', function($request, $response, $args) {
 
-  I18n::locale($lang);
+  $params = $request->getQueryParams();
 
-  $req = $app->request();
+  $format = formatFromRouteArgs($args);
 
-  $res = $app->response();
-  $res['X-Pingback'] = 'https://webmention.io/webmention?forward=' . Config::$baseURL . '/'.$lang.'/webmention';
-  $res['Link'] = '<' . Config::$baseURL . '/'.$lang.'/webmention>; rel="webmention"' . "\n"
-    . '<' . Config::$baseURL . '/'.$lang.'>; rel="self"' . "\n"
-   . '<' . Config::$hubURL . '>; rel="hub"';
+  I18n::setLocale($args['lang']);
 
   // Get posts ordered by date submitted
   $posts = ORM::for_table('posts')
-    ->where('lang', $lang)
+    ->where('lang', $args['lang'])
     ->order_by_desc('date_submitted');
 
-  if(array_key_exists('before', $req->params())) {
-    $before = date('Y-m-d H:i:s', b60to10($req->params()['before']));
+  if(array_key_exists('before', $params)) {
+    $before = date('Y-m-d H:i:s', b60to10($params['before']));
     $posts = $posts->where_lt('date_submitted', $before);
   }
 
   $posts = $posts->limit(20)->find_many();
 
-  $atomFeed = '<link rel="alternate" type="application/atom+xml" href="https://granary-demo.appspot.com/url?input=html&output=atom&url=' . urlencode(Config::$baseURL . '/' . $lang) . '">';
-  $webSubTags = '<link rel="hub" href="' . Config::$hubURL . '">' . "\n" . '<link rel="self" href="' . Config::$baseURL . '/' . $lang . '">';
+  $atomFeed = '<link rel="alternate" type="application/atom+xml" href="https://granary-demo.appspot.com/url?input=html&output=atom&url=' . urlencode(Config::$baseURL . '/' . $args['lang']) . '">';
+  $webSubTags = '<link rel="hub" href="' . Config::$hubURL . '">' . "\n" . '<link rel="self" href="' . Config::$baseURL . '/' . $args['lang'] . '">';
 
-  ob_start();
-  render('posts', array(
-    'title' => 'IndieNews ' . $lang,
+  $renderer = new PhpRenderer(__DIR__.'/../views/');
+  $renderer->setLayout('layout.php');
+
+  $temp = $renderer->render(new \Slim\Psr7\Response(), "posts.php", [
+    'title' => 'IndieNews ' . $args['lang'],
     'posts' => $posts,
-    'view' => 'list',
-    'meta' => (Config::$hubURL ? $webSubTags : '') . "\n" . $atomFeed,
-    'lang' => $lang
-  ));
-  $html = ob_get_clean();
-  respondWithFormat($app, $html, $format);
-})->conditions(array('format'=>'json|jf2', 'lang'=>LANG_REGEX));
+    'lang' => $args['lang'],
+    'meta' => $atomFeed.$webSubTags,
+  ]);
 
-$app->get('/:lang/:year/:month', function($lang='en', $year, $month) use($app) {
+  $html = $temp->getBody()->__toString();
 
-  I18n::locale($lang);
-  setlocale(LC_ALL, localeFromLangCode($lang));
+  $response = $response->withAddedHeader('Link', '<' . Config::$baseURL . '/'.$args['lang'].'/webmention>; rel="webmention"');
+  $response = $response->withAddedHeader('Link', '<' . Config::$baseURL . '/'.$args['lang'].'>; rel="self"');
+  $response = $response->withAddedHeader('Link', '<' . Config::$hubURL . '>; rel="hub"');
 
-  $req = $app->request();
+  return respondWithFormat($response, $html, $format);
+});
+
+
+$app->get('/{lang:'.LANG_REGEX.'}/{year:\d{4}}/{month:\d{2}}', function($request, $response, $args) {
+
+  $year = $args['year'];
+  $month = $args['month'];
+  $lang = $args['lang'];
+
+  I18n::setLocale($args['lang']);
+  setlocale(LC_ALL, localeFromLangCode($args['lang']));
 
   $date = new DateTime($year.'-'.$month.'-01');
 
@@ -109,8 +113,7 @@ $app->get('/:lang/:year/:month', function($lang='en', $year, $month) use($app) {
   }
   ksort($calendar);
 
-  ob_start();
-  render('calendar', array(
+  return render($response, 'calendar', [
     'title' => 'IndieNews ' . $lang,
     'date' => $date,
     'year' => $year,
@@ -120,70 +123,74 @@ $app->get('/:lang/:year/:month', function($lang='en', $year, $month) use($app) {
     'lang' => $lang,
     'next' => $next,
     'prev' => $prev
-  ));
-  $html = ob_get_clean();
-  respondWithFormat($app, $html, 'html');
-})->conditions(array('lang'=>LANG_REGEX, 'year'=>'\d{4}', 'month'=>'\d{2}'));
+  ]);
+});
 
-// Language-specific permalinks
-$app->get('/:lang/:slug(.:format)', function($lang, $slug, $format='html') use($app) {
-  I18n::locale($lang);
 
-  $post = ORM::for_table('posts')->where_in('href', array('http://'.$slug,'https://'.$slug))->find_one();
-  $posts = array($post);
 
-  $res = $app->response();
-  $res['X-Pingback'] = 'https://webmention.io/webmention?forward=' . Config::$baseURL . '/' . $lang . '/webmention';
-  $res['Link'] = '<' . Config::$baseURL . '/'.$lang.'/webmention>; rel="webmention"';
-
-  if(!$post) {
-    $app->pass(); // Will trigger a 404 error
-  }
-
-  ob_start();
-  render('post', array(
-    'title' => $post->title,
-    'post' => $post,
-    'view' => 'single',
-    'meta' => '',
-    'lang' => $lang
-  ));
-  $html = ob_get_clean();
-  respondWithFormat($app, $html, $format);
-})->conditions(array('lang'=>LANG_REGEX, 'slug'=>'.+\..+?', 'format'=>'json'));
 
 // Language-specific submit instructions
-$app->get('/:lang/submit', function($lang) use($app) {
-  I18n::locale($lang);
+$app->get('/{lang:'.LANG_REGEX.'}/submit', function($request, $response, $args) {
+  I18n::setLocale($args['lang']);
 
-  render('submit', array(
+  return render($response, 'submit', array(
     'title' => __('About IndieNews'),
     'meta' => '',
-    'lang' => $lang
+    'lang' => $args['lang']
   ));
-})->conditions(array('lang'=>LANG_REGEX));
+});
 
-$app->get('/:lang/members', function($lang) use($app) {
-  I18n::locale($lang);
+
+$app->get('/{lang:'.LANG_REGEX.'}/members', function($request, $response, $args) {
+  I18n::setLocale($args['lang']);
 
   $users = ORM::for_table('users')
     ->select('users.*')
     ->select_expr('COUNT(posts.id) AS num_posts')
     ->join('posts', ['posts.user_id', '=', 'users.id'])
-    ->where('posts.lang', $lang)
+    ->where('posts.lang', $args['lang'])
     ->where_gt('posts.date_submitted', date('Y-m-d H:i:s', strtotime('1 year ago')))
     ->group_by('users.id')
     ->order_by_desc('num_posts')
     ->find_many();
 
-  // dedupe records that have no scheme since old records were stored that way
-  $members = [];
-
-  render('members', array(
+  return render($response, 'members', array(
     'title' => __('IndieNews Members'),
     'meta' => '',
-    'lang' => $lang,
+    'lang' => $args['lang'],
     'users' => $users
   ));
-})->conditions(array('lang'=>LANG_REGEX));
+});
 
+
+// Language-specific permalinks
+$app->get('/{lang:'.LANG_REGEX.'}/{slug:.*?}{format:|\.json|\.jf2}', function($request, $response, $args) {
+  $format = formatFromRouteArgs($args);
+  $slug = $args['slug'];
+
+  I18n::setLocale($args['lang']);
+
+  $post = ORM::for_table('posts')->where_in('href', array('http://'.$slug,'https://'.$slug))->find_one();
+  $posts = array($post);
+
+  $response = $response->withAddedHeader('Link', '<' . Config::$baseURL . '/'.$args['lang'].'/webmention>; rel="webmention"');
+
+  if(!$post) {
+    return $response->withStatus(404);
+  }
+
+  $renderer = new PhpRenderer(__DIR__.'/../views/');
+  $renderer->setLayout('layout.php');
+
+  $temp = $renderer->render(new \Slim\Psr7\Response(), "post.php", [
+    'title' => $post->title,
+    'post' => $post,
+    'view' => 'single',
+    'meta' => '',
+    'lang' => $args['lang']
+  ]);
+
+  $html = $temp->getBody()->__toString();
+
+  return respondWithFormat($response, $html, $format);
+});

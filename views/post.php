@@ -1,7 +1,7 @@
 <table class="threaded">
-  <?= partial('_post-row', array(
-    'post' => $this->post,
+  <?= $this->fetch('_post-row.php', [
+    'post' => $post,
     'position' => '', 
-    'view' => 'single')) 
-  ?>
+    'view' => 'single'
+  ]) ?>
 </table>

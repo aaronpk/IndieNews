@@ -10,7 +10,7 @@
 
     <h4><?= __('Link to IndieNews') ?></h4>
 
-    <p><?= __('Somewhere on the page you are submitting, add a {0} or {1} link to {2}the IndieNews home page{3} for your language.', ['<a href="https://indieweb.org/rel-syndication">u-syndication</a>', '<a href="https://indieweb.org/u-category">u-category</a>', '<a href="/'.$this->lang.'">', '</a>']) ?></p>
+    <p><?= __('Somewhere on the page you are submitting, add a {0} or {1} link to {2}the IndieNews home page{3} for your language.', ['<a href="https://indieweb.org/rel-syndication">u-syndication</a>', '<a href="https://indieweb.org/u-category">u-category</a>', '<a href="/'.$lang.'">', '</a>']) ?></p>
 
     <h4><?= __('Send a Webmention') ?></h4>
 
@@ -19,12 +19,12 @@
     <p><?= __('IndieNews will fetch the page from your site and look for the {1} markup to find the post title and author.', ['<a href="https://indieweb.org/webmention">Webmention</a>', '<a href="http://microformats.org/wiki/h-entry">h-entry</a>']) ?></p>
 
     <div style="background-color: #efefef; border: 1px #ccc solid; border-radius: 4px; padding: 12px; margin-bottom: 1em;">
-      <form action="/<?= $this->lang ?>/webmention" method="POST" style="margin: 0;">
+      <form action="/<?= $lang ?>/webmention" method="POST" style="margin: 0;">
         <div>
           <label for="source"><?= __('Your Post URL') ?></label>
           <input type="url" name="source">
         </div>
-        <input type="hidden" name="target" value="<?= Config::$baseURL ?>/<?= $this->lang ?>">
+        <input type="hidden" name="target" value="<?= Config::$baseURL ?>/<?= $lang ?>">
         <input type="hidden" name="html" value="1">
         <button type="submit" class="btn"><?= __('Submit') ?></button>
       </form>

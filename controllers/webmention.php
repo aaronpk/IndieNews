@@ -1,86 +1,80 @@
 <?php
+use Cake\I18n\I18n;
 
-$app->get('/(:lang/)webmention', function($lang='en') use($app) {
-  $req = $app->request();
-  $res = $app->response();
+$app->get('/{lang:'.LANG_REGEX.'}/webmention', function($request, $response, $args) {
+  I18n::setLocale($args['lang']);
 
-  render('webmention', array(
+  return render($response, 'webmention', array(
     'title' => 'IndieNews Webmention Endpoint',
     'meta' => '',
-    'lang' => $lang
+    'lang' => $args['lang']
   ));
-})->conditions(array('lang'=>LANG_REGEX));
+});
 
-$app->post('/(:lang/)webmention', function($lang='en') use($app) {
-  $req = $app->request();
-  $res = $app->response();
+$app->post('/{lang:'.LANG_REGEX.'}/webmention', function($request, $response, $args) {
 
-  $is_html = $req->post('html');
+  $params = (array)$request->getParsedBody();
+  $is_html = $params['html'] ?? false;
 
-  $sourceURL = $req->post('source');
-  $targetURL = $req->post('target');
+  $sourceURL = $params['source'] ?? null;
+  $targetURL = $params['target'] ?? null;
 
-  $error = function($res, $err, $description=false) use($is_html, $lang) {
-    $res->status(400);
+  $error = function($err, $description=false) use($is_html, $response, $args) {
     if($is_html) {
-      render('webmention-error', array(
+      $response = $response->withStatus(400);
+      return render($response, 'webmention-error', [
         'title' => 'Webmention Error',
         'error' => $err,
         'description' => $description,
         'meta' => '',
-        'lang' => $lang
-      ));
+        'lang' => $args['lang']
+      ]);
     } else {
-      $res['Content-Type'] = 'application/json';
       $error = array(
         'error' => $err
       );
       if($description)
         $error['error_description'] = $description;
-      $res->body(json_encode($error, JSON_PRETTY_PRINT));
+
+      $response->getBody()->write(json_encode($error));
+      return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
     }
   };
 
-  if($sourceURL == FALSE) {
-    $error($res, 'missing_source_url', 'No source URL was provided in the request.');
-    return;
+  if($sourceURL == null) {
+    return $error('missing_source_url', 'No source URL was provided in the request.');
   }
   
   $source = parse_url($sourceURL);
 
   # Verify $source is valid
-  if($source == FALSE
+  if($source == null
     || !array_key_exists('scheme', $source)
     || !in_array($source['scheme'], array('http','https'))
     || !array_key_exists('host', $source)
-    || ($source['host'] == gethostbyname($source['host']))
   ) {
-    $error($res, 'invalid_source_url', 'The source URL was not valid. Ensure the URL is an http or https URL.');
-    return;
+    return $error('invalid_source_url', 'The source URL was not valid. Ensure the URL is an http or https URL.');
   }
 
-  if($targetURL == FALSE) {
-    $error($res, 'missing_target_url', 'No target URL was provided in the request.');
-    return;
+  if($targetURL == null) {
+    return $error('missing_target_url', 'No target URL was provided in the request.');
   }
 
   # Verify $target is actually a resource under our control (home page, individual post)
   $target = parse_url($targetURL);
 
   # Verify $source is valid
-  if($target == FALSE
+  if($target == null
     || !array_key_exists('scheme', $target)
     || !in_array($target['scheme'], array('http','https'))
     || !array_key_exists('host', $target)
-    || $target['host'] != Config::$hostname
+    || $target['host'] != parse_url(Config::$baseURL, PHP_URL_HOST)
   ) {
-    $error($res, 'target_not_supported', 'The target URL provided is not supported. Only http or https URLs for '.Config::$hostname.' are accepted.');
-    return;
+    return $error('target_not_supported', 'The target URL provided is not supported. Only '.Config::$baseURL.' URLs are accepted.');
   }
 
-  if(!preg_match('/^https?:\/\/' . Config::$hostname . '(?:\/'.LANG_REGEX.')?\/?/', $targetURL, $match)) {
-    $error($res, 'target_not_supported', 'The target you specified does not appear to be a URL on this site.');
-    return;
+  if(!preg_match('/^' . str_replace('/', '\/', Config::$baseURL) . '(?:\/('.LANG_REGEX.'))\/?$/', $targetURL, $match)) {
+    return $error('target_not_supported', 'The target you specified does not match a supported URL on this site.');
   }
 
   // Parse the language from the target URL, so that the story ends up on the specified
@@ -101,22 +95,20 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
   # Now fetch and parse the page looking for Microformats
   $xray = new p3k\XRay();
   $xray->http = new p3k\HTTP('IndieNews/1.0.0 (https://news.indieweb.org/)');
-  $response = $xray->parse($sourceURL);
+  $xrayresponse = $xray->parse($sourceURL);
 
-  if(isset($response['error'])) {
-    $error($res, $response['error'], 'An error occurred while attempting to fetch the source URL: ' . $response['error_description']);
-    return;
+  if(isset($xrayresponse['error'])) {
+    return $error($xrayresponse['error'], 'An error occurred while attempting to fetch the source URL: ' . $xrayresponse['error_description']);
   }
 
-  $post = $response['data'];
-  if(isset($response['refs']))
-    $refs = $response['refs'];
+  $post = $xrayresponse['data'];
+  if(isset($xrayresponse['refs']))
+    $refs = $xrayresponse['refs'];
   else
     $refs = [];
 
   if(!isset($post['type']) || !in_array($post['type'], ['entry','event'])) {
-    $error($res, 'no_link_found', 'No h-entry or h-event was found on the page, so we were unable to find a u-syndication or u-category URL. If you have multiple top-level h-* objects, ensure that one of them has a u-url property set to the URL of the page.');
-    return;
+    return $error('no_link_found', 'No h-entry or h-event was found on the page, so we were unable to find a u-syndication or u-category URL. If you have multiple top-level h-* objects, ensure that one of them has a u-url property set to the URL of the page.');
   }
 
   $authorURL = false;
@@ -194,25 +186,23 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
   $synURL = false;
   if(array_key_exists('syndication', $post)) {
     foreach($post['syndication'] as $syn) {
-      if(preg_match('/^https?:\/\/' . Config::$hostname . '\/?/', $syn, $match)) {
+      if(strpos($syn, Config::$baseURL) === 0) {
         $synURL = $syn;
       }
     }
   }
   if(array_key_exists('category', $post)) {
     foreach($post['category'] as $cat) {
-      if(preg_match('/^https?:\/\/' . Config::$hostname . '\/?/', $cat, $match)) {
+      if(strpos($cat, Config::$baseURL) === 0) {
         $synURL = $cat;
       }
     }
   }
   if(!$synURL) {
-    $error($res, 'no_link_found', 'Could not find a syndication or category link for this entry to news.indieweb.org. Please see https://news.indieweb.org/how for more information.');
-    return;
+    return $error('no_link_found', 'Could not find a syndication or category link for this entry to news.indieweb.org. Please see https://news.indieweb.org/how for more information.');
   }
   if($synURL != $targetURL) {
-    $error($res, 'target_mismatch', 'The URL on the page did not match the target URL of the Webmention. Make sure your post links to ' . $targetURL);
-    return;
+    return $error('target_mismatch', 'The URL on the page did not match the target URL of the Webmention. Make sure your post links to ' . $targetURL);
   }
 
   if(array_key_exists('in-reply-to', $post)) {
@@ -306,10 +296,13 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
   }
 
   if($is_html) {
-    $res->redirect($indieNewsPermalink, 302);
+    return $response
+      ->withHeader('Location', $indieNewsPermalink)
+      ->withStatus(302);
   } else {
-    $res->status(201);
-    $res['Content-Type'] = 'application/json';
+    $response = $response
+      ->withHeader('Content-Type', 'application/json')
+      ->withStatus(201);
 
     $responseData = array(
       'title' => $record['title'],
@@ -320,27 +313,17 @@ $app->post('/(:lang/)webmention', function($lang='en') use($app) {
     if($inReplyTo) 
       $responseData['in-reply-to'] = $inReplyTo;
 
-    $response = array(
+    $data = array(
       'result' => 'success',
       'notices' => $notices,
       'data' => $responseData,
-      'source' => $req->post('source'),
+      'source' => $sourceURL,
       'url' => $indieNewsPermalink
     );
 
-    $res['Location'] = $indieNewsPermalink;
-    $res->body(json_encode($response, JSON_PRETTY_PRINT));
+    $response->getBody()->write(json_encode($data, JSON_PRETTY_PRINT));
+
+    return $response->withHeader('Location', $indieNewsPermalink);
   }
-})->conditions(array('lang'=>LANG_REGEX));
-
-$app->post('/webmention-error', function() use($app) {
-
-  $req = $app->request();
-  $res = $app->response();
-
-  $res->status(400);
-  $res['Content-Type'] = 'application/json';
-  $res->body(json_encode(array(
-    'error' => 'no_link_found'
-  ), JSON_PRETTY_PRINT));
 });
+
