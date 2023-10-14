@@ -6,7 +6,7 @@ Configure::write('App.paths.locales', [__DIR__.'/../resources/locales/']);
 
 require_once(__DIR__.'/../vendor/cakephp/i18n/functions_global.php');
 
-define('LANG_REGEX', 'en|sv|de|fr|nl|ru');
+define('LANG_REGEX', 'en|sv|de|fr|nl|ru|es');
 error_reporting(E_ALL ^ E_DEPRECATED);
 
 function supportedLanguages() {
@@ -17,6 +17,7 @@ function supportedLanguages() {
     'fr' => 'Français',
     'nl' => 'Nederlands',
     'ru' => 'русский',
+    'es' => 'Español',
   ];
 }
 
@@ -34,6 +35,8 @@ function localeFromLangCode($code) {
       return 'nl_NL.UTF-8';
     case 'ru':
       return 'ru_RU.UTF-8';
+    case 'es':
+      return 'es_MX.UTF-8';
   }
 }
 
