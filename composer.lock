@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c988a2a7fc04a970b22df23455e961b7",
+    "content-hash": "7600fa07835fa9a3cba5c5b426bcdbf1",
     "packages": [
         {
             "name": "cakephp/chronos",
@@ -1096,16 +1096,16 @@
         },
         {
             "name": "p3k/xray",
-            "version": "v1.12.0",
+            "version": "v1.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aaronpk/XRay.git",
-                "reference": "3e63e841bf723b8decfa6d05049687a53c35698a"
+                "reference": "c530011b2cd7c37c929beaf9fdaf3890c9650f4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aaronpk/XRay/zipball/3e63e841bf723b8decfa6d05049687a53c35698a",
-                "reference": "3e63e841bf723b8decfa6d05049687a53c35698a",
+                "url": "https://api.github.com/repos/aaronpk/XRay/zipball/c530011b2cd7c37c929beaf9fdaf3890c9650f4a",
+                "reference": "c530011b2cd7c37c929beaf9fdaf3890c9650f4a",
                 "shasum": ""
             },
             "require": {
@@ -1114,7 +1114,7 @@
                 "ezyang/htmlpurifier": "^4.10",
                 "indieweb/link-rel-parser": "^0.1.0",
                 "masterminds/html5": "^2.3",
-                "mf2/mf2": "^0.4",
+                "mf2/mf2": "^0.4||^0.5",
                 "p3k/http": "^0.1.0",
                 "p3k/picofeed": "^0.1.0",
                 "p3k/timezone": "^0.1.0"
@@ -1142,9 +1142,9 @@
             "homepage": "https://github.com/aaronpk/XRay",
             "support": {
                 "issues": "https://github.com/aaronpk/XRay/issues",
-                "source": "https://github.com/aaronpk/XRay/tree/v1.12.0"
+                "source": "https://github.com/aaronpk/XRay/tree/v1.15.0"
             },
-            "time": "2022-01-28T16:45:47+00:00"
+            "time": "2024-08-30T14:29:22+00:00"
         },
         {
             "name": "psr/container",
