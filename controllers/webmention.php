@@ -95,7 +95,7 @@ $app->post('/{lang:'.LANG_REGEX.'}/webmention', function($request, $response, $a
   # Now fetch and parse the page looking for Microformats
   $xray = new p3k\XRay();
   $xray->http = new p3k\HTTP('IndieNews/1.0.0 (https://news.indieweb.org/)');
-  $xrayresponse = $xray->parse($sourceURL);
+  $xrayresponse = $xray->parse($sourceURL, ['ignore-as2' => true]);
 
   if(isset($xrayresponse['error'])) {
     return $error($xrayresponse['error'], 'An error occurred while attempting to fetch the source URL: ' . $xrayresponse['error_description']);
