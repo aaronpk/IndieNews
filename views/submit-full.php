@@ -55,18 +55,18 @@ an <a href="http://microformats.org/wiki/microformats2#h-entry">h-entry</a>.</p>
 <p>Note that each language's home page has a unique Webmention endpoint, so you should 
   do the Webmention endpoint discovery as normal to find it.</p>
 
-<pre><code>POST /webmention HTTP/1.1
+<pre><code>POST /en/webmention HTTP/1.1
 Host: news.indieweb.org
 
 target=https://news.indieweb.org/en
-&amp;source=http://aaronparecki.com/notes/2013/04/25/1/original-post-discovery
+&amp;source=https://aaronparecki.com/2013/04/25/4/original-post-discovery
 </code></pre>
 
 
 <h4>Example Response</h4>
 
 <pre><code>HTTP/1.1 201 Created
-Location: https://news.indieweb.org/en/aaronparecki.com/notes/2013/04/25/1/original-post-discovery
+Location: https://news.indieweb.org/en/aaronparecki.com/2013/04/25/4/original-post-discovery
 
 {
  "result": "success",
@@ -77,8 +77,8 @@ Location: https://news.indieweb.org/en/aaronparecki.com/notes/2013/04/25/1/origi
    "author": "aaronparecki.com",
    "date": "2013-04-26T03:22:39+00:00"
  },
- "source": "http://aaronparecki.com/notes/2013/04/25/1/original-post-discovery",
- "url": "https://news.indieweb.org/en/aaronparecki.com/notes/2013/04/25/1/original-post-discovery"
+ "source": "https://aaronparecki.com/2013/04/25/4/original-post-discovery",
+ "url": "https://news.indieweb.org/en/aaronparecki.com/2013/04/25/4/original-post-discovery"
 }
 </code></pre>
 
@@ -97,19 +97,19 @@ Location: https://news.indieweb.org/en/aaronparecki.com/notes/2013/04/25/1/origi
 <h4>Sample Code</h4>
 
 <h5>Curl</h5>
-<pre><code>curl https://news.indieweb.org/webmention -i \
+<pre><code>curl https://news.indieweb.org/en/webmention -i \
   -d target=https://news.indieweb.org/en \
-  -d source=http://aaronparecki.com/notes/2013/04/25/1/original-post-discovery
+  -d source=https://aaronparecki.com/2013/04/25/4/original-post-discovery
 </code></pre>
 
 <h5>PHP</h5>
 <pre><code>&lt;?php
-$ch = curl_init("https://news.indieweb.org/webmention");
+$ch = curl_init("https://news.indieweb.org/en/webmention");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, array(
   'target' => 'https://news.indieweb.org/en',
-  'source' => 'http://aaronparecki.com/notes/2013/04/25/1/original-post-discovery'
+  'source' => 'https://aaronparecki.com/2013/04/25/4/original-post-discovery'
 ));
 echo curl_exec($ch);
 ?&gt;</code></pre>
@@ -118,9 +118,9 @@ echo curl_exec($ch);
 <pre><code>require 'rest-client'
 require 'json'
 
-data = JSON.parse RestClient.post "https://news.indieweb.org/webmention", {
+data = JSON.parse RestClient.post "https://news.indieweb.org/en/webmention", {
   'target' => 'https://news.indieweb.org/en',
-  'source' => 'http://aaronparecki.com/notes/2013/04/25/1/original-post-discovery'
+  'source' => 'https://aaronparecki.com/2013/04/25/4/original-post-discovery'
 }
 jj data
 </code></pre>
@@ -133,8 +133,8 @@ title), you can re-send the webmention. The existing IndieNews post will be upda
 
 <h3>Microformats Support</h3>
 
-<p>Your page must be marked up with an <a href="http://microformats.org/wiki/microformats2#h-entry">h-entry</a> 
-or an <a href="http://microformats.org/wiki/microformats2#h-event">h-event</a>, IndieNews will
+<p>Your page must be marked up with an <a href="https://microformats.org/wiki/microformats2#h-entry">h-entry</a> 
+or an <a href="https://microformats.org/wiki/microformats2#h-event">h-event</a>, IndieNews will
 use the name in the entry as the title of the submission.</p>
 
 <p>If an <a href="http://microformats.org/wiki/microformats-2#h-card">h-card</a> is present,
