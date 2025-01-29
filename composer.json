@@ -12,9 +12,9 @@
     "slim/psr7": "^1.6"
   },
   "autoload": {
-      "files": [
-          "lib/helpers.php",
-          "lib/mf2.php"
-      ]
+    "files": [
+      "lib/helpers.php",
+      "lib/mf2.php"
+    ]
   }
 }
