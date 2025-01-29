@@ -3,7 +3,7 @@
     "slim/slim": "^4",
     "j4mie/idiorm": "1.3.*",
     "cakephp/i18n": "^5.0",
-    "tantek/cassis": "dev-master",
+    "tantek/cassis": "dev-main",
     "p3k/utils": "^1.0",
     "p3k/xray": "^1.15",
     "mf2/mf2": "^0.4.6",
