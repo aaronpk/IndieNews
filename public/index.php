@@ -13,6 +13,7 @@ ORM::configure('driver_options', array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAME
 
 $app = AppFactory::create();
 
+require 'controllers/middleware.php';
 require 'controllers/static.php';
 require 'controllers/webmention.php';
 require 'controllers/controllers.php';
@@ -20,4 +21,3 @@ require 'controllers/controllers.php';
 session_start();
 
 $app->run();
-
