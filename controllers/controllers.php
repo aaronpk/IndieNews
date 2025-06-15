@@ -8,7 +8,10 @@ $app->redirect('/newest.json', '/en.json', 301);
 
 // Redirect post IDs to the post URL version
 $app->get('/post/{id:[0-9]+}{format:|\.json}', function($request, $response, $args) {
-  $post = ORM::for_table('posts')->where('id', $args['id'])->find_one();
+  $post = ORM::for_table('posts')
+    ->where('id', $args['id'])
+    ->where('deleted', 0)
+    ->find_one();
 
   if(!$post)
     return $response->withStatus(404);
@@ -32,6 +35,7 @@ $app->get('/{lang:'.LANG_REGEX.'}{format:|\.json|\.jf2}', function($request, $re
   // Get posts ordered by date submitted
   $posts = ORM::for_table('posts')
     ->where('lang', $args['lang'])
+    ->where('deleted', 0)
     ->order_by_desc('date_submitted');
 
   if(array_key_exists('before', $params)) {
@@ -77,6 +81,7 @@ $app->get('/{lang:'.LANG_REGEX.'}/{year:\d{4}}/{month:\d{2}}', function($request
 
   $posts = ORM::for_table('posts')
     ->where('lang', $lang)
+    ->where('deleted', 0)
     ->where_lte('date_submitted', $date->format('Y-m-t').' 23:59:59')
     ->where_gte('date_submitted', $date->format('Y-m-01'))
     ->order_by_asc('date_submitted')
@@ -87,6 +92,7 @@ $app->get('/{lang:'.LANG_REGEX.'}/{year:\d{4}}/{month:\d{2}}', function($request
 
   $prevPost = ORM::for_table('posts')
     ->where('lang', $lang)
+    ->where('deleted', 0)
     ->where_lt('date_submitted', $date->format('Y-m-01'))
     ->order_by_desc('date_submitted')
     ->find_one();
@@ -96,6 +102,7 @@ $app->get('/{lang:'.LANG_REGEX.'}/{year:\d{4}}/{month:\d{2}}', function($request
 
   $nextPost = ORM::for_table('posts')
     ->where('lang', $lang)
+    ->where('deleted', 0)
     ->where_gt('date_submitted', $date->format('Y-m-t').' 23:59:59')
     ->order_by_asc('date_submitted')
     ->find_one();
@@ -149,6 +156,7 @@ $app->get('/{lang:'.LANG_REGEX.'}/members', function($request, $response, $args)
     ->select_expr('COUNT(posts.id) AS num_posts')
     ->join('posts', ['posts.user_id', '=', 'users.id'])
     ->where('posts.lang', $args['lang'])
+    ->where('posts.deleted', 0)
     ->where_gt('posts.date_submitted', date('Y-m-d H:i:s', strtotime('1 year ago')))
     ->group_by('users.id')
     ->order_by_desc('num_posts')

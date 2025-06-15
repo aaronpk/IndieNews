@@ -1,0 +1,4 @@
+ALTER TABLE posts
+ADD COLUMN `deleted` TINYINT(4) NOT NULL DEFAULT '0';
+
+

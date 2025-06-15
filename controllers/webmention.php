@@ -199,6 +199,20 @@ $app->post('/{lang:'.LANG_REGEX.'}/webmention', function($request, $response, $a
     }
   }
   if(!$synURL) {
+    // Check if this post was previously submitted, and delete it if so
+    $post = ORM::for_table('posts')->where('source_url', $sourceURL)->find_one();
+    if($post) {
+      $post->deleted = 1;
+      $post->save();
+
+      $data = array(
+        'result' => 'deleted',
+      );
+
+      $response->getBody()->write(json_encode($data, JSON_PRETTY_PRINT+JSON_UNESCAPED_SLASHES));
+      return $response;
+    }
+
     return $error('no_link_found', 'Could not find a syndication or category link for this entry to news.indieweb.org. Please see https://news.indieweb.org/how for more information.');
   }
   if($synURL != $targetURL) {
@@ -321,7 +335,7 @@ $app->post('/{lang:'.LANG_REGEX.'}/webmention', function($request, $response, $a
       'url' => $indieNewsPermalink
     );
 
-    $response->getBody()->write(json_encode($data, JSON_PRETTY_PRINT));
+    $response->getBody()->write(json_encode($data, JSON_PRETTY_PRINT+JSON_UNESCAPED_SLASHES));
 
     return $response->withHeader('Location', $indieNewsPermalink);
   }
