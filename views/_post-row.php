@@ -3,7 +3,7 @@
     <?php if(shouldDisplayPostName($post->title)): ?>
       <div class="title p-name"><a href="<?= $post->href ?>"><?= htmlspecialchars(shouldDisplayPostName($post->title) ? $post->title : display_url($post->href)) ?></a></div>
     <?php else: ?>
-      <div class="content e-content p-name"><?= auto_link(htmlspecialchars(substr($post->title ?: $post->body,0,600))) ?></div>
+      <div class="content e-content p-name"><?= htmlspecialchars(substr($post->title ?: $post->body,0,600)) ?></div>
     <?php endif; ?>
     <div class="details">
       <span>
