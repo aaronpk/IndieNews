@@ -56,6 +56,16 @@ $app->post('/{lang:'.LANG_REGEX.'}/webmention', function($request, $response, $a
     return $error('invalid_source_url', 'The source URL was not valid. Ensure the URL is an http or https URL.');
   }
 
+  
+  # Check if the source URL or domain is blocked
+  $blocked = ORM::for_table('blocks')
+    ->where_raw('domain = ? OR source_url = ?', [$source['host'], $sourceURL])
+    ->find_one();
+  if($blocked) {
+    return $error('blocked', 'The source URL has been blocked from this website.');
+  }
+
+
   if($targetURL == null) {
     return $error('missing_target_url', 'No target URL was provided in the request.');
   }
