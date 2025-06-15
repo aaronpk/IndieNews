@@ -178,7 +178,10 @@ $app->get('/{lang:'.LANG_REGEX.'}/{slug:.*?}{format:|\.json|\.jf2}', function($r
 
   I18n::setLocale($args['lang']);
 
-  $post = ORM::for_table('posts')->where_in('href', array('http://'.$slug,'https://'.$slug))->find_one();
+  $post = ORM::for_table('posts')
+    ->where_in('href', array('http://'.$slug,'https://'.$slug))
+    ->where('deleted', 0)
+    ->find_one();
   $posts = array($post);
 
   $response = $response->withAddedHeader('Link', '<' . Config::$baseURL . '/'.$args['lang'].'/webmention>; rel="webmention"');
