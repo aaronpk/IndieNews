@@ -111,6 +111,9 @@ $app->post('/{lang:'.LANG_REGEX.'}/webmention', function($request, $response, $a
     return $error($xrayresponse['error'], 'An error occurred while attempting to fetch the source URL: ' . $xrayresponse['error_description']);
   }
 
+  // Rewrite the source URL to the URL XRay reports which will be after redirects
+  $sourceURL = $xrayresponse['url'];
+
   $post = $xrayresponse['data'];
   if(isset($xrayresponse['refs']))
     $refs = $xrayresponse['refs'];
