@@ -276,7 +276,7 @@ $app->post('/{lang:'.LANG_REGEX.'}/webmention', function($request, $response, $a
     ->where('deleted', 1)
     ->find_one();
   if($deletedPost) {
-    return $error('blocked', 'This post has been removed and cannot be re-submitted. Contact an administrator if this should be restored.');
+    return $error('blocked', 'This post has been removed and cannot be re-submitted. Contact us in #indieweb-meta if this was removed in error: https://indieweb.org/discuss');
   }
 
   # If there is no existing post for $sourceURL, update the properties
