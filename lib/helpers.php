@@ -124,7 +124,7 @@ function getLoggedInUser() {
 }
 
 function isLoggedIn() {
-  return !empty($_SERVER['HTTP_REMOTE_USER']) || !empty(getenv('HTTP_REMOTE_USER'));
+  return !empty($_SERVER['HTTP_REMOTE_USER']);
 }
 
 function display_url($url) {
