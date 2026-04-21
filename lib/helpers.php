@@ -123,6 +123,10 @@ function getLoggedInUser() {
   }
 }
 
+function isLoggedIn() {
+  return !empty($_SERVER['HTTP_REMOTE_USER']);
+}
+
 function display_url($url) {
   return preg_replace(['/https?:\/\//','/\/$/'],'',$url);
 }

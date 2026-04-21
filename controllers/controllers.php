@@ -170,6 +170,70 @@ $app->get('/{lang:'.LANG_REGEX.'}/members', function($request, $response, $args)
   ));
 });
 
+$app->get('/{lang:'.LANG_REGEX.'}/deleted', function($request, $response, $args) {
+  if(!isLoggedIn()) {
+    return $response->withStatus(403);
+  }
+
+  I18n::setLocale($args['lang']);
+
+  $posts = ORM::for_table('posts')
+    ->where('lang', $args['lang'])
+    ->where('deleted', 1)
+    ->order_by_desc('date_submitted')
+    ->limit(100)
+    ->find_many();
+
+  return render($response, 'posts', [
+    'title' => __('Deleted Posts'),
+    'posts' => $posts,
+    'lang' => $args['lang'],
+    'meta' => '',
+  ]);
+});
+
+$app->post('/post/{id:[0-9]+}/delete', function($request, $response, $args) {
+  if(!isLoggedIn()) {
+    return $response->withStatus(403);
+  }
+
+  $post = ORM::for_table('posts')
+    ->where('id', $args['id'])
+    ->find_one();
+
+  if(!$post) {
+    return $response->withStatus(404);
+  }
+
+  $post->deleted = 1;
+  $post->save();
+
+  return $response
+    ->withHeader('Location', Config::$baseURL . '/' . $post->lang . '/deleted')
+    ->withStatus(302);
+});
+
+$app->post('/post/{id:[0-9]+}/restore', function($request, $response, $args) {
+  if(!isLoggedIn()) {
+    return $response->withStatus(403);
+  }
+
+  $post = ORM::for_table('posts')
+    ->where('id', $args['id'])
+    ->find_one();
+
+  if(!$post) {
+    return $response->withStatus(404);
+  }
+
+  $post->deleted = 0;
+  $post->save();
+
+  return $response
+    ->withHeader('Location', permalinkForURL($post->lang, $post->href))
+    ->withStatus(302);
+});
+
 
 // Language-specific permalinks
 $app->get('/{lang:'.LANG_REGEX.'}/{slug:.*?}{format:|\.json|\.jf2}', function($request, $response, $args) {

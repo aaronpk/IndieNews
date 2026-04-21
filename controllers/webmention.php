@@ -270,6 +270,15 @@ $app->post('/{lang:'.LANG_REGEX.'}/webmention', function($request, $response, $a
 
   $indieNewsPermalink = permalinkForURL($lang, $href);
 
+  $deletedPost = ORM::for_table('posts')
+    ->where('lang', $lang)
+    ->where('source_url', $sourceURL)
+    ->where('deleted', 1)
+    ->find_one();
+  if($deletedPost) {
+    return $error('blocked', 'This post has been removed and cannot be re-submitted. Contact us in #indieweb-meta if this was removed in error: https://indieweb.org/discuss');
+  }
+
   # If there is no existing post for $sourceURL, update the properties
   $post = ORM::for_table('posts')->where('lang', $lang)->where('source_url', $sourceURL)->find_one();
   if($post != FALSE) {
@@ -353,4 +362,3 @@ $app->post('/{lang:'.LANG_REGEX.'}/webmention', function($request, $response, $a
     return $response->withHeader('Location', $indieNewsPermalink);
   }
 });
-
