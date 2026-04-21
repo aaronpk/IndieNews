@@ -33,6 +33,9 @@
       <li><a href="/<?= $lang ?>"><?= __('Home') ?></a></li>
       <li><a href="/<?= $lang ?>/submit"><?= __('Submit') ?></a></li>
       <li><a href="/<?= $lang ?>/members"><?= __('Members') ?></a></li>
+      <?php if(isLoggedIn()): ?>
+        <li><a href="/<?= $lang ?>/deleted"><?= __('Deleted') ?></a></li>
+      <?php endif; ?>
     </ul>
   </div>
 </div>
