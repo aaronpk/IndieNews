@@ -124,7 +124,25 @@ function getLoggedInUser() {
 }
 
 function isLoggedIn() {
-  return !empty($_SERVER['HTTP_REMOTE_USER']);
+  if(!empty($_SERVER['HTTP_REMOTE_USER']))
+    return true;
+
+  if(isset(Config::$loggedInIPs) && in_array(clientIP(), Config::$loggedInIPs))
+    return true;
+
+  return false;
+}
+
+# Returns the visitor's IP, trusting X-Forwarded-For only when the request came from a trusted proxy.
+# Uses the rightmost entry since that is the one added by the proxy; earlier entries can be spoofed.
+function clientIP() {
+  $ip = $_SERVER['REMOTE_ADDR'] ?? '';
+  if(isset(Config::$trustedProxies) && in_array($ip, Config::$trustedProxies)
+    && !empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+    $forwarded = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+    $ip = trim(end($forwarded));
+  }
+  return $ip;
 }
 
 function display_url($url) {

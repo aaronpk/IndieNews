@@ -9,6 +9,11 @@ class Config {
   public static $dbUsername = 'indienews';
   public static $dbPassword = '';
 
+  // Requests from these proxies have their X-Forwarded-For header trusted
+  public static $trustedProxies = [];
+  // Visitors from these IPs are treated as logged in (in addition to the Remote-User header)
+  public static $loggedInIPs = [];
+
   public static $hubURL = 'https://switchboard.p3k.io/';
 
   // Sends to https://github.com/aaronpk/TikTokBot
