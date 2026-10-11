@@ -132,3 +132,17 @@ abbr.timeago {
   color: #777;
   margin-right: 4px;
 }
+
+/* Deleted posts, shown only to logged-in users */
+.table tr.post.deleted > td,
+.threaded tr.post.deleted > td {
+  background-color: #fbeaea;
+}
+.post.deleted .title a,
+.post.deleted .content {
+  color: #a66;
+}
+.post.deleted .details,
+.post.deleted .details a {
+  color: #b99;
+}

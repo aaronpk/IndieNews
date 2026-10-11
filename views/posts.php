@@ -4,6 +4,10 @@
       <a href="/<?= $lang ?>" class="u-url"><h2 class="p-name"><?= __('IndieNews English') ?></h2></a>
     </div>
 
+    <?php if(!empty($showingDeleted)): ?>
+      <div class="alert alert-error"><?= __('These posts have been deleted and are hidden from the public feed.') ?></div>
+    <?php endif; ?>
+
     <table class="table table-striped">
       <?php foreach($posts as $i=>$post): ?>
         <?= $this->fetch('_post-row.php', [

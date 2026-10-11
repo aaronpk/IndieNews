@@ -187,6 +187,7 @@ $app->get('/{lang:'.LANG_REGEX.'}/deleted', function($request, $response, $args)
   return render($response, 'posts', [
     'title' => __('Deleted Posts'),
     'posts' => $posts,
+    'showingDeleted' => true,
     'lang' => $args['lang'],
     'meta' => '',
   ]);

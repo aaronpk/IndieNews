@@ -1,4 +1,4 @@
-<tr class="post post_<?= $post->id ?> single h-entry">
+<tr class="post post_<?= $post->id ?> single h-entry<?= $post->deleted ? ' deleted' : '' ?>">
   <td>
     <?php if(shouldDisplayPostName($post->title)): ?>
       <div class="title p-name"><a href="<?= $post->href ?>"><?= htmlspecialchars(shouldDisplayPostName($post->title) ? $post->title : display_url($post->href)) ?></a></div>
