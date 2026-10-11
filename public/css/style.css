@@ -116,3 +116,19 @@ abbr.timeago {
 }
 
 
+
+.post td.post-actions {
+  width: 1%;
+  white-space: nowrap;
+  text-align: right;
+  vertical-align: middle;
+}
+.post td.post-actions form {
+  display: inline;
+  margin: 0;
+}
+.post td.post-actions .deleted-label {
+  font-size: 11px;
+  color: #777;
+  margin-right: 4px;
+}

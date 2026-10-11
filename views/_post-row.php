@@ -37,18 +37,20 @@
           . (parse_url($post->source_url, PHP_URL_HOST)) 
           . '</a>' : '' ?>
 
-      <?php if(isLoggedIn()): ?>
-        <?php if($post->deleted): ?>
-          | <?= __('deleted') ?>
-          <form method="post" action="/post/<?= $post->id ?>/restore" style="display:inline;">
-            <button class="btn btn-mini" type="submit"><?= __('Restore') ?></button>
-          </form>
-        <?php else: ?>
-          | <form method="post" action="/post/<?= $post->id ?>/delete" style="display:inline;">
-            <button class="btn btn-mini" type="submit"><?= __('Delete') ?></button>
-          </form>
-        <?php endif; ?>
-      <?php endif; ?>
     </div>
   </td>
+  <?php if(isLoggedIn()): ?>
+    <td class="post-actions">
+      <?php if($post->deleted): ?>
+        <span class="deleted-label"><?= __('deleted') ?></span>
+        <form method="post" action="/post/<?= $post->id ?>/restore">
+          <button class="btn btn-mini" type="submit"><?= __('Restore') ?></button>
+        </form>
+      <?php else: ?>
+        <form method="post" action="/post/<?= $post->id ?>/delete">
+          <button class="btn btn-mini" type="submit"><?= __('Delete') ?></button>
+        </form>
+      <?php endif; ?>
+    </td>
+  <?php endif; ?>
 </tr>
