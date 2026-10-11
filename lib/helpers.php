@@ -127,10 +127,70 @@ function isLoggedIn() {
   if(!empty($_SERVER['HTTP_REMOTE_USER']))
     return true;
 
-  if(isset(Config::$loggedInIPs) && in_array(clientIP(), Config::$loggedInIPs))
-    return true;
+  return loggedInIPEntry() !== false;
+}
 
+# Returns the matching entry from Config::$loggedInIPs for the visitor's IP, or false.
+# Entries can be a plain IP (no user), or 'ip' => 'user url'.
+function loggedInIPEntry() {
+  if(!isset(Config::$loggedInIPs))
+    return false;
+
+  $ip = clientIP();
+  foreach(Config::$loggedInIPs as $key=>$value) {
+    if(is_int($key) && $value === $ip)
+      return ['ip' => $ip, 'user' => null];
+    if($key === $ip)
+      return ['ip' => $ip, 'user' => $value];
+  }
   return false;
+}
+
+# The URL of the logged-in user, e.g. "https://aaronparecki.com/", or null if unknown
+function loggedInUserURL() {
+  if(!empty($_SERVER['HTTP_REMOTE_USER']))
+    return $_SERVER['HTTP_REMOTE_USER'];
+
+  $entry = loggedInIPEntry();
+  return $entry ? $entry['user'] : null;
+}
+
+# Strips the scheme and trailing slash, e.g. "https://aaronparecki.com/" -> "aaronparecki.com"
+function normalizeUserURL($url) {
+  return strtolower(rtrim(preg_replace('/^https?:\/\//i', '', trim($url)), '/'));
+}
+
+function isAdmin() {
+  static $isAdmin = null;
+  if($isAdmin !== null)
+    return $isAdmin;
+
+  $url = loggedInUserURL();
+  if(!$url)
+    return $isAdmin = false;
+
+  # users.url is stored inconsistently, so match all common variants of the URL
+  $normalized = normalizeUserURL($url);
+  $variants = [];
+  foreach(['', 'http://', 'https://'] as $scheme)
+    foreach(['', '/'] as $slash)
+      $variants[] = $scheme . $normalized . $slash;
+
+  $user = ORM::for_table('users')
+    ->where_in('url', $variants)
+    ->where('is_admin', 1)
+    ->find_one();
+
+  return $isAdmin = (bool)$user;
+}
+
+# Normalizes user input for the blocks.domain column, accepting either a domain or a URL
+function normalizeBlockDomain($input) {
+  $input = trim($input);
+  if(preg_match('/^https?:\/\//i', $input))
+    $input = parse_url($input, PHP_URL_HOST) ?: '';
+  $input = preg_replace('/^\*\./', '', $input);
+  return strtolower(rtrim($input, '.'));
 }
 
 # Returns the visitor's IP, trusting X-Forwarded-For only when the request came from a trusted proxy.

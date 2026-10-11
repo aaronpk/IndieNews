@@ -117,13 +117,15 @@ abbr.timeago {
 
 
 
-.post td.post-actions {
+.post td.post-actions,
+.blocks td.post-actions {
   width: 1%;
   white-space: nowrap;
   text-align: right;
   vertical-align: middle;
 }
-.post td.post-actions form {
+.post td.post-actions form,
+.blocks td.post-actions form {
   display: inline;
   margin: 0;
 }
@@ -145,4 +147,8 @@ abbr.timeago {
 .post.deleted .details,
 .post.deleted .details a {
   color: #b99;
+}
+
+.block-form input {
+  width: 300px;
 }

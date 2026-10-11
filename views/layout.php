@@ -36,6 +36,9 @@
       <?php if(isLoggedIn()): ?>
         <li><a href="/<?= $lang ?>/deleted"><?= __('Deleted') ?></a></li>
       <?php endif; ?>
+      <?php if(isAdmin()): ?>
+        <li><a href="/<?= $lang ?>/blocks"><?= __('Blocklist') ?></a></li>
+      <?php endif; ?>
     </ul>
   </div>
 </div>

@@ -16,6 +16,7 @@ $app = AppFactory::create();
 require 'controllers/middleware.php';
 require 'controllers/static.php';
 require 'controllers/webmention.php';
+require 'controllers/admin.php';
 require 'controllers/controllers.php';
 
 session_start();

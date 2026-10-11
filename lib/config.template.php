@@ -11,7 +11,8 @@ class Config {
 
   // Requests from these proxies have their X-Forwarded-For header trusted
   public static $trustedProxies = [];
-  // Visitors from these IPs are treated as logged in (in addition to the Remote-User header)
+  // Visitors from these IPs are treated as logged in (in addition to the Remote-User header).
+  // Use 'ip' => 'https://example.com/' to treat them as that user, e.g. for admin access.
   public static $loggedInIPs = [];
 
   public static $hubURL = 'https://switchboard.p3k.io/';

@@ -3,6 +3,7 @@ CREATE TABLE `users` (
   `url` varchar(255) DEFAULT NULL,
   `date_created` datetime DEFAULT NULL,
   `points` int(11) NOT NULL DEFAULT 0,
+  `is_admin` tinyint(4) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
