@@ -57,9 +57,16 @@ $app->post('/{lang:'.LANG_REGEX.'}/webmention', function($request, $response, $a
   }
 
   
-  # Check if the source URL or domain is blocked
+  # Check if the source URL or domain (or any parent domain) is blocked
+  $host = strtolower(rtrim($source['host'], '.'));
+  $parts = explode('.', $host);
+  $domains = [];
+  for($i = 0; $i < count($parts); $i++) {
+    $domains[] = implode('.', array_slice($parts, $i));
+  }
+  $placeholders = implode(',', array_fill(0, count($domains), '?'));
   $blocked = ORM::for_table('blocks')
-    ->where_raw('domain = ? OR source_url = ?', [$source['host'], $sourceURL])
+    ->where_raw('domain IN ('.$placeholders.') OR source_url = ?', array_merge($domains, [$sourceURL]))
     ->find_one();
   if($blocked) {
     return $error('blocked', 'The source URL has been blocked from this website.');
